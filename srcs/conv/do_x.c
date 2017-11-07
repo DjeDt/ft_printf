@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   do_x.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/07 16:04:36 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/07 16:45:03 by ddinaut          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "printf.h"
 
 static int	ft_len(int i, int base)
@@ -33,6 +45,7 @@ void	do_x(va_list arg, char c)
 	unsigned int	i;
 	char			*str;
 
+	str = NULL;
 	if (c == 'x')
 	{
 		i = va_arg(arg, int);
@@ -43,7 +56,7 @@ void	do_x(va_list arg, char c)
 		i = va_arg(arg, int);
 		str = ft_convert(i, 16, "0123456789ABCDEF");
 	}
-	if (str)
+	if (str != NULL)
 	{
 		ft_putstr(str);
 		free(str);
