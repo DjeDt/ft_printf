@@ -22,8 +22,8 @@ int		ft_printf(const char *restrict format, ...)
 				do_s(arg, format[count]);
 			else if (format[count] == 'u')
 				do_u(arg);
-			else if (format[count] == 'x')
-				do_x(arg);
+			else if (format[count] == 'x' || format[count] == 'X')
+				do_x(arg, format[count]);
 			else if (format[count] == 'h')
 			{
 				if (format[count + 1] == 'h')
@@ -34,6 +34,8 @@ int		ft_printf(const char *restrict format, ...)
 			}
 			else if (format[count] == '%')
 				ft_putchar('%');
+			else
+				ft_putchar(format[count]);
 		}
 		else
 			ft_putchar(format[count]);

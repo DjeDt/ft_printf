@@ -3,15 +3,16 @@
 
 int main(void)
 {
-	unsigned char c;
-	char cc;
+	unsigned int c;
+	unsigned int cc;
 
-	c = 42;
-	cc = 42;
-//	ft_printf("1-> %s et %S", "test", "TEST");
-//	printf("\n");
-//	printf("2-> %s et %S", "test", "TEST");
-	printf("2-> %hhd", c);
+	c = 42000450;
+	cc = 0xFFEF;
+//	ft_printf("1-> %x et %X", c, cc);
+	ft_printf("1-> %c et %c", 'a', 'b');
+	printf("\n");
+	printf("1-> %c et %c", 'a', 'b');
+//	printf("2-> %x et %X", c, cc);
 	printf("\n");
 	return (0);
 }

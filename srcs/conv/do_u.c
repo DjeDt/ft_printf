@@ -7,6 +7,9 @@ void	do_u(va_list arg)
 
 	i = va_arg(arg, unsigned int);
 	str = ft_itoa_base(i, 10);
-	ft_putstr(str);
-	free(str);
+	if (str)
+	{
+		ft_putstr(str);
+		free(str);
+	}
 }

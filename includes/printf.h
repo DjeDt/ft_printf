@@ -24,7 +24,7 @@ void	do_c(va_list arg, char c);
 void	do_s(va_list arg, char c);
 void	do_o(va_list arg);
 void	do_u(va_list arg);
-void	do_x(va_list arg);
+void	do_x(va_list arg, char c);
 void	do_hh(va_list arg);
 
 /**
