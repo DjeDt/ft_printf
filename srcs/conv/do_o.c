@@ -2,14 +2,13 @@
 
 void	do_o(va_list arg)
 {
-	unsigned int	i;
-	char			*str;
+	unsigned long long int	i;
+	char					*str;
 
-	i = va_arg(arg, unsigned int);
+	i = (unsigned int)va_arg(arg, long long int);
 	str = ft_itoa_base(i, 8);
-	if (str)
-	{
-		ft_putstr(str);
-		free(str);
-	}
+	if (!str)
+		return ;
+	ft_putstr(str);
+	free(str);
 }

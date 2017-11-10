@@ -7,12 +7,12 @@ void	do_c(va_list arg, char c)
 
 	if (c == 'c')
 	{
-		i = (unsigned char)va_arg(arg, int);
+		i = (char)va_arg(arg, int);
 		ft_putchar(i);
 	}
 	else if (c == 'C')
 	{
-		ii = (wchar_t)va_arg(arg, int);
+		ii = (wchar_t)va_arg(arg, wint_t);
 		ft_putchar(ii);
 	}
 }

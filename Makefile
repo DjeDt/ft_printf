@@ -11,7 +11,7 @@
 #******************************************************************************#
 
 # Output file #
-NAME = libftprintf.a
+NAME = libprintf.a
 
 # Details #
 CC		= gcc
@@ -46,6 +46,7 @@ INC = -I $(INC_PATH)
 # Sources #
 SRCS = \
 		core_printf.c \
+		do_conv.c \
 \
 		$(CONV)do_d.c \
 		$(CONV)do_c.c \
@@ -53,13 +54,19 @@ SRCS = \
 		$(CONV)do_o.c \
 		$(CONV)do_u.c \
 		$(CONV)do_x.c \
-		$(CONV)do_hh.c \
+\
+		$(CONV)do_char.c \
+		$(CONV)do_int.c \
+		$(CONV)do_unsign.c \
+		$(CONV)do_ptr.c \
 \
 		$(FUNC)ft_putchar.c \
 		$(FUNC)ft_putnbr.c \
 		$(FUNC)ft_putstr.c \
 		$(FUNC)ft_strlen.c \
-		$(FUNC)ft_itoa_base.c
+		$(FUNC)ft_itoa_base.c \
+		$(FUNC)ft_atoi.c \
+		$(FUNC)ft_strsub.c
 
 
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
@@ -69,7 +76,6 @@ SRC = $(addprefix $(SRC_PATH)/,$(SRCS))
 .PHONY: all clean fclean re logo
 
 all: $(NAME)
-	@printf "\n\e[1;38;5;202m-*- libft compiled -*-\n$(END_COL)"
 
 $(NAME): $(OBJ)
 	@$(AR) $(OBJ)

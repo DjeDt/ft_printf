@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 16:04:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/07 16:12:35 by ddinaut          ###   ########.fr       */
+/*   Created: 2016/11/05 03:03:55 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/06/08 15:14:22 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "includes/printf.h"
+#include "printf.h"
 
-int main(void)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	unsigned int c;
-	unsigned int cc;
+	size_t	i;
+	char	*ret;
 
-	c = 42000450;
-	cc = 0xFFEF;
-	ft_printf("1-> %x et %X", c, cc);
-	printf("\n");
-	printf("2-> %x et %X", c, cc);
-	printf("\n");
-	return (0);
+	i = 0;
+	ret = NULL;
+	if (s != NULL)
+	{
+		if (!(ret = (char*)malloc(sizeof(char) * (len + 1))))
+			return (NULL);
+		while (i < len)
+		{
+			ret[i] = s[start];
+			i++;
+			start++;
+		}
+		ret[i] = '\0';
+	}
+	return (ret);
 }
