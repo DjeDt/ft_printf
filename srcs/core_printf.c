@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/07 16:04:41 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/10 19:53:48 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,45 @@ void	get_precision(const char *restrict format, int *count, t_opt *opt)
 	free(str);
 }
 
+void	get_len_mod(const char *restrict format, int *count, t_opt *opt)
+{
+	if (format[(*count)] == 'h')
+		opt->len_mod = MOD_H;
+	else if (format[(*count)] == 'l')
+		opt->len_mod = MOD_L;
+	else if (format[(*count)] == 'j')
+		opt->len_mod = MOD_J;
+	else if (format[(*count)] == 't')
+		opt->len_mod = MOD_T;
+	else if (format[(*count)] == 'z')
+		opt->len_mod = MOD_Z;
+	if (format[(*count) + 1] == 'h' || format[(*count) + 1] == 'l')
+	{
+		if (format[(*count) + 1] == 'h')
+			opt->len_mod = MOD_HH;
+		else
+			opt->len_mod = MOD_LL;
+		(*count)++;
+	}
+	(*count)++;
+}
+
 int		do_parse(const char *restrict format, int *c, va_list arg)
 {
 	t_opt	opt;
 
 	init_opt(&opt);
-	if (format[(*c)] == '-')
-		opt.align = 1; /* a verifier */
+	if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
+	{
+		ft_putstr("get opt\n");
+		get_len_mod(format, c, &opt);
+	}
+	else if (format[(*c)] == '-')
+		opt.align = 1;
 	else if (format[(*c)] == '+')
 		opt.sign = 1;
 	else if (format[(*c)] == ' ')
-		opt.space = get_number(format, c); //		opt.left_align = get_number(format, c);
+		opt.space = get_number(format, c);
 	else if (format[(*c)] == '#')
 		opt.diez = get_number(format, c);
 	else if (format[(*c)] == '0')

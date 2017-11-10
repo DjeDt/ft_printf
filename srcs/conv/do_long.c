@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_char.c                                          :+:      :+:    :+:   */
+/*   do_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/10 16:14:20 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 20:18:08 by ddinaut          ###   ########.fr       */
+/*   Created: 2017/11/10 17:34:34 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/10 20:20:53 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	print_char(wchar_t ch, t_opt opt)
+void	print_long(t_opt opt, unsigned long long int i, char c)
 {
-	(void)opt; // pour les options d'affichage
-	ft_putchar(ch);
+	char *str;
+
+	str = NULL;
+	if (c == 'D')
+		str = ft_itoa_base(i, 10);
+	else if (c == 'O')
+		str = ft_itoa_base(i, 8);
+	else if (c == 'U')
+		str = ft_itoa_base(i, 10);
+	if (str != NULL)
+	{
+		ft_putstr(str);
+		free(str);
+	}
+	(void)opt;
 }
 
-void	do_char(va_list arg, t_opt opt, char c)
+void	do_long(va_list arg, t_opt opt, char c)
 {
-	wchar_t ch;
+	long long int i;
 
-	ch = 0;
-	if (c == 'c')
-	{
-		if (opt.len_mod == MOD_L)
-			ch = (wint_t)va_arg(arg, int);
-		else
-			ch = (char)va_arg(arg, int);
-	}
-	else if (c == 'C')
-		ch = (wchar_t)va_arg(arg, wint_t);
-	print_char(ch, opt);
+	i = va_arg(arg, long int);
+	print_long(opt, i, c);
 }

@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 19:43:04 by ddinaut           #+#    #+#              #
-#    Updated: 2017/09/20 18:14:35 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/11/10 18:48:48 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -59,6 +59,7 @@ SRCS = \
 		$(CONV)do_int.c \
 		$(CONV)do_unsign.c \
 		$(CONV)do_ptr.c \
+		$(CONV)do_long.c \
 \
 		$(FUNC)ft_putchar.c \
 		$(FUNC)ft_putnbr.c \
