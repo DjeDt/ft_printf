@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 20:26:09 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/10 20:33:21 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,7 @@ int		do_parse(const char *restrict format, int *c, va_list arg)
 
 	init_opt(&opt);
 	if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
-	{
-		ft_putstr("get opt\n");
 		get_len_mod(format, c, &opt);
-	}
 	else if (format[(*c)] == '-')
 		opt.align = 1;
 	else if (format[(*c)] == '+')
