@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 20:22:22 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/10 20:24:45 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,8 @@ int		ft_atoi(const char *str);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
 
 /**
- ** PARAMETERS
- */
-
-/**
  ** CONVERSION
  **/
-
-void	do_d(va_list arg, t_opt opt);
-void	do_c(va_list arg, char c);
-void	do_s(va_list arg, char c);
-void	do_o(va_list arg);
-void	do_u(va_list arg);
-void	do_x(va_list arg, char c);
 
 void	do_char(va_list arg, t_opt opt, char c);
 void	do_int(va_list arg, t_opt opt, char c);

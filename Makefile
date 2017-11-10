@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 19:43:04 by ddinaut           #+#    #+#              #
-#    Updated: 2017/11/10 18:48:48 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/11/10 20:24:03 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -47,13 +47,6 @@ INC = -I $(INC_PATH)
 SRCS = \
 		core_printf.c \
 		do_conv.c \
-\
-		$(CONV)do_d.c \
-		$(CONV)do_c.c \
-		$(CONV)do_s.c \
-		$(CONV)do_o.c \
-		$(CONV)do_u.c \
-		$(CONV)do_x.c \
 \
 		$(CONV)do_char.c \
 		$(CONV)do_int.c \
