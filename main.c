@@ -13,10 +13,13 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "ft_printf/includes/printf.h"
+#include "includes/printf.h"
 
 int main(void)
 {
+	char	*str;
+
+	str = malloc(1);
 	printf("test de %%s\n");
 	ft_printf("test de %%s\n");
 
@@ -27,5 +30,10 @@ int main(void)
 	ft_printf("Random nubers :\n");
 	printf("%d %d %d %d %d\n", -123, 123, 0, 2147483647, -2147483648);
 	ft_printf("%d %d %d %d %d\n", -123, 123, 0, 2147483647, -2147483648);
+
+	ft_printf("Print addresses :\n");
+	printf("char addr : %p\n", str);
+	ft_printf("char addr : %p\n", str);
+	free(str);
 	return (0);
 }

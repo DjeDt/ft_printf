@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <wchar.h>
 # include <stddef.h> /* pour cast en ptrdiff */
+# include <inttypes.h>
 
 /**
  **	lenght modifier
@@ -49,7 +50,7 @@ typedef struct	s_opt
 	int			left_pre; // je sais pas encore ce que c'est
 	int			righ_pre; // pareil
 	t_prec		precis;	// more precision
-	int			len_mod; // pour check le modificateur de taille precise 
+	int			len_mod; // pour check le modificateur de taille precise
 }				t_opt;
 
 /**
