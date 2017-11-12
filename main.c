@@ -18,6 +18,8 @@
 int main(void)
 {
 	char	*str;
+	char	str2[0];
+	char	c;
 
 	str = malloc(1);
 	printf("test de %%s\n");
@@ -32,8 +34,8 @@ int main(void)
 	ft_printf("%d %d %d %d %d\n", -123, 123, 0, 2147483647, -2147483648);
 
 	ft_printf("Print addresses :\n");
-	printf("char addr : %p\n", str);
-	ft_printf("char addr : %p\n", str);
+	printf("char addr : %p et %p et %p\n", str, str2, &c);
+	ft_printf("char addr : %p et %p et %p\n", str, str2, &c);
 	free(str);
 	return (0);
 }

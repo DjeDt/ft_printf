@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
-static int	get_ln(unsigned int value, int base)
+static int	get_ln(unsigned long value, int base)
 {
 	int len;
 
@@ -28,18 +29,18 @@ char	*get_addr(unsigned long value, int base)
 	char		*ret;
 	const char	*str;
 
-	count = get_ln(value, base) + 4 + 2;
+	count = get_ln(value, base) + 2;
 	str = "0123456789abcdef";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
-	ret[count + 1] = '\0';
+	ret[count] = '\0';
 	while (count-- > 2)
 	{
 		ret[count] = str[(value % base)];
 		value /= base;
 	}
-	ret[count--] = 'x';
-	ret[count] = '0';
+	ret[1] = 'x';
+	ret[0] = '0';
 	return (ret);
 
 }
@@ -74,7 +75,7 @@ void	do_ptr(va_list arg, t_opt opt, char c)
 		if (opt.len_mod == MOD_L)
 			tmp = (wchar_t*)va_arg(arg, wint_t*);
 		else
-			tmp = (char*)va_arg(arg, void*);
+			tmp = (char*)va_arg(arg, char*);
 	}
 	else if (c == 'S')
 		tmp = (wchar_t*)va_arg(arg, wint_t*);
