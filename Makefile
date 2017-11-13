@@ -62,7 +62,6 @@ SRCS = \
 		$(FUNC)ft_atoi.c \
 		$(FUNC)ft_strsub.c
 
-
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRCS))
 

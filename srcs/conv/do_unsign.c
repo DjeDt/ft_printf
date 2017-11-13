@@ -63,7 +63,7 @@ void	do_unsign(va_list arg, t_opt opt, char c)
 {
 	unsigned long long int i;
 
-		if (opt.len_mod == MOD_L)
+	if (opt.len_mod == MOD_L)
 		i = (unsigned long)va_arg(arg, long long int);
 	else if (opt.len_mod == MOD_LL)
 		i = (unsigned long long)va_arg(arg, long long int);

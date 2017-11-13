@@ -35,6 +35,6 @@ void	do_long(va_list arg, t_opt opt, char c)
 {
 	long long int i;
 
-	i = va_arg(arg, long int);
+	i = va_arg(arg, long long int);
 	print_long(opt, i, c);
 }

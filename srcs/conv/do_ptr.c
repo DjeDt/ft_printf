@@ -51,16 +51,24 @@ void	print_ptr(void *str, t_opt opt, char c)
 	unsigned long	addr;
 
 	p = NULL;
-	if (c == 's')
-		ft_putstr(str);
-	else if (c == 'S')
-		ft_putstr(str);
+	if (c == 's' || c == 'S')
+	{
+		if (str == NULL)
+			ft_putstr("(null)");
+		else
+			ft_putstr(str);
+	}
 	else if (c == 'p')
 	{
-		addr = (unsigned long)str;
-		p = get_addr(addr, 16);
-		write(1, p, ft_strlen(p));
-		free(p);
+		if (str != NULL)
+		{
+			addr = (unsigned long)str;
+			p = get_addr(addr, 16);
+			write(1, p, ft_strlen(p));
+			free(p);
+		}
+		else
+			ft_putstr("(nil)");
 	}
 	(void)opt;
 }

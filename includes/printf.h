@@ -24,21 +24,13 @@
  **	lenght modifier
  **/
 
-# define MOD_L 1
-# define MOD_LL 2
-# define MOD_H 4
-# define MOD_HH 8
-# define MOD_J 16
-# define MOD_T 32
-# define MOD_Z 64
-
-typedef struct	s_prec
-{
-	int			min_num;	// minimun digit to appear after the decimal point. (for d, u, o, x, X)
-	int			num_digit;	// number of digit to appear after the decimal point. (for e, E, f)
-	int			max_num;	// max num of significant digits. (for g, G)
-	int			max_len;	// max number of char to be printed. (for s)
-}				t_prec;
+# define MOD_L	1
+# define MOD_LL	2
+# define MOD_H	4
+# define MOD_HH	8
+# define MOD_J	16
+# define MOD_T	32
+# define MOD_Z	64
 
 typedef struct	s_opt
 {
@@ -46,11 +38,11 @@ typedef struct	s_opt
 	int			sign;	// have i to print a sign prefix ?
 	int			space;	// have i to print 'space' prefix ?
 	int			diez;	// have i to do an alternate convertion ?
-	int			zero;	// how many zero should i print to pad the field ?
-	int			left_pre; // je sais pas encore ce que c'est
-	int			righ_pre; // pareil
-	t_prec		precis;	// more precision
-	int			len_mod; // pour check le modificateur de taille precise
+	int			zero;	// how many zero should i print instead of space ?
+	char		prefix; // espace ou zero
+	int			width;
+	int			precision;
+	int			len_mod;
 }				t_opt;
 
 /**

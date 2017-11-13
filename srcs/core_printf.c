@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 void	init_opt(t_opt *opt)
 {
@@ -19,18 +20,21 @@ void	init_opt(t_opt *opt)
 	opt->space = 0;
 	opt->diez = 0;
 	opt->zero = 0;
-	opt->left_pre = 0;
-	opt->righ_pre = 0;
+	opt->prefix = '\0';
+	opt->width = 0;
+	opt->precision = 0;
+	opt->len_mod = 0;
 }
 
-int		get_number(const char *restrict format, int *count)
+int		get_number(const char *restrict format, int *count, t_opt *opt)
 {
 	int		ret;
 	int		count2;
 	char	*str;
 
-	count2 = (*count);
+	opt->prefix = format[(*count)];
 	++(*count);
+	count2 = (*count);
 	while (format[(*count)] >= '0' && format[(*count)] <= '9')
 		(*count)++;
 	if ((str = ft_strsub(format, count2, (*count) - count2)) == NULL)
@@ -45,12 +49,13 @@ void	get_precision(const char *restrict format, int *count, t_opt *opt)
 	int		count2;
 	char	*str;
 
+	str = NULL;
 	count2 = (*count);
 	++(*count);
 	while (format[(*count)] && (format[(*count)] >= '0' && format[(*count)] <= '9'))
 		(*count)++;
 	str = ft_strsub(format, count2, (*count) - count2);
-	opt->left_pre = ft_atoi(str);
+	opt->width = ft_atoi(str);
 	free(str);
 	if (format[(*count)] != '.')
 		return ;
@@ -58,8 +63,9 @@ void	get_precision(const char *restrict format, int *count, t_opt *opt)
 	while (format[(*count)] && (format[(*count)] >= '0' && format[(*count)] <= '9'))
 		(*count)++;
 	str = ft_strsub(format, count2, (*count) - count2);
-	opt->righ_pre = ft_atoi(str);
+	opt->precision = ft_atoi(str);
 	free(str);
+	(*count)++;
 }
 
 void	get_len_mod(const char *restrict format, int *count, t_opt *opt)
@@ -74,15 +80,55 @@ void	get_len_mod(const char *restrict format, int *count, t_opt *opt)
 		opt->len_mod = MOD_T;
 	else if (format[(*count)] == 'z')
 		opt->len_mod = MOD_Z;
-	if (format[(*count) + 1] == 'h' || format[(*count) + 1] == 'l')
+	else if ((format[(*count)] == 'h' && format[(*count) + 1] == 'h') || (format[(*count)] == 'l' && format[(*count) + 1] == 'l'))
 	{
 		if (format[(*count) + 1] == 'h')
 			opt->len_mod = MOD_HH;
-		else
+		else if(format[(*count) + 1] == 'l')
 			opt->len_mod = MOD_LL;
 		(*count)++;
 	}
+	/* rajouter les else pour gestion d'erreur */
 	(*count)++;
+}
+
+void	get_flags(const char *restrict format, int *c, t_opt *opt)
+{
+	if (format[(*c)] == '-')
+	{
+		opt->align = 1;
+		(*c)++;
+	}
+	else if (format[(*c)] == '+')
+	{
+		opt->sign = 1;
+		(*c)++;
+	}
+	else if (format[(*c)] == ' ')
+	{
+		opt->space = 1;
+		opt->prefix = ' ';
+		(*c)++;
+	}
+	else if (format[(*c)] == '0')
+	{
+		opt->zero = 1;
+		opt->prefix = '0';
+		(*c)++;
+	}
+	else if (format[(*c)] == '#')
+	{
+		opt->diez = 1;
+		(*c)++;
+	}
+}
+
+int		is_conv_char(char c)
+{
+	if (c == 'd' || c == 'i' || c == 'c' || c == 'C' || c == 's' ||
+		c == 'S' || c == 'p' || c == 'D' || c == 'O' || c == 'U')
+		return (1);
+	return (0);
 }
 
 int		do_parse(const char *restrict format, int *c, va_list arg)
@@ -90,20 +136,16 @@ int		do_parse(const char *restrict format, int *c, va_list arg)
 	t_opt	opt;
 
 	init_opt(&opt);
-	if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
-		get_len_mod(format, c, &opt);
-	else if (format[(*c)] == '-')
-		opt.align = 1;
-	else if (format[(*c)] == '+')
-		opt.sign = 1;
-	else if (format[(*c)] == ' ')
-		opt.space = get_number(format, c);
-	else if (format[(*c)] == '#')
-		opt.diez = get_number(format, c);
-	else if (format[(*c)] == '0')
-		opt.zero = get_number(format, c);
-	else if (format[(*c)] >= '1' && format[(*c)] <= '9')
-		get_precision(format, c, &opt); // A ameliorer en fonction des convertions
+	while (format[(*c)] != '\0' && (is_conv_char(format[(*c)]) == 0))
+	{
+		if (format[(*c)] == '-' || format[(*c)] == '+' || format[(*c)] == ' ' || format[(*c)] == '0' || format[(*c)] == '#')
+			get_flags(format, c, &opt); /* get differents flags */
+		if (format[(*c)] >= '1' && format[(*c)] <= '9')
+			get_precision(format, c, &opt); /* get width and/or precision */
+		if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
+			get_len_mod(format, c, &opt); /* get differents len modifiers */
+	}
+//	printf("\nalign = %d et sign = %d et space = %d et diez = %d et zero = %d et precision = %d.%d\n", opt.align, opt.sign, opt.space, opt.diez, opt.zero, opt.left_pre, opt.righ_pre);
 	do_conv(format, c, arg, opt);
 	return (0);
 }
