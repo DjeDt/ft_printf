@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 20:08:04 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/14 12:12:08 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	do_int(va_list arg, t_opt opt, char c)
 	else if (opt.len_mod == MOD_LL)
 		i = (long long)va_arg(arg, long long int);
 	else if (opt.len_mod == MOD_H)
-		i = (short)va_arg(arg, long long int); /* segfault desssus */
+		i = (short)va_arg(arg, long long int);
 	else if (opt.len_mod == MOD_HH)
 		i = (signed char)va_arg(arg, long long int);
 	else if (opt.len_mod == MOD_J)

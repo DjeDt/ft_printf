@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 20:38:00 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/14 15:06:42 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int main(void)
 {
+	/*
 	printf("real_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	ft_printf("mine_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	printf("real_char_2 = %5c\n", 'd');
@@ -35,7 +36,7 @@ int main(void)
 	ft_printf("mine : lmin = %ld et lmax = %ld\n", lmin, lmax);
 
 	ft_printf("Test 'll' :\n");
-	long long llmin = -9223372036854775807; /* erreur si +1, pourquoi?*/
+	long long llmin = -9223372036854775807; // erreur si +1, pourquoi?
 	long long llmax = 9223372036854775807;
 	printf("real : llmin = %lld et llmax = %lld\n", llmin, llmax);
 	ft_printf("mine : llmin = %lld et llmax = %lld\n", llmin, llmax);
@@ -57,17 +58,31 @@ int main(void)
 	printf("real : imax = %ji\n", INT64_MAX);
 	ft_printf("mine : imax = %ji\n", INT64_MAX);
 
-	/*
 	ft_printf("\nTest des modificateurs long :\n");
 
 	ft_printf("Test de 'D' :\n"); // Pas sur debian
 	printf("real : %D et %D\n", 1234, 1234);
-	ft_printf("mine : %D et %D\n", 1234, 1234);
+	//ft_printf("mine : %D et %D\n", 1234, 1234); segfault
 
 	ft_printf("Test de 'U' :\n"); // Pas sur debian
 	printf("real : %U et %U\n", 1, 1);
-	ft_printf("mine : %U et %U\n", 1, 1);
+//	ft_printf("mine : %U et %U\n", 1, 1); segfault
 	*/
+	ft_printf("\nTest des pointeurs :\n");
+	printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
+	ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
+	char *s;
+	char s2[3];
+	char c;
+	printf("real : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
+	ft_printf("mine : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
 
+	wchar_t *test = L"test1";
+	wchar_t *test2 = L"test2";
+	wchar_t *test3 = L"test3";
+	wchar_t *test4 = NULL;
+	
+	printf("real : S = %S et S = %S et S = %S et S = %S\n", test, test2, test3, test4);
+	ft_printf("mine : S = %S et S = %S et S = %S et S = %S\n", test, test2, test3, test4);
 	return (0);
 }

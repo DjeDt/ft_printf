@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 20:33:21 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/14 14:55:00 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int		do_parse(const char *restrict format, int *c, va_list arg)
 		if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
 			get_len_mod(format, c, &opt); /* get differents len modifiers */
 	}
-//	printf("\nalign = %d et sign = %d et space = %d et diez = %d et zero = %d et precision = %d.%d\n", opt.align, opt.sign, opt.space, opt.diez, opt.zero, opt.left_pre, opt.righ_pre);
+//	printf("\nalign = %d et sign = %d et space = %d et diez = %d et zero = %d et width = %d et precision = %d\n", opt.align, opt.sign, opt.space, opt.diez, opt.zero, opt.width, opt.precision);
 	do_conv(format, c, arg, opt);
 	return (0);
 }
