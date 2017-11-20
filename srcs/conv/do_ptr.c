@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/14 15:25:59 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/20 15:17:20 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,27 @@ void	print_ptr_s(void *str, t_opt opt)
 		ft_putstr("(null)");
 }
 
-/*
-char	*upgrade_unicode(wchar_t c)
+wchar_t	*ascii_to_utf8(unsigned char c)
 {
-	if (c < (1 << 7))
+	wchar_t *out;
+
+	if(c < 128)
 	{
-		
+		if (!(out = (wchar_t*)malloc(sizeof(wchar_t) * 2)))
+			return (NULL);
+		out[0] = c;
+		out[1] = '\0';
 	}
+	else
+	{
+		if (!(out = (wchar_t*)malloc(sizeof(wchar_t) * 2)))
+			return (NULL);
+		out[1] = (c >> 6) | 0xC0;
+		out[0] = (c & 0x3F) | 0x80;
+		out[2] = '\0';
+	}
+	return (out);
 }
-*/
 
 void	print_ptr_S(void *str, t_opt opt)
 {
@@ -98,7 +110,17 @@ void	print_ptr_S(void *str, t_opt opt)
 		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
 		if (opt.align == 1)
 		{
-			write(1, str, ft_strlen(str));
+			while (str)
+			{
+				wchar_t *out;
+				out = ascii_to_utf8((unsigned char)str);
+				if (out)
+				{
+					str += sizeof(out);
+					write(1, out, sizeof(out));
+					free(out);
+				}
+			}
 			if (len > 0)
 				print_ptr_prefix(opt, len);
 		}
@@ -140,7 +162,7 @@ void	print_ptr_p(void *str, t_opt opt)
 		free(p);
 	}
 	else
-		ft_putstr("(nil)");
+		ft_putstr("0x0");
 }
 
 void	do_ptr(va_list arg, t_opt opt, char c)
