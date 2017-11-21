@@ -68,8 +68,21 @@ void	ascii_to_utf8(wchar_t ch)
 
 void	print_wchar(wchar_t ch, t_opt opt)
 {
-	(void)opt;
-	ascii_to_utf8(ch);
+	int	len;
+
+	len = opt.width - 1;
+	if (opt.align == 1)
+	{
+		ascii_to_utf8(ch);
+		if (len > 0)
+			print_char_prefix(opt, len);
+	}
+	else
+	{
+		if (len > 0)
+			print_char_prefix(opt, len);
+		ascii_to_utf8(ch);
+	}
 }
 
 void	do_char(va_list arg, t_opt opt, char c)

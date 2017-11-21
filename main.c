@@ -17,7 +17,6 @@
 
 int main(void)
 {
-	/*
 	printf("real_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	ft_printf("mine_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	printf("real_char_2 = %5c\n", 'd');
@@ -58,15 +57,16 @@ int main(void)
 	printf("real : imax = %ji\n", INT64_MAX);
 	ft_printf("mine : imax = %ji\n", INT64_MAX);
 
+	/*
 	ft_printf("\nTest des modificateurs long :\n");
 
 	ft_printf("Test de 'D' :\n"); // Pas sur debian
 	printf("real : %D et %D\n", 1234, 1234);
-	//ft_printf("mine : %D et %D\n", 1234, 1234); segfault
+	//ft_printf("mine : %D et %D\n", 1234, 1234);
 
 	ft_printf("Test de 'U' :\n"); // Pas sur debian
 	printf("real : %U et %U\n", 1, 1);
-//	ft_printf("mine : %U et %U\n", 1, 1); segfault
+	ft_printf("mine : %U et %U\n", 1, 1);
 	*/
 	ft_printf("\nTest des pointeurs :\n");
 	printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
