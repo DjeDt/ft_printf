@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
 static int	get_ln(unsigned long value, int base)
 {
@@ -50,9 +49,10 @@ void	print_ptr_prefix(t_opt opt, int len)
 	char	tmp[len];
 
 	tmp[len] = '\0';
-	while (len-- > 0)
-		tmp[len] = opt.prefix;
+	while (len--)
+		tmp[len] = ' ';
 	ft_putstr(tmp);
+	(void)opt;
 }
 
 void	print_ptr_s(void *str, t_opt opt)

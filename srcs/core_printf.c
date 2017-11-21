@@ -88,7 +88,6 @@ void	get_len_mod(const char *restrict format, int *count, t_opt *opt)
 			opt->len_mod = MOD_LL;
 		(*count)++;
 	}
-	/* rajouter les else pour gestion d'erreur */
 	(*count)++;
 }
 

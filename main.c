@@ -17,6 +17,7 @@
 
 int main(void)
 {
+	/*
 	printf("real_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	ft_printf("mine_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	printf("real_char_2 = %5c\n", 'd');
@@ -56,8 +57,8 @@ int main(void)
 	intmax_t imax;
 	printf("real : imax = %ji\n", INT64_MAX);
 	ft_printf("mine : imax = %ji\n", INT64_MAX);
-
-	/*
+	*/
+		/*
 	ft_printf("\nTest des modificateurs long :\n");
 
 	ft_printf("Test de 'D' :\n"); // Pas sur debian
@@ -77,6 +78,15 @@ int main(void)
 	printf("real : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
 	ft_printf("mine : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
 
+	ft_printf("Test de s :\n");
+	char *test1 = "ceci est le test1";
+	char *test2 = "c'est le test2";
+	char *test3 = "encore un test numero 3";
+
+	printf("real : %5s et %-30s et %40s\n", test1, test2, test3);
+	ft_printf("mine : %5s et %-30s et %40s\n", test1, test2, test3);
+
+	/*
 	wchar_t test1 = L'中';
 	wchar_t test2 = L'文';
 	wchar_t test3 = L'ح';
@@ -91,6 +101,7 @@ int main(void)
 
 	ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
 	printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
+	*/
 
 	return (0);
 }

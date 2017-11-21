@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 void	print_char_prefix(t_opt opt, int len)
 {
