@@ -71,18 +71,26 @@ int main(void)
 	ft_printf("\nTest des pointeurs :\n");
 	printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
 	ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
-	char *s;
+	char *s = NULL;
 	char s2[3];
 	char c;
 	printf("real : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
 	ft_printf("mine : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
 
-	wchar_t *test = L"test1";
-	wchar_t *test2 = L"test2";
-	wchar_t *test3 = L"test3";
-	wchar_t *test4 = NULL;
-	
-	printf("real : S = %S et S = %S et S = %S et S = %S\n", test, test2, test3, test4);
-	ft_printf("mine : S = %S et S = %S et S = %S et S = %S\n", test, test2, test3, test4);
+	wchar_t test1 = L'中';
+	wchar_t test2 = L'文';
+	wchar_t test3 = L'ح';
+
+	ft_printf("Test de l'utf8 :\n");
+	ft_printf("mine = %C et %C et %C\n", test1, test2, test3);
+	printf("real = %C \net \n%C et\n %C\n", test1, test2, test3);
+
+	wchar_t *wstr1 = L"كيف حالك ؟";
+	wchar_t *wstr2 = L"你好嗎？";
+	wchar_t *wstr3 = L"Πώς είσαι;";
+
+	ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
+	printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
+
 	return (0);
 }

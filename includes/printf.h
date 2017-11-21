@@ -67,6 +67,8 @@ void	do_unsign(va_list arg, t_opt opt, char c);
 void	do_ptr(va_list arg, t_opt opt, char c);
 void	do_long(va_list arg, t_opt opt, char c);
 
+void	ascii_to_utf8(wchar_t ch);
+
 /**
  ** CORE
  **/

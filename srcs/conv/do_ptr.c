@@ -79,26 +79,13 @@ void	print_ptr_s(void *str, t_opt opt)
 		ft_putstr("(null)");
 }
 
-wchar_t	*ascii_to_utf8(unsigned char c)
+void	ft_putwstr(const wchar_t *str)
 {
-	wchar_t *out;
-
-	if(c < 128)
+	if (str)
 	{
-		if (!(out = (wchar_t*)malloc(sizeof(wchar_t) * 2)))
-			return (NULL);
-		out[0] = c;
-		out[1] = '\0';
+		while (*str)
+			ascii_to_utf8(*str++);
 	}
-	else
-	{
-		if (!(out = (wchar_t*)malloc(sizeof(wchar_t) * 2)))
-			return (NULL);
-		out[1] = (c >> 6) | 0xC0;
-		out[0] = (c & 0x3F) | 0x80;
-		out[2] = '\0';
-	}
-	return (out);
 }
 
 void	print_ptr_S(void *str, t_opt opt)
@@ -110,17 +97,7 @@ void	print_ptr_S(void *str, t_opt opt)
 		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
 		if (opt.align == 1)
 		{
-			while (str)
-			{
-				wchar_t *out;
-				out = ascii_to_utf8((unsigned char)str);
-				if (out)
-				{
-					str += sizeof(out);
-					write(1, out, sizeof(out));
-					free(out);
-				}
-			}
+			ft_putwstr(str);
 			if (len > 0)
 				print_ptr_prefix(opt, len);
 		}
@@ -128,7 +105,7 @@ void	print_ptr_S(void *str, t_opt opt)
 		{
 			if (len > 0)
 				print_ptr_prefix(opt, len);
-			ft_putstr(str);
+			ft_putwstr(str);
 		}
 	}
 	else
