@@ -26,24 +26,6 @@ void	init_opt(t_opt *opt)
 	opt->len_mod = 0;
 }
 
-int		get_number(const char *restrict format, int *count, t_opt *opt)
-{
-	int		ret;
-	int		count2;
-	char	*str;
-
-	opt->prefix = format[(*count)];
-	++(*count);
-	count2 = (*count);
-	while (format[(*count)] >= '0' && format[(*count)] <= '9')
-		(*count)++;
-	if ((str = ft_strsub(format, count2, (*count) - count2)) == NULL)
-		return (-1);
-	ret = ft_atoi(str);
-	free(str);
-	return (ret);
-}
-
 void	get_precision(const char *restrict format, int *count, t_opt *opt)
 {
 	int		count2;
@@ -54,7 +36,8 @@ void	get_precision(const char *restrict format, int *count, t_opt *opt)
 	++(*count);
 	while (format[(*count)] && (format[(*count)] >= '0' && format[(*count)] <= '9'))
 		(*count)++;
-	str = ft_strsub(format, count2, (*count) - count2);
+	if ((str = ft_strsub(format, count2, (*count) - count2)) == NULL)
+		return ;
 	opt->width = ft_atoi(str);
 	free(str);
 	if (format[(*count)] != '.')
@@ -62,10 +45,10 @@ void	get_precision(const char *restrict format, int *count, t_opt *opt)
 	count2 = ++(*count);
 	while (format[(*count)] && (format[(*count)] >= '0' && format[(*count)] <= '9'))
 		(*count)++;
-	str = ft_strsub(format, count2, (*count) - count2);
+	if ((str = ft_strsub(format, count2, (*count) - count2)) == NULL)
+		return ;
 	opt->precision = ft_atoi(str);
 	free(str);
-	(*count)++;
 }
 
 void	get_len_mod(const char *restrict format, int *count, t_opt *opt)
@@ -96,17 +79,20 @@ void	get_flags(const char *restrict format, int *c, t_opt *opt)
 	if (format[(*c)] == '-')
 	{
 		opt->align = 1;
+		opt->flags |= ALIGN;
 		(*c)++;
 	}
 	else if (format[(*c)] == '+')
 	{
 		opt->sign = 1;
+		opt->flags |= SIGN;
 		(*c)++;
 	}
 	else if (format[(*c)] == ' ')
 	{
 		opt->space = 1;
 		opt->prefix = ' ';
+		opt->flags |= SPACE;
 		(*c)++;
 	}
 	else if (format[(*c)] == '0')
@@ -118,6 +104,7 @@ void	get_flags(const char *restrict format, int *c, t_opt *opt)
 	else if (format[(*c)] == '#')
 	{
 		opt->diez = 1;
+		opt->flags |= DIEZ;
 		(*c)++;
 	}
 }
@@ -144,7 +131,6 @@ int		do_parse(const char *restrict format, int *c, va_list arg)
 		if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
 			get_len_mod(format, c, &opt); /* get differents len modifiers */
 	}
-//	printf("\nalign = %d et sign = %d et space = %d et diez = %d et zero = %d et width = %d et precision = %d\n", opt.align, opt.sign, opt.space, opt.diez, opt.zero, opt.width, opt.precision);
 	do_conv(format, c, arg, opt);
 	return (0);
 }

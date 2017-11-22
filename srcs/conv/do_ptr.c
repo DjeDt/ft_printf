@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 static int	get_ln(unsigned long value, int base)
 {
@@ -62,9 +63,12 @@ void	print_ptr_s(void *str, t_opt opt)
 	if (str != NULL)
 	{
 		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
-		if (opt.align == 1)
+		if (opt.flags & ALIGN)
 		{
-			ft_putstr(str);
+			if (opt.precision > 0)
+				write(1, str, opt.precision);
+			else
+				ft_putstr(str);
 			if (len > 0)
 				print_ptr_prefix(opt, len);
 		}
@@ -72,19 +76,26 @@ void	print_ptr_s(void *str, t_opt opt)
 		{
 			if (len > 0)
 				print_ptr_prefix(opt, len);
-			ft_putstr(str);
+			if (opt.precision > 0)
+				write(1, str, opt.precision);
+			else
+				ft_putstr(str);
 		}
 	}
 	else
 		ft_putstr("(null)");
 }
 
-void	ft_putwstr(const wchar_t *str)
+void	ft_putwstr(const wchar_t *str, t_opt opt)
 {
 	if (str)
 	{
-		while (*str)
-			ascii_to_utf8(*str++);
+		if (opt.precision > 0)
+			while (*str && (opt.precision-- > 0))
+				ascii_to_utf8(*str++);
+		else
+			while (*str)
+				ascii_to_utf8(*str++);
 	}
 }
 
@@ -95,9 +106,9 @@ void	print_ptr_S(void *str, t_opt opt)
 	if (str != NULL)
 	{
 		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
-		if (opt.align == 1)
+		if (opt.flags & ALIGN)
 		{
-			ft_putwstr(str);
+			ft_putwstr(str, opt);
 			if (len > 0)
 				print_ptr_prefix(opt, len);
 		}
@@ -105,7 +116,7 @@ void	print_ptr_S(void *str, t_opt opt)
 		{
 			if (len > 0)
 				print_ptr_prefix(opt, len);
-			ft_putwstr(str);
+			ft_putwstr(str, opt);
 		}
 	}
 	else
@@ -139,7 +150,7 @@ void	print_ptr_p(void *str, t_opt opt)
 		free(p);
 	}
 	else
-		ft_putstr("0x0");
+		write(1, "0x0", 3);
 }
 
 void	do_ptr(va_list arg, t_opt opt, char c)

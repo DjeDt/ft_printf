@@ -71,13 +71,13 @@ void	print_int(long long int i, t_opt opt, char c)
 	if (str != NULL)
 	{
 		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
-		if (i < 0 && opt.sign == 1)
+		if (i < 0 && (opt.flags & SIGN))
 			len++;
-		if (opt.align == 1)
+		if (opt.flags & ALIGN)
 		{
-			if (opt.space == 1 && i >= 0 && opt.sign == 0)
+			if ((opt.flags & SPACE) && i >= 0 && (opt.flags & SIGN) == 0)
 				ft_putchar(' ');
-			else if (opt.sign == 1 && i >= 0)
+			else if ((opt.flags & SIGN) && i >= 0)
 				ft_putchar('+');
 			ft_putstr(str);
 			len > 0 ? print_int_prefix(len, opt) : 0;
@@ -85,9 +85,9 @@ void	print_int(long long int i, t_opt opt, char c)
 		else
 		{
 			len > 0 ? print_int_prefix(len, opt) : 0;
-			if (opt.space == 1 && i >= 0 && opt.sign == 0)
+			if ((opt.flags & SPACE) && i >= 0 && (opt.flags & SIGN) == 0)
 				ft_putchar(' ');
-			else if (opt.sign == 1 && i >= 0)
+			else if ((opt.flags & SIGN) && i >= 0)
 				ft_putchar('+');
 			ft_putstr(str);
 		}

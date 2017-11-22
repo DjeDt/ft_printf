@@ -83,8 +83,8 @@ int main(void)
 	char *test2 = "c'est le test2";
 	char *test3 = "encore un test numero 3";
 
-	printf("real : %5s et %-30s et %40s\n", test1, test2, test3);
-	ft_printf("mine : %5s et %-30s et %40s\n", test1, test2, test3);
+	printf("real : %5.5s et |%-30.10s| et %40s\n", test1, test2, test3);
+	ft_printf("mine : %5.5s et |%-30.10s| et %40s\n", test1, test2, test3);
 
 	/*
 	wchar_t test1 = L'中';

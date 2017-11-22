@@ -32,8 +32,15 @@
 # define MOD_T	32
 # define MOD_Z	64
 
+# define ALIGN	(1 << 0)
+# define SIGN	(1 << 1)
+# define SPACE	(1 << 2)
+# define DIEZ	(1 << 3)
+
 typedef struct	s_opt
 {
+	int			flags;
+
 	int			align;	// left align
 	int			sign;	// have i to print a sign prefix ?
 	int			space;	// have i to print 'space' prefix ?

@@ -29,7 +29,7 @@ void	print_char(wchar_t ch, t_opt opt)
 	int len;
 
 	len = opt.width - 1;
-	if (opt.align == 1)
+	if (opt.flags & ALIGN)
 	{
 		ft_putchar(ch);
 		if (len > 0)
@@ -72,7 +72,7 @@ void	print_wchar(wchar_t ch, t_opt opt)
 	int	len;
 
 	len = opt.width - 1;
-	if (opt.align == 1)
+	if (opt.flags & ALIGN)
 	{
 		ascii_to_utf8(ch);
 		if (len > 0)
@@ -94,7 +94,7 @@ void	do_char(va_list arg, t_opt opt, char c)
 	if (c == 'c')
 	{
 		if (opt.len_mod == MOD_L)
-			ch = (wint_t)va_arg(arg, int);
+			ch = (wint_t)va_arg(arg, wint_t);
 		else
 			ch = (char)va_arg(arg, int);
 		print_char(ch, opt);

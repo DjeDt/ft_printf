@@ -27,13 +27,13 @@ void	print_long(t_opt opt, char *str, long long i)
 	int len;
 
 	len = opt.width - ft_strlen(str) - opt.space - opt.sign;
-	if (i < 0 && opt.sign == 1)
+	if (i < 0 && (opt.flags & SIGN))
 		len++;
 	if (opt.align == 1)
 	{
-		if (opt.space == 1 && i >= 0 && opt.sign == 0)
+		if ((opt.flags & SPACE) && i >= 0 && (opt.flags & SIGN) == 0)
 			ft_putchar(' ');
-		else if (opt.sign == 1 && i >= 0)
+		else if ((opt.flags & SIGN) && i >= 0)
 			ft_putchar('+');
 		ft_putstr(str);
 		if (len > 0)
