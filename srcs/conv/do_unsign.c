@@ -6,28 +6,18 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 20:07:31 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/22 17:13:26 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-
-int		ft_len(int i, int base)
-{
-	int len;
-
-	len = 1;
-	while (i /= base)
-		len++;
-	return (len);
-}
 
 char	*ft_convert(int value, int base, char *str)
 {
 	int		count;
 	char	*ret;
 
-	count = ft_len(value, base);
+	count = nbr_len(value, base);
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ret[count] = '\0';

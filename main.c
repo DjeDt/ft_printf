@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/14 15:06:42 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/22 17:26:03 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,16 @@ int main(void)
 	printf("real : imax = %ji\n", INT64_MAX);
 	ft_printf("mine : imax = %ji\n", INT64_MAX);
 	*/
-		/*
+	
 	ft_printf("\nTest des modificateurs long :\n");
-
 	ft_printf("Test de 'D' :\n"); // Pas sur debian
 	printf("real : %D et %D\n", 1234, 1234);
-	//ft_printf("mine : %D et %D\n", 1234, 1234);
+	ft_printf("mine : %D et %D\n", 1234, 1234);
 
 	ft_printf("Test de 'U' :\n"); // Pas sur debian
 	printf("real : %U et %U\n", 1, 1);
 	ft_printf("mine : %U et %U\n", 1, 1);
-	*/
+	
 	ft_printf("\nTest des pointeurs :\n");
 	printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
 	ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
@@ -86,14 +85,13 @@ int main(void)
 	printf("real : %5.5s et |%-30.10s| et %40s\n", test1, test2, test3);
 	ft_printf("mine : %5.5s et |%-30.10s| et %40s\n", test1, test2, test3);
 
-	/*
-	wchar_t test1 = L'中';
-	wchar_t test2 = L'文';
-	wchar_t test3 = L'ح';
+	wchar_t sign1 = L'中';
+	wchar_t sign2 = L'文';
+	wchar_t sign3 = L'ح';
 
 	ft_printf("Test de l'utf8 :\n");
-	ft_printf("mine = %C et %C et %C\n", test1, test2, test3);
-	printf("real = %C \net \n%C et\n %C\n", test1, test2, test3);
+	ft_printf("mine = %C et %C et %C\n", sign1, sign2, sign3);
+	printf("real = %C \net \n%C et\n %C\n", sign1, sign2, sign3);
 
 	wchar_t *wstr1 = L"كيف حالك ؟";
 	wchar_t *wstr2 = L"你好嗎？";
@@ -101,7 +99,6 @@ int main(void)
 
 	ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
 	printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
-	*/
 
 	return (0);
 }

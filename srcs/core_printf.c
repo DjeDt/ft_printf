@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/14 14:55:00 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/22 19:10:43 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 
 void	init_opt(t_opt *opt)
 {
-	opt->sign = 0;
-	opt->align = 0;
-	opt->space = 0;
-	opt->diez = 0;
-	opt->zero = 0;
-	opt->prefix = '\0';
+	opt->flags = 0;
+	opt->prefix = ' ';
 	opt->width = 0;
 	opt->precision = 0;
 	opt->len_mod = 0;
@@ -78,32 +74,28 @@ void	get_flags(const char *restrict format, int *c, t_opt *opt)
 {
 	if (format[(*c)] == '-')
 	{
-		opt->align = 1;
 		opt->flags |= ALIGN;
 		(*c)++;
 	}
 	else if (format[(*c)] == '+')
 	{
-		opt->sign = 1;
 		opt->flags |= SIGN;
 		(*c)++;
 	}
 	else if (format[(*c)] == ' ')
 	{
-		opt->space = 1;
-		opt->prefix = ' ';
 		opt->flags |= SPACE;
+		opt->prefix = ' ';
 		(*c)++;
 	}
 	else if (format[(*c)] == '0')
 	{
-		opt->zero = 1;
+		opt->flags |= ZERO;
 		opt->prefix = '0';
 		(*c)++;
 	}
 	else if (format[(*c)] == '#')
 	{
-		opt->diez = 1;
 		opt->flags |= DIEZ;
 		(*c)++;
 	}

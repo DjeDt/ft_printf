@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:23:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/14 12:28:49 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/22 18:36:19 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ int		oneof(const char *str, char c)
 
 void	check_exeption(const char c, t_opt *opt)
 {
-	if (oneof("cdipsu", c) == 1 && opt->diez == 1)
-		opt->diez = 0;
-	if (oneof("diouixX", c) == 1 && opt->zero == 1)
-		opt->zero = 0;
-	if (opt->zero == 1 && opt->align == 1)
-		opt->zero = 0;
-	if (oneof("aAdeEfFgGi", c) == 0 && opt->space == 1)
-		opt->space = 0;
-	if (opt->space == 1 && opt->sign == 1)
-		opt->space = 0;
+	if ((oneof("cdipsu", c) == 1) && (opt->flags & DIEZ))
+		opt->flags &= ~DIEZ;
+	if ((oneof("diouixX", c) == 1) && (opt->flags & ZERO))
+		opt->flags &= ~ZERO;
+	if ((opt->flags & ZERO) && (opt->flags & ALIGN))
+		opt->flags &= ~ZERO;
+	if ((oneof("aAdeEfFgGi", c) == 0) && (opt->flags & SPACE))
+		opt->flags &= ~SPACE;
+	if ((opt->flags & SPACE) && (opt->flags & SIGN))
+		opt->flags &= ~SPACE;
 }
 
 void	do_conv(const char *restrict format, int *count, va_list arg, t_opt opt)

@@ -6,21 +6,21 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/20 15:17:20 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/22 20:42:16 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include <stdio.h>
 
-static int	get_ln(unsigned long value, int base)
+int		addr_len(unsigned long value, int base)
 {
-	int len;
+	int ret;
 
-	len = 1;
+	ret = 1;
 	while (value /= base)
-		len++;
-	return (len);
+		ret++;
+	return (ret);
 }
 
 char	*get_addr(unsigned long value, int base)
@@ -29,7 +29,7 @@ char	*get_addr(unsigned long value, int base)
 	char		*ret;
 	const char	*str;
 
-	count = get_ln(value, base) + 2;
+	count = addr_len(value, base) + 2;
 	str = "0123456789abcdef";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
@@ -51,9 +51,8 @@ void	print_ptr_prefix(t_opt opt, int len)
 
 	tmp[len] = '\0';
 	while (len--)
-		tmp[len] = ' ';
+		tmp[len] = opt.prefix;
 	ft_putstr(tmp);
-	(void)opt;
 }
 
 void	print_ptr_s(void *str, t_opt opt)
@@ -62,13 +61,10 @@ void	print_ptr_s(void *str, t_opt opt)
 
 	if (str != NULL)
 	{
-		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
+		len = get_width(opt, str);
 		if (opt.flags & ALIGN)
 		{
-			if (opt.precision > 0)
-				write(1, str, opt.precision);
-			else
-				ft_putstr(str);
+			ft_putstr(str);
 			if (len > 0)
 				print_ptr_prefix(opt, len);
 		}
@@ -105,7 +101,7 @@ void	print_ptr_S(void *str, t_opt opt)
 
 	if (str != NULL)
 	{
-		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
+		len = get_width(opt, str);
 		if (opt.flags & ALIGN)
 		{
 			ft_putwstr(str, opt);
@@ -132,10 +128,10 @@ void	print_ptr_p(void *str, t_opt opt)
 	p = NULL;
 	if (str != NULL)
 	{
-		len = opt.width - ft_strlen(str) - opt.space - opt.sign;
+		len = get_width(opt, str);
 		addr = (unsigned long)str;
 		p = get_addr(addr, 16);
-		if (opt.align == 1)
+		if (opt.flags & ALIGN)
 		{
 			write(1, p, ft_strlen(p));
 			if (len > 0)

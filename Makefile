@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 19:43:04 by ddinaut           #+#    #+#              #
-#    Updated: 2017/11/10 20:24:03 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/11/22 18:00:23 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -53,11 +53,13 @@ SRCS = \
 		$(CONV)do_unsign.c \
 		$(CONV)do_ptr.c \
 		$(CONV)do_long.c \
+		$(CONV)get_width.c \
 \
 		$(FUNC)ft_putchar.c \
 		$(FUNC)ft_putnbr.c \
 		$(FUNC)ft_putstr.c \
 		$(FUNC)ft_strlen.c \
+		$(FUNC)nbr_len.c \
 		$(FUNC)ft_itoa_base.c \
 		$(FUNC)ft_atoi.c \
 		$(FUNC)ft_strsub.c
