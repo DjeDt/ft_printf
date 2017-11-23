@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/22 17:26:03 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/23 10:46:16 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int main(void)
 	printf("real : imax = %ji\n", INT64_MAX);
 	ft_printf("mine : imax = %ji\n", INT64_MAX);
 	*/
-	
+
 	ft_printf("\nTest des modificateurs long :\n");
 	ft_printf("Test de 'D' :\n"); // Pas sur debian
 	printf("real : %D et %D\n", 1234, 1234);
@@ -67,7 +67,7 @@ int main(void)
 	ft_printf("Test de 'U' :\n"); // Pas sur debian
 	printf("real : %U et %U\n", 1, 1);
 	ft_printf("mine : %U et %U\n", 1, 1);
-	
+
 	ft_printf("\nTest des pointeurs :\n");
 	printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
 	ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
@@ -82,8 +82,8 @@ int main(void)
 	char *test2 = "c'est le test2";
 	char *test3 = "encore un test numero 3";
 
-	printf("real : %5.5s et |%-30.10s| et %40s\n", test1, test2, test3);
-	ft_printf("mine : %5.5s et |%-30.10s| et %40s\n", test1, test2, test3);
+	printf("real : |%5s| et |%.5s| et |%5.5s| et |%-30.10s| et %40s\n", test1, test1, test1, test2, test3);
+	ft_printf("mine : |%5s| et |%.5s| et |%5.5s| et |%-30.10s| et %40s\n", test1, test1, test1, test2, test3);
 
 	wchar_t sign1 = L'中';
 	wchar_t sign2 = L'文';

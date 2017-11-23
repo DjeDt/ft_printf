@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/22 19:10:43 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/23 10:13:26 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_opt(t_opt *opt)
 	opt->len_mod = 0;
 }
 
-void	get_precision(const char *restrict format, int *count, t_opt *opt)
+void	get_width_min(const char *restrict format, int *count, t_opt *opt)
 {
 	int		count2;
 	char	*str;
@@ -36,8 +36,14 @@ void	get_precision(const char *restrict format, int *count, t_opt *opt)
 		return ;
 	opt->width = ft_atoi(str);
 	free(str);
-	if (format[(*count)] != '.')
-		return ;
+}
+
+void	get_precision(const char *restrict format, int *count, t_opt *opt)
+{
+	int		count2;
+	char	*str;
+
+	str = NULL;
 	count2 = ++(*count);
 	while (format[(*count)] && (format[(*count)] >= '0' && format[(*count)] <= '9'))
 		(*count)++;
@@ -119,7 +125,9 @@ int		do_parse(const char *restrict format, int *c, va_list arg)
 		if (format[(*c)] == '-' || format[(*c)] == '+' || format[(*c)] == ' ' || format[(*c)] == '0' || format[(*c)] == '#')
 			get_flags(format, c, &opt); /* get differents flags */
 		if (format[(*c)] >= '1' && format[(*c)] <= '9')
-			get_precision(format, c, &opt); /* get width and/or precision */
+			get_width_min(format, c, &opt); /* get width and/or precision */
+		if (format[(*c)] == '.')
+			get_precision(format, c,  &opt);
 		if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
 			get_len_mod(format, c, &opt); /* get differents len modifiers */
 	}

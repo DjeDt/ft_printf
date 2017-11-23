@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_width.c                                        :+:      :+:    :+:   */
+/*   ft_putwstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 17:58:52 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/23 10:50:13 by ddinaut          ###   ########.fr       */
+/*   Created: 2017/11/23 10:25:28 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/23 10:26:50 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		get_width(t_opt opt, char *str)
+void	ft_putwstr(const wchar_t *str, t_opt opt)
 {
-	int ret;
-	int len;
-
-	ret = 0;
-	len = ft_strlen(str);
-	if (opt.width > len)
-		ret = opt.width - len;
-	if (opt.flags & SPACE)
-		ret -= 1;
-	if (opt.flags & SIGN)
-		ret -= 1;
-	return (ret);
+	if (str)
+	{
+		if (opt.precision > 0)
+			while (*str && (opt.precision-- > 0))
+				ascii_to_utf8(*str++);
+		else
+			while (*str)
+				ascii_to_utf8(*str++);
+	}
 }

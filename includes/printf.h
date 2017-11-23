@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/22 18:34:29 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/23 10:39:55 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_opt
 void	ft_putchar(char c);
 void	ft_putnbr(int nb);
 void	ft_putstr(const char *str);
+void	ft_putwstr(const wchar_t *str, t_opt opt);
 char	*ft_itoa_base(int value, int base);
 size_t	ft_strlen(const char *str);
 int		nbr_len(int i, int base);
@@ -72,6 +73,17 @@ void	do_long(va_list arg, t_opt opt, char c);
 void	ascii_to_utf8(wchar_t ch);
 
 int		get_width(t_opt opt, char *str);
+
+/**
+ **	PRINT
+**/
+
+void	print_ptr_s(void *str, t_opt opt);
+void	print_ptr_S(void *str, t_opt opt);
+void	print_ptr_p(void *str, t_opt opt);
+int		get_addr_len(unsigned long value, int base);
+char	*get_addr(unsigned long value, int base);
+void	print_ptr_prefix(t_opt opt, int len);
 
 /**
  ** CORE
