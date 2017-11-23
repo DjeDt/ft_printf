@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 00:22:14 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 00:25:42 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int main(void)
 
 	ft_printf("Test 'j' :\n");
 	intmax_t imax;
-	printf("real : imax = %lli\n", INT64_MAX);
+	printf("real : imax = %ji\n", INT64_MAX);
 	ft_printf("mine : imax = %ji\n", INT64_MAX);
 
 	ft_printf("\nTest des modificateurs long :\n");

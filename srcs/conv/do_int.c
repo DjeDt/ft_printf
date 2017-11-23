@@ -6,12 +6,22 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 00:21:14 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 00:39:47 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include <stdio.h>
+
+size_t	long_int_len(long long int value, int base)
+{
+	size_t ret;
+
+	ret = 1;
+	while (value /= base)
+		ret++;
+	return (ret);
+}
 
 char	*convert_int(long long int value, int base)
 {
@@ -26,7 +36,7 @@ char	*convert_int(long long int value, int base)
 		neg = 1;
 		value *= (-1);
 	}
-	count = nbr_len(value, base) + neg;
+	count = long_int_len(value, base) + neg;
 	str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
