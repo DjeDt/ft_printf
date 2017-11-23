@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 19:43:04 by ddinaut           #+#    #+#              #
-#    Updated: 2017/11/23 10:40:42 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/11/24 00:17:48 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,7 @@ NAME = libprintf.a
 # Details #
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror
-E_FLAGS =
+E_FLAGS = -fsanitize=address
 
 # Path #
 OBJ_PATH = obj

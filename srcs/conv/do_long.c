@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:34:34 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/22 18:05:18 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 00:21:27 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_long_prefix(int len, t_opt opt)
 {
-	char	tmp[len];
+	char	tmp[len + 1];
 
 	tmp[len] = '\0';
 	while (len-- > 0)

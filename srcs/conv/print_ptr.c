@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 10:23:05 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 00:11:52 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 00:18:00 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_ptr_prefix(t_opt opt, int len)
 {
-	char	tmp[len];
+	char	tmp[len + 1];
 
 	tmp[len] = '\0';
 	while (len--)
