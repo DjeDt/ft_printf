@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 17:58:52 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/23 10:50:13 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/23 15:35:26 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		get_width(t_opt opt, char *str)
 	len = ft_strlen(str);
 	if (opt.width > len)
 		ret = opt.width - len;
+	else
+		ret = opt.width;
 	if (opt.flags & SPACE)
 		ret -= 1;
 	if (opt.flags & SIGN)

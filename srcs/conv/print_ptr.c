@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 10:23:05 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/23 10:48:42 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 00:11:52 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,63 @@ void	print_ptr_prefix(t_opt opt, int len)
 	ft_putstr(tmp);
 }
 
+void	print_prefix_before(void *str, t_opt opt, int len)
+{
+	int	max;
+
+	len = ft_strlen(str);
+	if (opt.precision > 0)
+		write(1, str, opt.precision);
+	else
+		ft_putstr(str);
+	if (opt.precision > 0 && opt.width > 0)
+	{
+		max = opt.width - opt.precision;
+		if (max > 0)
+			print_ptr_prefix(opt, max);
+	}
+	else if (opt.width > len)
+	{
+		max = opt.width - len;
+		if (max > 0)
+			print_ptr_prefix(opt, max);
+	}
+}
+
+void	print_prefix_after(void *str, t_opt opt, int len)
+{
+	int	max;
+
+	len = ft_strlen(str);
+	if (opt.precision > 0 && opt.width > 0)
+	{
+		max = opt.width - opt.precision;
+		if (max > 0)
+			print_ptr_prefix(opt, max);
+	}
+	else if (opt.width > len)
+	{
+		max = opt.width - len;
+		if (max > 0)
+			print_ptr_prefix(opt, max);
+	}
+	if (opt.precision > 0)
+		write(1, str, opt.precision);
+	else
+		ft_putstr(str);
+}
+
 void	print_ptr_s(void *str, t_opt opt)
 {
 	int len;
 
 	if (str != NULL)
 	{
-		len = get_width(opt, str);
+		len = ft_strlen(str);
 		if (opt.flags & ALIGN)
-		{
-			if (opt.precision > 0)
-				write(1, str, opt.precision);
-			else
-				ft_putstr(str);
-			if (len > 0)
-				print_ptr_prefix(opt, len);
-		}
+			print_prefix_before(str, opt, len);
 		else
-		{
-			if (len > 0)
-				print_ptr_prefix(opt, len);
-			if (opt.precision > 0)
-				write(1, str, opt.precision);
-			else
-				ft_putstr(str);
-		}
+			print_prefix_after(str, opt, len);
 	}
 	else
 		ft_putstr("(null)");
