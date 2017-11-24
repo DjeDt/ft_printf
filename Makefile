@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/04 19:43:04 by ddinaut           #+#    #+#              #
-#    Updated: 2017/11/24 00:33:50 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/11/24 11:00:53 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -24,8 +24,9 @@ SRC_PATH = srcs
 INC_PATH = includes/
 
 # Sub_dirs #
-CONV =	conv/
-FUNC =	lib/
+CONV	= conv/
+FUNC	= lib/
+UTILS	= utils/
 
 # More sub_dir #
 
@@ -57,6 +58,7 @@ SRCS = \
 		$(CONV)get_width.c \
 \
 		$(FUNC)ft_putchar.c \
+		$(FUNC)ft_ascii_to_utf8.c \
 		$(FUNC)ft_putnbr.c \
 		$(FUNC)ft_putstr.c \
 		$(FUNC)ft_putwstr.c \
@@ -64,7 +66,12 @@ SRCS = \
 		$(FUNC)nbr_len.c \
 		$(FUNC)ft_itoa_base.c \
 		$(FUNC)ft_atoi.c \
-		$(FUNC)ft_strsub.c
+		$(FUNC)ft_strsub.c \
+		$(FUNC)ft_strdup.c \
+		$(FUNC)ft_strjoin.c \
+		$(FUNC)ft_strjoin_fr.c \
+\
+		$(UTILS)print_exeption.c
 
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRCS))

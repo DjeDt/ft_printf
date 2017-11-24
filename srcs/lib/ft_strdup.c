@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nbr_len.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 17:11:37 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 09:27:52 by ddinaut          ###   ########.fr       */
+/*   Created: 2016/11/04 20:13:23 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/24 11:05:07 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int	nbr_len(unsigned long long i, int base)
-{
-	int len;
+/*
+**	ft_strdup :
+**	-> returns a pointer to a new string which is a duplicate of the string s1
+*/
 
-	len = 1;
-	while (i /= base)
-		len++;
-	return (len);
+char	*ft_strdup(const char *s1)
+{
+	char	*ret;
+	size_t	i;
+
+	i = 0;
+	if (!(ret = (char*)malloc(sizeof(char) * ft_strlen(s1) + 1)))
+		return (NULL);
+	while (s1[i] != '\0')
+	{
+		ret[i] = s1[i];
+		i++;
+	}
+	ret[i] = '\0';
+	return (ret);
 }

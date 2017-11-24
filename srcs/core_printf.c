@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/23 10:13:26 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 10:45:55 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	get_flags(const char *restrict format, int *c, t_opt *opt)
 int		is_conv_char(char c)
 {
 	if (c == 'd' || c == 'i' || c == 'c' || c == 'C' || c == 's' ||
-		c == 'S' || c == 'p' || c == 'D' || c == 'O' || c == 'U')
+		c == 'S' || c == 'p' || c == 'D' || c == 'O' || c == 'U' || c == 'o' || c == 'x' || c == 'X')
 		return (1);
 	return (0);
 }

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nbr_len.c                                          :+:      :+:    :+:   */
+/*   print_exeption.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 17:11:37 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 09:27:52 by ddinaut          ###   ########.fr       */
+/*   Created: 2017/11/24 10:22:35 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/24 10:27:14 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int	nbr_len(unsigned long long i, int base)
+void	print_exeption(long long int i, t_opt opt)
 {
-	int len;
-
-	len = 1;
-	while (i /= base)
-		len++;
-	return (len);
+	if ((opt.flags & SPACE) && (i >= 0) && (opt.flags & SIGN) == 0)
+		ft_putchar(' ');
+	else if ((opt.flags & SIGN) && (i >= 0))
+		ft_putchar('+');
 }

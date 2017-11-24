@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:34:34 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 00:21:27 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 10:27:44 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void	print_long(t_opt opt, char *str, long long i)
 		len++;
 	if (opt.flags & ALIGN)
 	{
-		if ((opt.flags & SPACE) && i >= 0 && (opt.flags & SIGN) == 0)
-			ft_putchar(' ');
-		else if ((opt.flags & SIGN) && i >= 0)
-			ft_putchar('+');
+		print_exeption(i, opt);
 		ft_putstr(str);
 		if (len > 0)
 			print_long_prefix(len, opt);
@@ -43,10 +40,7 @@ void	print_long(t_opt opt, char *str, long long i)
 	{
 		if (len > 0)
 			print_long_prefix(len, opt);
-		if ((opt.flags & SPACE) && i >= 0 && (opt.flags & SIGN) == 0)
-			ft_putchar(' ');
-		else if ((opt.flags & SIGN) && i >= 0)
-			ft_putchar('+');
+		print_exeption(i, opt);
 		ft_putstr(str);
 	}
 }

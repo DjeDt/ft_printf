@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/23 10:39:55 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/24 11:03:45 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,19 @@ typedef struct	s_opt
  **/
 
 void	ft_putchar(char c);
+void	ft_ascii_to_utf8(wchar_t ch);
 void	ft_putnbr(int nb);
 void	ft_putstr(const char *str);
 void	ft_putwstr(const wchar_t *str, t_opt opt);
 char	*ft_itoa_base(int value, int base);
 size_t	ft_strlen(const char *str);
-int		nbr_len(int i, int base);
+int		nbr_len(unsigned long long i, int base);
 int		ft_atoi(const char *str);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
+
+char	*ft_strdup(const char *s1);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin_fr(char const *s1, char *s2);
 
 /**
  ** CONVERSION
@@ -84,7 +89,7 @@ void	print_ptr_p(void *str, t_opt opt);
 int		get_addr_len(unsigned long value, int base);
 char	*get_addr(unsigned long value, int base);
 void	print_ptr_prefix(t_opt opt, int len);
-
+void	print_exeption(long long int i, t_opt opt);
 /**
  ** CORE
  **/

@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nbr_len.c                                          :+:      :+:    :+:   */
+/*   ft_strjoin_fr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 17:11:37 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 09:27:52 by ddinaut          ###   ########.fr       */
+/*   Created: 2017/02/24 20:41:29 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/24 11:07:24 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int	nbr_len(unsigned long long i, int base)
+char		*ft_strjoin_fr(char const *s1, char *s2)
 {
-	int len;
+	char	*ret;
 
-	len = 1;
-	while (i /= base)
-		len++;
-	return (len);
+	ret = ft_strjoin(s1, s2);
+	free(s2);
+	return (ret);
 }
