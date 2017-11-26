@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 10:24:41 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/26 18:55:16 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	print_int(long long int i, t_opt opt, char c)
 	if (str != NULL)
 	{
 		len = get_width(opt, str);
-		if (i < 0 && (opt.flags & SIGN))
+		if (i < 0 && (opt.flags & FLAG_SIGN))
 			len++;
-		if (opt.flags & ALIGN)
+		if (opt.flags & FLAG_LEFT)
 		{
 			print_exeption(i, opt);
 			ft_putstr(str);

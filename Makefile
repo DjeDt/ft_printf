@@ -5,13 +5,13 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/11/04 19:43:04 by ddinaut           #+#    #+#              #
-#    Updated: 2017/11/24 11:00:53 by ddinaut          ###   ########.fr        #
+#    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
+#    Updated: 2017/11/25 17:26:14 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 # Output file #
-NAME = libprintf.a
+NAME = libftprintf.a
 
 # Details #
 CC		= gcc
@@ -42,7 +42,7 @@ END_COL		= \033[0;m
 
 AR	= ar rc $(NAME)
 RAN = ranlib $(NAME)
-INC = -I $(INC_PATH)
+INC = -I$(INC_PATH)
 
 # Sources #
 SRCS = \
@@ -77,7 +77,7 @@ OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRCS))
 
 # Rules #
-.PHONY: all clean fclean re logo
+.PHONY: all clean fclean re
 
 all: $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 11:03:45 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/26 20:50:06 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,25 @@
 # define MOD_T	32
 # define MOD_Z	64
 
-# define ALIGN	(1 << 0)
-# define SIGN	(1 << 1)
-# define SPACE	(1 << 2)
-# define DIEZ	(1 << 3)
-# define ZERO	(1 << 4)
+# define FLAG_LEFT	(1 << 0)
+# define FLAG_SIGN	(1 << 1)
+# define FLAG_SPACE	(1 << 2)
+# define FLAG_ALT	(1 << 3)
+# define FLAG_ZERO	(1 << 4)
 
 typedef struct	s_opt
 {
-	int			flags;
-	char		prefix;
-	int			width;
-	int			precision;
-	int			len_mod;
+	int		flags;
+	char	prefix;
+	size_t	width;
+	size_t	precision;
+	int		len_mod;
+	size_t	arg_len;
 }				t_opt;
 
+
 /**
- ** LIBFT
+ ** LIB
  **/
 
 void	ft_putchar(char c);
@@ -88,7 +90,7 @@ void	print_ptr_S(void *str, t_opt opt);
 void	print_ptr_p(void *str, t_opt opt);
 int		get_addr_len(unsigned long value, int base);
 char	*get_addr(unsigned long value, int base);
-void	print_ptr_prefix(t_opt opt, int len);
+void	print_ptr_prefix(t_opt opt, size_t len);
 void	print_exeption(long long int i, t_opt opt);
 /**
  ** CORE

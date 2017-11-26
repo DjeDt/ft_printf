@@ -6,13 +6,13 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 10:23:05 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 00:18:00 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/26 19:01:07 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	print_ptr_prefix(t_opt opt, int len)
+void	print_ptr_prefix(t_opt opt, size_t len)
 {
 	char	tmp[len + 1];
 
@@ -22,9 +22,9 @@ void	print_ptr_prefix(t_opt opt, int len)
 	ft_putstr(tmp);
 }
 
-void	print_prefix_before(void *str, t_opt opt, int len)
+void	print_prefix_before(void *str, t_opt opt, size_t len)
 {
-	int	max;
+	size_t	max;
 
 	len = ft_strlen(str);
 	if (opt.precision > 0)
@@ -45,9 +45,9 @@ void	print_prefix_before(void *str, t_opt opt, int len)
 	}
 }
 
-void	print_prefix_after(void *str, t_opt opt, int len)
+void	print_prefix_after(void *str, t_opt opt, size_t len)
 {
-	int	max;
+	size_t	max;
 
 	len = ft_strlen(str);
 	if (opt.precision > 0 && opt.width > 0)
@@ -70,12 +70,12 @@ void	print_prefix_after(void *str, t_opt opt, int len)
 
 void	print_ptr_s(void *str, t_opt opt)
 {
-	int len;
+	size_t len;
 
 	if (str != NULL)
 	{
 		len = ft_strlen(str);
-		if (opt.flags & ALIGN)
+		if (opt.flags & FLAG_LEFT)
 			print_prefix_before(str, opt, len);
 		else
 			print_prefix_after(str, opt, len);
@@ -86,12 +86,12 @@ void	print_ptr_s(void *str, t_opt opt)
 
 void	print_ptr_S(void *str, t_opt opt)
 {
-	int len;
+	size_t len;
 
 	if (str != NULL)
 	{
 		len = get_width(opt, str);
-		if (opt.flags & ALIGN)
+		if (opt.flags & FLAG_LEFT)
 		{
 			ft_putwstr(str, opt);
 			if (len > 0)
@@ -111,7 +111,7 @@ void	print_ptr_S(void *str, t_opt opt)
 void	print_ptr_p(void *str, t_opt opt)
 {
 	void			*p;
-	int				len;
+	size_t			len;
 	unsigned long	addr;
 
 	p = NULL;
@@ -120,7 +120,7 @@ void	print_ptr_p(void *str, t_opt opt)
 		len = get_width(opt, str);
 		addr = (unsigned long)str;
 		p = get_addr(addr, 16);
-		if (opt.flags & ALIGN)
+		if (opt.flags & FLAG_LEFT)
 		{
 			write(1, p, ft_strlen(p));
 			if (len > 0)

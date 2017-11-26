@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 11:06:56 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/26 19:59:14 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 
 char	*print_unsign_exeption(t_opt opt, char c, char **str)
 {
-	if (opt.flags & DIEZ)
+	if (opt.flags & FLAG_ALT)
 	{
 		if (c == 'o' )
-			*str = ft_strjoin_fr("0", *str);//			ft_putchar('0');
+			*str = ft_strjoin_fr("0", *str);
 		else if (c == 'x')
-			*str = ft_strjoin_fr("0x", *str);//ft_putstr("0x");
+			*str = ft_strjoin_fr("0x", *str);
 		else if (c == 'X')
-			*str = ft_strjoin_fr("0X", *str);//ft_putstr("0X");
+			*str = ft_strjoin_fr("0X", *str);
 	}
 	return (*str);
 }
@@ -86,21 +86,3 @@ void	do_unsign(va_list arg, t_opt opt, char c)
 		i = (unsigned int)va_arg(arg, unsigned long long int);
 	print_unsign(opt, i, c);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

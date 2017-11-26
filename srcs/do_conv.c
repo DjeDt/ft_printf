@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:23:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/22 18:36:19 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/26 21:06:37 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,27 @@ int		oneof(const char *str, char c)
 
 void	check_exeption(const char c, t_opt *opt)
 {
-	if ((oneof("cdipsu", c) == 1) && (opt->flags & DIEZ))
-		opt->flags &= ~DIEZ;
-	if ((oneof("diouixX", c) == 1) && (opt->flags & ZERO))
-		opt->flags &= ~ZERO;
-	if ((opt->flags & ZERO) && (opt->flags & ALIGN))
-		opt->flags &= ~ZERO;
-	if ((oneof("aAdeEfFgGi", c) == 0) && (opt->flags & SPACE))
-		opt->flags &= ~SPACE;
-	if ((opt->flags & SPACE) && (opt->flags & SIGN))
-		opt->flags &= ~SPACE;
+	if ((oneof("cdipsu", c) == 1) && (opt->flags & FLAG_ALT))
+		opt->flags &= ~FLAG_ALT;
+	if ((oneof("diouixX", c) == 1) && (opt->flags & FLAG_ZERO))
+	{
+		opt->flags &= ~FLAG_ZERO;
+		opt->prefix = ' ';
+	}
+	if ((opt->flags & FLAG_ZERO) && (opt->flags & FLAG_LEFT))
+	{
+		opt->flags &= ~FLAG_ZERO;
+		opt->prefix = ' ';
+	}
+	if ((oneof("aAdeEfFgGi", c) == 0) && (opt->flags & FLAG_SPACE))
+		opt->flags &= ~FLAG_SPACE;
+	if ((opt->flags & FLAG_SPACE) && (opt->flags & FLAG_SIGN))
+		opt->flags &= ~FLAG_SPACE;
 }
 
 void	do_conv(const char *restrict format, int *count, va_list arg, t_opt opt)
 {
+	int	len;
 
 	check_exeption(format[(*count)], &opt);
 	if (format[(*count)] == 'd' || format[(*count)] == 'i')
@@ -58,5 +65,8 @@ void	do_conv(const char *restrict format, int *count, va_list arg, t_opt opt)
 	else if (format[(*count)] == 'D' || format[(*count)] == 'O' || format[(*count)] == 'U')
 		do_long(arg, opt, format[(*count)]);
 	else
-		ft_putchar(format[(*count)]);
+	{
+		len = (*count) - opt.arg_len;
+		write(1, format + ((*count) - len), len + 1);
+	}
 }

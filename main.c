@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 11:07:28 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/26 21:10:16 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int main(void)
 {
-	/*
+
 	printf("real_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	ft_printf("mine_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
 	printf("real_char_2 = %5c\n", 'd');
@@ -98,17 +98,14 @@ int main(void)
 
 	ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
 	printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
-	*/
 
 	unsigned int o = 123;
-	
+
 	ft_printf("Test du # :\n");
 	printf("real : x = %#x et X = %#X et o = %#o\n", o, o, o);
 	ft_printf("mine : x = %#x et X = %#X et o = %#o\n", o, o, o);
+	printf("real : %123   %\n");
+	ft_printf("mine : %123   %\n");
+
 	return (0);
 }
-
-
-
-
-

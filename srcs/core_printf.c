@@ -6,20 +6,21 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/24 10:45:55 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/26 21:09:27 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include <stdio.h>
 
-void	init_opt(t_opt *opt)
+void	init_opt(t_opt *opt, int *c)
 {
 	opt->flags = 0;
 	opt->prefix = ' ';
 	opt->width = 0;
 	opt->precision = 0;
 	opt->len_mod = 0;
+	opt->arg_len = (*c) - 1;
 }
 
 void	get_width_min(const char *restrict format, int *count, t_opt *opt)
@@ -37,7 +38,6 @@ void	get_width_min(const char *restrict format, int *count, t_opt *opt)
 	opt->width = ft_atoi(str);
 	free(str);
 }
-
 void	get_precision(const char *restrict format, int *count, t_opt *opt)
 {
 	int		count2;
@@ -65,80 +65,71 @@ void	get_len_mod(const char *restrict format, int *count, t_opt *opt)
 		opt->len_mod = MOD_T;
 	else if (format[(*count)] == 'z')
 		opt->len_mod = MOD_Z;
-	else if ((format[(*count)] == 'h' && format[(*count) + 1] == 'h') || (format[(*count)] == 'l' && format[(*count) + 1] == 'l'))
+	(*count)++;
+	if (format[(*count)] == 'h' || format[(*count)] == 'l')
 	{
-		if (format[(*count) + 1] == 'h')
+		if (format[(*count)] == 'h')
 			opt->len_mod = MOD_HH;
-		else if(format[(*count) + 1] == 'l')
+		else if (format[(*count)] == 'l')
 			opt->len_mod = MOD_LL;
 		(*count)++;
 	}
-	(*count)++;
 }
 
 void	get_flags(const char *restrict format, int *c, t_opt *opt)
 {
 	if (format[(*c)] == '-')
 	{
-		opt->flags |= ALIGN;
+		opt->flags |= FLAG_LEFT;
 		(*c)++;
 	}
-	else if (format[(*c)] == '+')
+	if (format[(*c)] == '+')
 	{
-		opt->flags |= SIGN;
+		opt->flags |= FLAG_SIGN;
 		(*c)++;
 	}
-	else if (format[(*c)] == ' ')
+	if (format[(*c)] == '#')
 	{
-		opt->flags |= SPACE;
+		opt->flags |= FLAG_ALT;
+		(*c)++;
+	}
+	if (format[(*c)] == ' ')
+	{
+		opt->flags |= FLAG_SPACE;
 		opt->prefix = ' ';
 		(*c)++;
 	}
 	else if (format[(*c)] == '0')
 	{
-		opt->flags |= ZERO;
+		opt->flags |= FLAG_ZERO;
 		opt->prefix = '0';
 		(*c)++;
 	}
-	else if (format[(*c)] == '#')
-	{
-		opt->flags |= DIEZ;
-		(*c)++;
-	}
-}
-
-int		is_conv_char(char c)
-{
-	if (c == 'd' || c == 'i' || c == 'c' || c == 'C' || c == 's' ||
-		c == 'S' || c == 'p' || c == 'D' || c == 'O' || c == 'U' || c == 'o' || c == 'x' || c == 'X')
-		return (1);
-	return (0);
 }
 
 int		do_parse(const char *restrict format, int *c, va_list arg)
 {
 	t_opt	opt;
 
-	init_opt(&opt);
-	while (format[(*c)] != '\0' && (is_conv_char(format[(*c)]) == 0))
-	{
-		if (format[(*c)] == '-' || format[(*c)] == '+' || format[(*c)] == ' ' || format[(*c)] == '0' || format[(*c)] == '#')
-			get_flags(format, c, &opt); /* get differents flags */
-		if (format[(*c)] >= '1' && format[(*c)] <= '9')
-			get_width_min(format, c, &opt); /* get width and/or precision */
-		if (format[(*c)] == '.')
-			get_precision(format, c,  &opt);
-		if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
-			get_len_mod(format, c, &opt); /* get differents len modifiers */
-	}
+	init_opt(&opt, c);
+	if ((format[(*c)] == '-') || (format[(*c)] == '+') || (format[(*c)] == ' ') || (format[(*c)] == '0') || (format[(*c)] == '#'))
+		get_flags(format, c, &opt);
+	if (format[(*c)] >= '1' && format[(*c)] <= '9')
+		get_width_min(format, c, &opt);
+//	if (format[(*c)] == '*')
+//		get_precision_or_width_from_arg();
+	if (format[(*c)] == '.')
+		get_precision(format, c,  &opt);
+	if (format[(*c)] == 'l' || format[(*c)] == 'h' || format[(*c)] == 'j' || format[(*c)] == 't' || format[(*c)] == 'z')
+		get_len_mod(format, c, &opt);
 	do_conv(format, c, arg, opt);
 	return (0);
 }
 
 int		ft_printf(const char *restrict format, ...)
 {
-	int				count;
-	va_list			arg;
+	int		count;
+	va_list	arg;
 
 	count = -1;
 	va_start(arg, format);
