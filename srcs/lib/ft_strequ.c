@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/23 10:25:28 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/27 22:18:27 by ddinaut          ###   ########.fr       */
+/*   Created: 2016/11/05 02:47:37 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/27 15:29:09 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_putwstr(const wchar_t *str, t_opt opt)
-{
-	int ret;
+/*
+**	ft_strequ :
+**	-> compare s1 and s2, return 1 if strings are the same, 0 if not
+*/
 
-	ret = 0;
-	if (str)
+int		ft_strequ(char const *s1, char const *s2)
+{
+	size_t i;
+
+	i = 0;
+	if (s1 && s2)
 	{
-		if (opt.precision > 0)
-			while (*str && (opt.precision-- > 0))
-				ret += ft_ascii_to_utf8(*str++);
-		else
-			while (*str)
-				ret += ft_ascii_to_utf8(*str++);
+		while (s1[i] || s2[i])
+		{
+			if (s1[i] != s2[i])
+				return (0);
+			i++;
+		}
+		return (1);
 	}
-	return (ret);
+	else
+		return (0);
 }

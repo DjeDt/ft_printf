@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 17:32:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/10 19:55:20 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/29 11:23:33 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char		*ft_itoa_base(int value, int base)
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ret[count] = '\0';
-	while (count--)
+	while (count-- > 0)
 	{
 		ret[count] = str[value % base];
 		value /= base;

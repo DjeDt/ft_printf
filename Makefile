@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/11/25 17:26:14 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/11/30 19:03:09 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -46,32 +46,37 @@ INC = -I$(INC_PATH)
 
 # Sources #
 SRCS = \
-		core_printf.c \
+		ft_printf.c \
+		ft_printf2.c \
 		do_conv.c \
 \
 		$(CONV)do_char.c \
 		$(CONV)do_int.c \
 		$(CONV)do_unsign.c \
 		$(CONV)do_ptr.c \
-		$(CONV)print_ptr.c \
 		$(CONV)do_long.c \
-		$(CONV)get_width.c \
+		$(CONV)add_to_final.c \
 \
 		$(FUNC)ft_putchar.c \
 		$(FUNC)ft_ascii_to_utf8.c \
 		$(FUNC)ft_putnbr.c \
 		$(FUNC)ft_putstr.c \
+		$(FUNC)ft_putlstr.c \
 		$(FUNC)ft_putwstr.c \
 		$(FUNC)ft_strlen.c \
 		$(FUNC)nbr_len.c \
+		$(FUNC)ft_strequ.c \
 		$(FUNC)ft_itoa_base.c \
 		$(FUNC)ft_atoi.c \
 		$(FUNC)ft_strsub.c \
+		$(FUNC)ft_strfsub.c \
 		$(FUNC)ft_strdup.c \
 		$(FUNC)ft_strjoin.c \
 		$(FUNC)ft_strjoin_fr.c \
+		$(FUNC)ft_strjoin_fl.c \
 \
-		$(UTILS)print_exeption.c
+		$(UTILS)print_exeption.c \
+		$(UTILS)oneof.c
 
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRCS))

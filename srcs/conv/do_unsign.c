@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/26 19:59:14 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/30 19:22:43 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,45 +29,35 @@ char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 	return (ret);
 }
 
-char	*print_unsign_exeption(t_opt opt, char c, char **str)
+void	*unsign_to_str(unsigned long long int i, void *to_add, char c, t_opt opt)
 {
-	if (opt.flags & FLAG_ALT)
+	if (c == 'o')
+		to_add = ft_itoa_base(i, 8);
+	else if (c == 'u')
+		to_add = ft_itoa_base(i, 10);
+	else if (c == 'x')
+		to_add = ft_convert_unsign(i, 16, "0123456789abcdef");
+	else if (c == 'X')
+		to_add = ft_convert_unsign(i, 16, "0123456789ABCDEF");
+	if (opt.flags & FLAG_ALT && (i != 0)) // checker i != 0
 	{
 		if (c == 'o' )
-			*str = ft_strjoin_fr("0", *str);
+			to_add = ft_strjoin_fr("0", to_add);
 		else if (c == 'x')
-			*str = ft_strjoin_fr("0x", *str);
+			to_add = ft_strjoin_fr("0x", to_add);
 		else if (c == 'X')
-			*str = ft_strjoin_fr("0X", *str);
+			to_add = ft_strjoin_fr("0X", to_add);
 	}
-	return (*str);
+	return (to_add);
 }
 
-void	print_unsign(t_opt opt, unsigned long long int i, char c)
+int		do_unsign(va_list arg, t_opt opt, char c, void **final)
 {
-	char	*str;
+	int						ret;
+	unsigned long long int	i;
+	void					*to_add;
 
-	str = NULL;
-	if (c == 'o')
-		str = ft_itoa_base(i, 8);
-	else if (c == 'u')
-		str = ft_itoa_base(i, 10);
-	else if (c == 'x')
-		str = ft_convert_unsign(i, 16, "0123456789abcdef");
-	else if (c == 'X')
-		str = ft_convert_unsign(i, 16, "0123456789ABCDEF");
-	if (str != NULL)
-	{
-		print_unsign_exeption(opt, c, &str);
-		ft_putstr(str);
-		free(str);
-	}
-}
-
-void	do_unsign(va_list arg, t_opt opt, char c)
-{
-	unsigned long long int i;
-
+	to_add = NULL;
 	if (opt.len_mod == MOD_L)
 		i = (unsigned long)va_arg(arg, unsigned long long int);
 	else if (opt.len_mod == MOD_LL)
@@ -84,5 +74,7 @@ void	do_unsign(va_list arg, t_opt opt, char c)
 		i = (size_t)va_arg(arg, unsigned long long int);
 	else
 		i = (unsigned int)va_arg(arg, unsigned long long int);
-	print_unsign(opt, i, c);
+	to_add = unsign_to_str(i, to_add, c, opt);
+	ret = concat_to_str(final, to_add, opt);
+	return (ret);
 }

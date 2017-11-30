@@ -6,33 +6,17 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:23:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/26 21:06:37 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/30 19:14:35 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		oneof(const char *str, char c)
-{
-	int count;
-
-	count = -1;
-	if (str)
-	{
-		while (str[++count])
-		{
-			if (str[count] == c)
-				return (1);
-		}
-	}
-	return (0);
-}
-
 void	check_exeption(const char c, t_opt *opt)
 {
 	if ((oneof("cdipsu", c) == 1) && (opt->flags & FLAG_ALT))
 		opt->flags &= ~FLAG_ALT;
-	if ((oneof("diouixX", c) == 1) && (opt->flags & FLAG_ZERO))
+	if ((oneof("diouixX", c) == 1) && (opt->flags & FLAG_ZERO) && (opt->precision > 0))
 	{
 		opt->flags &= ~FLAG_ZERO;
 		opt->prefix = ' ';
@@ -48,25 +32,31 @@ void	check_exeption(const char c, t_opt *opt)
 		opt->flags &= ~FLAG_SPACE;
 }
 
-void	do_conv(const char *restrict format, int *count, va_list arg, t_opt opt)
+int		test(t_opt opt, char c, void **final)
 {
-	int	len;
+	int		ret;
+	char	to_add[2];
 
-	check_exeption(format[(*count)], &opt);
-	if (format[(*count)] == 'd' || format[(*count)] == 'i')
-		do_int(arg, opt, format[(*count)]);
-	else if (format[(*count)] == 'c' || format[(*count)] == 'C')
-		do_char(arg, opt, format[(*count)]);
-	else if (format[(*count)] == 'o' || format[(*count)] == 'u' || \
-			 format[(*count)] == 'x' || format[(*count)] == 'X')
-		do_unsign(arg, opt, format[(*count)]);
-	else if (format[(*count)] == 's' || format[(*count)] == 'S' || format[(*count)] == 'p')
-		do_ptr(arg, opt, format[(*count)]);
-	else if (format[(*count)] == 'D' || format[(*count)] == 'O' || format[(*count)] == 'U')
-		do_long(arg, opt, format[(*count)]);
+	to_add[0] = c;
+	to_add[1] = '\0';
+	ret = concat_to_str(final, to_add, opt);
+	return (ret);
+}
+
+void	do_conv(t_core *core, int *count, va_list arg)
+{
+	check_exeption(core->fmt[(*count)], &core->opt);
+	if (core->fmt[(*count)] == 'd' || core->fmt[(*count)] == 'i')
+		core->bytes += do_int(arg, core->opt, core->fmt[(*count)], &core->final);
+	if (core->fmt[(*count)] == 'c' || core->fmt[(*count)] == 'C')
+		core->bytes += do_char(arg, core->opt, core->fmt[(*count)], &core->final);
+	else if (core->fmt[(*count)] == 'o' || core->fmt[(*count)] == 'u' || \
+			 core->fmt[(*count)] == 'x' || core->fmt[(*count)] == 'X')
+		core->bytes += do_unsign(arg, core->opt, core->fmt[(*count)], &core->final);
+	else if (core->fmt[(*count)] == 's' || core->fmt[(*count)] == 'S' || core->fmt[(*count)] == 'p')
+		core->bytes += do_ptr(arg, core->opt, core->fmt[(*count)], &core->final);
+	else if (core->fmt[(*count)] == 'D' || core->fmt[(*count)] == 'O' || core->fmt[(*count)] == 'U')
+		core->bytes += do_long(arg, core->opt, core->fmt[(*count)], &core->final);
 	else
-	{
-		len = (*count) - opt.arg_len;
-		write(1, format + ((*count) - len), len + 1);
-	}
+		core->bytes += test(core->opt, core->fmt[(*count)], &core->final);
 }

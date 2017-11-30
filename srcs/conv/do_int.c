@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/26 18:55:16 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/30 18:57:54 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,52 +35,25 @@ char	*convert_int(long long int value, int base)
 		ret[count] = str[(value % base)];
 		value /= base;
 	}
-	if (neg == 1)
-		ret[0] = '-';
+	neg == 1 ? ret[0] = '-' : 0;
 	return (ret);
 }
 
-void	print_int_prefix(int len, t_opt opt)
+int		check_int_exception(long long int i, t_opt opt)
 {
-	char	tmp[len + 1];
+	if ((opt.flags & FLAG_SPACE) && (i >= 0) && ((opt.flags & FLAG_SIGN) == 0))
+		return (1);
+	else if ((opt.flags & FLAG_SIGN) && (i >= 0))
+		return (2);
+	return (0);
 
-	tmp[len] = '\0';
-	while (len-- > 0)
-		tmp[len] = opt.prefix;
-	ft_putstr(tmp);
 }
 
-void	print_int(long long int i, t_opt opt, char c)
+int		do_int(va_list arg, t_opt opt, char c, void **final)
 {
-	int		len;
-	char	*str;
-
-	(void)c;
-	str = convert_int(i, 10);
-	if (str != NULL)
-	{
-		len = get_width(opt, str);
-		if (i < 0 && (opt.flags & FLAG_SIGN))
-			len++;
-		if (opt.flags & FLAG_LEFT)
-		{
-			print_exeption(i, opt);
-			ft_putstr(str);
-			len > 0 ? print_int_prefix(len, opt) : 0;
-		}
-		else
-		{
-			len > 0 ? print_int_prefix(len, opt) : 0;
-			print_exeption(i, opt);
-			ft_putstr(str);
-		}
-		free(str);
-	}
-}
-
-void	do_int(va_list arg, t_opt opt, char c)
-{
-	long long int i;
+	int				ret;
+	long long int	i;
+	void			*to_add;
 
 	if (opt.len_mod == MOD_L)
 		i = (long)va_arg(arg, long long int);
@@ -98,5 +71,12 @@ void	do_int(va_list arg, t_opt opt, char c)
 		i = (size_t)va_arg(arg, long long int);
 	else
 		i = (int)va_arg(arg, long long int);
-	print_int(i, opt, c);
+	(void)c;
+	to_add = convert_int(i, 10);
+	if (check_int_exception(i, opt) == 1)
+		to_add = ft_strjoin_fr(" ", to_add);
+	else if (check_int_exception(i, opt) == 2)
+		to_add = ft_strjoin_fr("+", to_add);
+	ret = concat_to_str(final, to_add, opt);
+	return (ret);
 }

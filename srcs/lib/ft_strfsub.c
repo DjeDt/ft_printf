@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   ft_strfsub.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/23 10:25:28 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/27 22:18:27 by ddinaut          ###   ########.fr       */
+/*   Created: 2016/11/05 03:03:55 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/30 17:29:30 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_putwstr(const wchar_t *str, t_opt opt)
+char	*ft_strfsub(char *s, unsigned int start, size_t len)
 {
-	int ret;
+	size_t	i;
+	char	*ret;
 
-	ret = 0;
-	if (str)
+	i = 0;
+	ret = NULL;
+	if (s != NULL)
 	{
-		if (opt.precision > 0)
-			while (*str && (opt.precision-- > 0))
-				ret += ft_ascii_to_utf8(*str++);
-		else
-			while (*str)
-				ret += ft_ascii_to_utf8(*str++);
+		if (!(ret = (char*)malloc(sizeof(char) * (len + 1))))
+			return (NULL);
+		while (i < len)
+		{
+			ret[i] = s[start];
+			i++;
+			start++;
+		}
+		ret[i] = '\0';
+		free(s);
 	}
 	return (ret);
 }

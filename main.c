@@ -6,106 +6,184 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/26 21:10:16 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/30 19:27:58 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "includes/printf.h"
 
 int main(void)
 {
+	/*
+	int ret;
+	int	ret2;
 
-	printf("real_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
-	ft_printf("mine_char_1 = %-5c et %2c et %c\n", 'a', 'b', 'c');
-	printf("real_char_2 = %5c\n", 'd');
-	ft_printf("real_char_2 = %5c\n", 'd');
-	printf("real2 = %- 8d et %-d et %-+d et %05d\n", 1, -1, -10, 10);
-	ft_printf("mine2 = %- 8d et %-d et %-+d et %05d\n", 1, -1, -10, 10);
-	printf("real3 = %+5d et %+10d\n", 50, -50);
-	ft_printf("mine3 = %+5d et %+10d\n", 50, -50);
+	ret = 0;
+	ret2 = 0;
 
-	ft_printf("\nTest des modificateurs int :\n");
+	ft_printf("Test 1 :\n");
+	ret = printf("real : %-5c et %2c et %c\n", 'a', 'b', 'c');
+	ret2 = ft_printf("mine : %-5c et %2c et %c\n", 'a', 'b', 'c');
+	printf("Test 1 : {real = %d} {mine = %d}\n", ret, ret2);
 
-	ft_printf("Test 'l' :\n");
-	long lmin = -2147483648;
-	long lmax = 2147483647;
-	printf("real : lmin = %ld et lmax = %ld\n", lmin, lmax);
-	ft_printf("mine : lmin = %ld et lmax = %ld\n", lmin, lmax);
-
-	ft_printf("Test 'll' :\n");
-	long long llmin = -9223372036854775807; // erreur si +1, pourquoi?
-	long long llmax = 9223372036854775807;
-	printf("real : llmin = %lld et llmax = %lld\n", llmin, llmax);
-	ft_printf("mine : llmin = %lld et llmax = %lld\n", llmin, llmax);
-
-	ft_printf("Test 'h' :\n");
-	short smin = -32768;
-	short smax = 32767;
-	printf("real : smin = %hd et smax = %hd\n", smin, smax);
-	ft_printf("mine : smin = %hd et smax = %hd\n", smin, smax);
-
-	ft_printf("Test 'hh' :\n");
-	signed char cmax = -128;
-	signed char cmin = 127;
-	printf("real : cmin = %hhd et cmax = %hhd\n", cmin, cmax);
-	ft_printf("mine : cmin = %hhd et cmax = %hhd\n", cmin, cmax);
-
-	ft_printf("Test 'j' :\n");
-	intmax_t imax;
-	printf("real : imax = %ji\n", INT64_MAX);
-	ft_printf("mine : imax = %ji\n", INT64_MAX);
-
-	ft_printf("\nTest des modificateurs long :\n");
-	ft_printf("Test de 'D' :\n"); // Pas sur debian
-	printf("real : %D et %D\n", 1234, 1234);
-	ft_printf("mine : %D et %D\n", 1234, 1234);
-
-	ft_printf("Test de 'U' :\n"); // Pas sur debian
-	printf("real : %U et %U\n", 1, 1);
-	ft_printf("mine : %U et %U\n", 1, 1);
-
-	ft_printf("\nTest des pointeurs :\n");
-	printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
-	ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
-	char *s = NULL;
-	char s2[3];
-	char c;
-	printf("real : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
-	ft_printf("mine : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
-
-	ft_printf("Test de s :\n");
-	char *test1 = "ceci est le test1";
-	char *test2 = "c'est le test2";
-	char *test3 = "encore un test numero 3";
-
-	printf("real : |%5s| - |%.5s| - |%5.5s| - |%-30.10s| - |%40s|\n", test1, test1, test1, test2, test3);
-	ft_printf("mine : |%5s| - |%.5s| - |%5.5s| - |%-30.10s| - |%40s|\n", test1, test1, test1, test2, test3);
+	ft_printf("\nTest 2 :\n");
+	ret = printf("real : %5c\n", 'd');
+	ret2 = ft_printf("real : %5c\n", 'd');
+	printf("Test2 : {real = %d} {mine = %d}\n", ret, ret2);
+	
+	ft_printf("Test 3 :\n");
+	ret = printf("%5c\n", 'a');
+	ret2 = ft_printf("%5c\n", 'a');
+	printf("Test3 : {real = %d} {mine = %d}\n", ret, ret2);
 
 	wchar_t sign1 = L'中';
 	wchar_t sign2 = L'文';
 	wchar_t sign3 = L'ح';
 
-	ft_printf("Test de l'utf8 :\n");
-	ft_printf("mine = %C et %C et %C\n", sign1, sign2, sign3);
-	printf("real = %C \net \n%C et\n %C\n", sign1, sign2, sign3);
+	ft_printf("\nTest de l'utf8 :\n");
+	ret2 = ft_printf("mine = %C et %C et %C\n", sign1, sign2, sign3);
+	ret = printf("real = %C \net \n%C et\n %C\n", sign1, sign2, sign3);
+	printf("Test S : {real = %d} {mine = %d}\n", ret, ret2);
 
 	wchar_t *wstr1 = L"كيف حالك ؟";
 	wchar_t *wstr2 = L"你好嗎？";
 	wchar_t *wstr3 = L"Πώς είσαι;";
 
-	ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
-	printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
+	ret2 = ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
+	ret = printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
+	printf("Test LC : {real = %d} {mine = %d}\n", ret, ret2);
+	
+	printf("Test int :\n");
+	ft_printf("\nTest 1 :\n");
+	ret = printf("real : %- 8d et %-d et %-+d et %05d\n", 1, -1, -10, 10);
+	ret2 = ft_printf("mine : %- 8d et %-d et %-+d et %05d\n", 1, -1, -10, 10);
+	printf("Test 1 : {real = %d} {mine = %d}\n", ret, ret2);
 
+
+	ft_printf("\nTest 2 :\n");
+	ret = printf("real3 = %+5d et %+10d\n", 50, -50);
+	ret2 = ft_printf("mine3 = %+5d et %+10d\n", 50, -50);
+	printf("Test 2 : {real = %d} {mine = %d}\n", ret, ret2);
+
+	ft_printf("\nTest des modificateurs int :\n");
+	ft_printf("\nTest 'l' :\n");
+	long lmin = -2147483648;
+	long lmax = 2147483647;
+	ret = printf("real : lmin = %ld et lmax = %ld\n", lmin, lmax);
+	ret2 = ft_printf("mine : lmin = %ld et lmax = %ld\n", lmin, lmax);
+	ft_printf("Test 'l' : {real = %d} {mine = %d}\n", ret, ret2);
+	
+	ft_printf("\nTest 'll' :\n");
+	long long llmin = -9223372036854775807; // erreur si +1, pourquoi?
+	long long llmax = 9223372036854775807;
+	ret = printf("real : llmin = %lld et llmax = %lld\n", llmin, llmax);
+	ret2 = ft_printf("mine : llmin = %lld et llmax = %lld\n", llmin, llmax);
+	ft_printf("Test ll : {real = %d} {mine = %d}\n", ret, ret2);
+
+	ft_printf("\nTest 'h' :\n");
+	short smin = -32768;
+	short smax = 32767;
+	ret = printf("real : smin = %hd et smax = %hd\n", smin, smax);
+	ret2 = ft_printf("mine : smin = %hd et smax = %hd\n", smin, smax);
+	ft_printf("Test 'h' : {real = %d} {mine = %d}\n", ret, ret2);
+
+	ft_printf("\nTest 'hh' :\n");
+	signed char cmax = -128;
+	signed char cmin = 127;
+	ret = printf("real : cmin = %hhd et cmax = %hhd\n", cmin, cmax);
+	ret2 = ft_printf("mine : cmin = %hhd et cmax = %hhd\n", cmin, cmax);
+	ft_printf("Test 'hh' : {real = %d} {mine = %d}\n", ret, ret2);
+
+	
+	
+	ft_printf("T\nest 'j' :\n");
+	
+	ret = printf("real : imax = %ji\n", LONG_MAX);
+	ret2 = ft_printf("mine : imax = %ji\n", LONG_MAX);
+	ret = ft_printf("Test 'j' : {real = %d} {mine = %d}\n", ret, ret2);
+	
+	ft_printf("\nTest des modificateurs long :\n");
+	ret = ft_printf("Test de 'D' :\n"); // Pas sur debian
+	ret = printf("real : %D et %D\n", 1234, 1234);
+	ret2 = ft_printf("mine : %D et %D\n", 1234, 1234);
+	ft_printf("{real = %d} {mine = %d}\n", ret, ret2);
+
+	ft_printf("Test2 :\n");
+	ret = printf("real : %+15D et %010D\n", 1234, 1234);
+	ret2 = ft_printf("mine : %+15D et %010D\n", 1234, 1234);
+	ft_printf("{real = %d} {mine = %d}\n", ret, ret2);
+
+	ft_printf("Test de 'U' :\n"); // Pas sur debian
+	ret = printf("real : %U et %U\n", 1, 1);
+	ret2 = ft_printf("mine : %U et %U\n", 1, 1);
+	ft_printf("{real = %d} {mine = %d}\n", ret, ret2);
+
+
+
+	ft_printf("\nTest des pointeurs :\n");
+	
+	char s2[3];
+	char *s = NULL;
+	char c;
+
+	ret = printf("real : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
+	ret2 = ft_printf("mine : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
+	ft_printf("Test1 : {real = %d} {mine = %d}\n", ret, ret2);
+
+	ret = printf("real : p = %5p et p = %-15p et p = %15p et p = %p\n", s, &s2, &c, NULL);
+	ret2 = ft_printf("mine : p = %5p et p = %-15p et p = %15p et p = %p\n", s, &s2, &c, NULL);
+	ft_printf("Test1 : {real = %d} {mine = %d}\n", ret, ret2);
+	
+
+
+	ret = printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
+	ret2 = ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
+	ft_printf("Test ptr : {real = %d} {mine = %d}\n", ret, ret2);
+	
+	ret = printf("real : %s\n", "123");
+	ret2 = ft_printf("mine : %s\n", "123");
+	ft_printf("Test ptr : {real = %d} {mine = %d}\n", ret, ret2);
+
+
+
+	ft_printf("\nTest de s :\n");
+	
+	char *test1 = "ceci est le test1";
+	char *test2 = "c'est le test2";
+	char *test3 = "encore un test numero 3";
+
+
+	
+	ret = printf("real : |%5s| - |%.5s| - |%5.5s| - |%-30.10s| - |%-40s|\n", test1, test1, test1, test2, test3);
+	ret2 = ft_printf("mine : |%5s| - |%.5s| - |%5.5s| - |%-30.10s| - |%-40s|\n", test1, test1, test1, test2, test3);
+	ft_printf("Test s : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : |%10.5s|\n", test1);
+	ret2 = ft_printf("real : |%10.5s|\n", test1);
+	ft_printf("Test s : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : |%-10.20s|\n", "123456789123456");
+	ret2 = ft_printf("real : |%-10.20s|\n", "123456789123456");
+	ft_printf("Test s : {real = %d} {mine = %d}\n", ret, ret2);
+
+	*/
+
+	printf("%s\n", NULL);
+	ft_printf("%s\n", NULL);
+/*
 	unsigned int o = 123;
 
-	ft_printf("Test du # :\n");
-	printf("real : x = %#x et X = %#X et o = %#o\n", o, o, o);
-	ft_printf("mine : x = %#x et X = %#X et o = %#o\n", o, o, o);
-	printf("real : %123   %\n");
-	ft_printf("mine : %123   %\n");
+	ret = printf("real : x = %x et x = %X x = %#x et X = %#X et o = %#o\n", o, o, o, o, o);
+	ret2 = ft_printf("real : x = %x et x = %X x = %#x et X = %#X et o = %#o\n", o, o, o, o, o);
+	ft_printf("Test # : {real = %d} {mine = %d}\n", ret, ret2);
 
+	ret = printf("real : |%-30.10s|\n", test2);
+	ret2 = ft_printf("mine : |%-30.10s|\n", test2);
+	ft_printf("Test s : {real = %d} {mine = %d}\n", ret, ret2);
+*/		
 	return (0);
 }

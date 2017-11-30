@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_fl.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/23 10:25:28 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/27 22:18:27 by ddinaut          ###   ########.fr       */
+/*   Created: 2016/11/05 03:17:37 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/11/28 22:26:05 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_putwstr(const wchar_t *str, t_opt opt)
+char		*ft_strjoin_fl(char *s1, const char *s2)
 {
-	int ret;
+	char	*ret;
 
-	ret = 0;
-	if (str)
-	{
-		if (opt.precision > 0)
-			while (*str && (opt.precision-- > 0))
-				ret += ft_ascii_to_utf8(*str++);
-		else
-			while (*str)
-				ret += ft_ascii_to_utf8(*str++);
-	}
+	ret = ft_strjoin(s1, s2);
+	free(s1);
 	return (ret);
 }
+
+
+
+
+
+
+
+
+
+

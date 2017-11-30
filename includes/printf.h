@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/26 20:50:06 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/11/30 19:31:07 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,63 +40,81 @@
 
 typedef struct	s_opt
 {
-	int		flags;
-	char	prefix;
-	size_t	width;
-	size_t	precision;
-	int		len_mod;
-	size_t	arg_len;
+	int			flags;
+	char		prefix;
+	size_t		width;
+	size_t		precision;
+	int			len_mod;
+	size_t		arg_len;
 }				t_opt;
 
+typedef struct	s_core
+{
+	char		*fmt;
+	int			bytes;
+	int			cur_pos;
+	t_opt		opt;
+	void		*final;
+}				t_core;
 
 /**
  ** LIB
  **/
 
 void	ft_putchar(char c);
-void	ft_ascii_to_utf8(wchar_t ch);
+int		ft_ascii_to_utf8(wchar_t ch);
 void	ft_putnbr(int nb);
 void	ft_putstr(const char *str);
-void	ft_putwstr(const wchar_t *str, t_opt opt);
+void	ft_putlstr(char *str, int bef, int end);
+int		ft_putwstr(const wchar_t *str, t_opt opt);
 char	*ft_itoa_base(int value, int base);
 size_t	ft_strlen(const char *str);
 int		nbr_len(unsigned long long i, int base);
 int		ft_atoi(const char *str);
 char	*ft_strsub(char const *s, unsigned int start, size_t len);
-
+char    *ft_strfsub(char *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strjoin_fr(char const *s1, char *s2);
+char	*ft_strjoin_fl(char *s1, char const *s2);
+int		ft_strequ(const char *s1, const char *s2);
 
 /**
  ** CONVERSION
  **/
 
-void	do_char(va_list arg, t_opt opt, char c);
-void	do_int(va_list arg, t_opt opt, char c);
-void	do_unsign(va_list arg, t_opt opt, char c);
-void	do_ptr(va_list arg, t_opt opt, char c);
-void	do_long(va_list arg, t_opt opt, char c);
-void	ascii_to_utf8(wchar_t ch);
+int		do_int(va_list arg, t_opt opt, char c, void **final);
+int		do_ptr(va_list arg, t_opt opt, char c, void **final);
+int		do_long(va_list arg, t_opt opt, char c, void **final);
+int		do_char(va_list arg, t_opt opt, char c, void **final);
+int		do_unsign(va_list arg, t_opt opt, char c , void **final);
 
-int		get_width(t_opt opt, char *str);
+int		ascii_to_utf8(wchar_t ch);
+char    *convert_int(long long int value, int base);
+int     check_int_exception(long long int i, t_opt opt);
 
 /**
  **	PRINT
 **/
 
-void	print_ptr_s(void *str, t_opt opt);
-void	print_ptr_S(void *str, t_opt opt);
-void	print_ptr_p(void *str, t_opt opt);
 int		get_addr_len(unsigned long value, int base);
-char	*get_addr(unsigned long value, int base);
-void	print_ptr_prefix(t_opt opt, size_t len);
-void	print_exeption(long long int i, t_opt opt);
+char	*get_addr(unsigned long value, int base, t_opt opt);
+int		oneof(const char *str, char c);
+int		concat_to_str(void **base, void *add, t_opt opt);
 /**
  ** CORE
  **/
 
-void	do_conv(const char *restrict format, int *count, va_list arg, t_opt opt);
-int		ft_printf(const char *restrict format, ...);
+void	do_conv(t_core *core, int *count, va_list arg);
+int		ft_printf(const char *format, ...);
+
+int		ft_printf2(const char *format, ...);
+void	do_conv2(char **format, char *save, va_list arg, t_opt opt);
 
 #endif
+
+
+
+
+
+
