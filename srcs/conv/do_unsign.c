@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/30 19:22:43 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/04 16:50:16 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,28 @@ char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 	return (ret);
 }
 
-void	*unsign_to_str(unsigned long long int i, void *to_add, char c, t_opt opt)
+void	*unsign_to_str(unsigned long long int i, void *add, char c, t_opt opt)
 {
 	if (c == 'o')
-		to_add = ft_itoa_base(i, 8);
+		add = ft_itoa_base(i, 8);
 	else if (c == 'u')
-		to_add = ft_itoa_base(i, 10);
+		add = ft_itoa_base(i, 10);
 	else if (c == 'x')
-		to_add = ft_convert_unsign(i, 16, "0123456789abcdef");
+		add = ft_convert_unsign(i, 16, "0123456789abcdef");
 	else if (c == 'X')
-		to_add = ft_convert_unsign(i, 16, "0123456789ABCDEF");
-	if (opt.flags & FLAG_ALT && (i != 0)) // checker i != 0
+		add = ft_convert_unsign(i, 16, "0123456789ABCDEF");
+	if (add == NULL)
+		return (NULL);
+	if (opt.flags & FLAG_ALT && (i != 0))
 	{
-		if (c == 'o' )
-			to_add = ft_strjoin_fr("0", to_add);
+		if (c == 'o')
+			add = ft_strjoin_fr("0", add);
 		else if (c == 'x')
-			to_add = ft_strjoin_fr("0x", to_add);
+			add = ft_strjoin_fr("0x", add);
 		else if (c == 'X')
-			to_add = ft_strjoin_fr("0X", to_add);
+			add = ft_strjoin_fr("0X", add);
 	}
-	return (to_add);
+	return (add);
 }
 
 int		do_unsign(va_list arg, t_opt opt, char c, void **final)

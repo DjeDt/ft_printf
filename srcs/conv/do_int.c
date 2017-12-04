@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/30 18:57:54 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/04 19:57:40 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,26 @@ int		check_int_exception(long long int i, t_opt opt)
 	else if ((opt.flags & FLAG_SIGN) && (i >= 0))
 		return (2);
 	return (0);
+}
 
+char	*do_int_exeption(long long int i, t_opt opt, char *to_add)
+{
+	char	*ret;
+
+	ret = NULL;
+	if (check_int_exception(i, opt) == 1)
+	{
+		ret = ft_strjoin(" ", to_add);
+		ft_strdel(&to_add);
+		return (ret);
+	}
+	else if (check_int_exception(i, opt) == 2)
+	{
+		ret = ft_strjoin("+", to_add);
+		ft_strdel(&to_add);
+		return (ret);
+	}
+	return (to_add);
 }
 
 int		do_int(va_list arg, t_opt opt, char c, void **final)
@@ -55,6 +74,8 @@ int		do_int(va_list arg, t_opt opt, char c, void **final)
 	long long int	i;
 	void			*to_add;
 
+	(void)c;
+	to_add = NULL;
 	if (opt.len_mod == MOD_L)
 		i = (long)va_arg(arg, long long int);
 	else if (opt.len_mod == MOD_LL)
@@ -71,12 +92,8 @@ int		do_int(va_list arg, t_opt opt, char c, void **final)
 		i = (size_t)va_arg(arg, long long int);
 	else
 		i = (int)va_arg(arg, long long int);
-	(void)c;
 	to_add = convert_int(i, 10);
-	if (check_int_exception(i, opt) == 1)
-		to_add = ft_strjoin_fr(" ", to_add);
-	else if (check_int_exception(i, opt) == 2)
-		to_add = ft_strjoin_fr("+", to_add);
+	to_add = do_int_exeption(i, opt, to_add);
 	ret = concat_to_str(final, to_add, opt);
 	return (ret);
 }

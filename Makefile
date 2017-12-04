@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/11/30 19:03:09 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/12/04 20:04:00 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,7 @@ NAME = libftprintf.a
 # Details #
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror
-E_FLAGS = #-fsanitize=address
+E_FLAGS = -fsanitize=address
 
 # Path #
 OBJ_PATH = obj
@@ -47,8 +47,8 @@ INC = -I$(INC_PATH)
 # Sources #
 SRCS = \
 		ft_printf.c \
-		ft_printf2.c \
 		do_conv.c \
+		do_parse.c \
 \
 		$(CONV)do_char.c \
 		$(CONV)do_int.c \
@@ -57,15 +57,9 @@ SRCS = \
 		$(CONV)do_long.c \
 		$(CONV)add_to_final.c \
 \
-		$(FUNC)ft_putchar.c \
-		$(FUNC)ft_ascii_to_utf8.c \
-		$(FUNC)ft_putnbr.c \
-		$(FUNC)ft_putstr.c \
-		$(FUNC)ft_putlstr.c \
-		$(FUNC)ft_putwstr.c \
 		$(FUNC)ft_strlen.c \
+		$(FUNC)ft_strdel.c \
 		$(FUNC)nbr_len.c \
-		$(FUNC)ft_strequ.c \
 		$(FUNC)ft_itoa_base.c \
 		$(FUNC)ft_atoi.c \
 		$(FUNC)ft_strsub.c \
@@ -75,7 +69,6 @@ SRCS = \
 		$(FUNC)ft_strjoin_fr.c \
 		$(FUNC)ft_strjoin_fl.c \
 \
-		$(UTILS)print_exeption.c \
 		$(UTILS)oneof.c
 
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)

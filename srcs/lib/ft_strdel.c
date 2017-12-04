@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putwstr.c                                       :+:      :+:    :+:   */
+/*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/23 10:25:28 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/27 22:18:27 by ddinaut          ###   ########.fr       */
+/*   Created: 2016/11/05 02:03:56 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/12/04 16:35:06 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_putwstr(const wchar_t *str, t_opt opt)
-{
-	int ret;
+/*
+**	ft_strdel :
+**	-> free memory pointed by as and put it at NULL
+*/
 
-	ret = 0;
-	if (str)
+void	ft_strdel(char **as)
+{
+	if ((as != NULL) && ((*as) != NULL))
 	{
-		if (opt.precision > 0)
-			while (*str && (opt.precision-- > 0))
-				ret += ft_ascii_to_utf8(*str++);
-		else
-			while (*str)
-				ret += ft_ascii_to_utf8(*str++);
+		free(*as);
+		(*as) = NULL;
 	}
-	return (ret);
 }

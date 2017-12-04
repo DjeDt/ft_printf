@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:23:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/30 19:14:35 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/04 18:57:31 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	check_exeption(const char c, t_opt *opt)
 {
 	if ((oneof("cdipsu", c) == 1) && (opt->flags & FLAG_ALT))
 		opt->flags &= ~FLAG_ALT;
-	if ((oneof("diouixX", c) == 1) && (opt->flags & FLAG_ZERO) && (opt->precision > 0))
+	if ((oneof("diouixX", c) == 1) && (opt->flags & FLAG_ZERO) \
+		&& (opt->precision > 0))
 	{
 		opt->flags &= ~FLAG_ZERO;
 		opt->prefix = ' ';
@@ -32,31 +33,35 @@ void	check_exeption(const char c, t_opt *opt)
 		opt->flags &= ~FLAG_SPACE;
 }
 
-int		test(t_opt opt, char c, void **final)
+int		normal_char(t_opt opt, char c, void **final)
 {
 	int		ret;
-	char	to_add[2];
+	char	*to_add;
 
-	to_add[0] = c;
-	to_add[1] = '\0';
+	if (!(to_add = malloc(sizeof(char) * (4 + 1))))
+		return (-1);
+	char_to_str(c, to_add);
 	ret = concat_to_str(final, to_add, opt);
 	return (ret);
 }
 
-void	do_conv(t_core *core, int *count, va_list arg)
+void	do_conv(t_core *core, int *cc, va_list arg)
 {
-	check_exeption(core->fmt[(*count)], &core->opt);
-	if (core->fmt[(*count)] == 'd' || core->fmt[(*count)] == 'i')
-		core->bytes += do_int(arg, core->opt, core->fmt[(*count)], &core->final);
-	if (core->fmt[(*count)] == 'c' || core->fmt[(*count)] == 'C')
-		core->bytes += do_char(arg, core->opt, core->fmt[(*count)], &core->final);
-	else if (core->fmt[(*count)] == 'o' || core->fmt[(*count)] == 'u' || \
-			 core->fmt[(*count)] == 'x' || core->fmt[(*count)] == 'X')
-		core->bytes += do_unsign(arg, core->opt, core->fmt[(*count)], &core->final);
-	else if (core->fmt[(*count)] == 's' || core->fmt[(*count)] == 'S' || core->fmt[(*count)] == 'p')
-		core->bytes += do_ptr(arg, core->opt, core->fmt[(*count)], &core->final);
-	else if (core->fmt[(*count)] == 'D' || core->fmt[(*count)] == 'O' || core->fmt[(*count)] == 'U')
-		core->bytes += do_long(arg, core->opt, core->fmt[(*count)], &core->final);
+	check_exeption(core->fmt[(*cc)], &core->opt);
+	if ((core->fmt[(*cc)] == 'd') || (core->fmt[(*cc)] == 'i'))
+		core->bytes += do_int(arg, core->opt, core->fmt[(*cc)], &core->final);
+	else if (core->fmt[(*cc)] == 'c' || core->fmt[(*cc)] == 'C')
+		core->bytes += do_char(arg, core->opt, core->fmt[(*cc)], &core->final);
+	else if (core->fmt[(*cc)] == 'o' || core->fmt[(*cc)] == 'u' || \
+			core->fmt[(*cc)] == 'x' || core->fmt[(*cc)] == 'X')
+		core->bytes += do_unsign(arg, core->opt, core->fmt[(*cc)], \
+								&core->final);
+	else if (core->fmt[(*cc)] == 's' || core->fmt[(*cc)] == 'S' || \
+			core->fmt[(*cc)] == 'p')
+		core->bytes += do_ptr(arg, core->opt, core->fmt[(*cc)], &core->final);
+	else if (core->fmt[(*cc)] == 'D' || core->fmt[(*cc)] == 'O' || \
+			core->fmt[(*cc)] == 'U')
+		core->bytes += do_long(arg, core->opt, core->fmt[(*cc)], &core->final);
 	else
-		core->bytes += test(core->opt, core->fmt[(*count)], &core->final);
+		core->bytes += normal_char(core->opt, core->fmt[(*cc)], &core->final);
 }

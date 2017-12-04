@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/05 03:17:37 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/28 22:26:05 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/04 16:37:50 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,6 @@ char		*ft_strjoin_fl(char *s1, const char *s2)
 	char	*ret;
 
 	ret = ft_strjoin(s1, s2);
-	free(s1);
+	ft_strdel(&s1);
 	return (ret);
 }
-
-
-
-
-
-
-
-
-
-

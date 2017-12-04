@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/30 19:27:58 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/04 19:35:42 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <limits.h>
 #include "includes/printf.h"
 
-int main(void)
+void	ft_test1(void)
 {
-	/*
+
 	int ret;
 	int	ret2;
 
@@ -40,6 +40,7 @@ int main(void)
 	ret2 = ft_printf("%5c\n", 'a');
 	printf("Test3 : {real = %d} {mine = %d}\n", ret, ret2);
 
+	
 	wchar_t sign1 = L'中';
 	wchar_t sign2 = L'文';
 	wchar_t sign3 = L'ح';
@@ -55,12 +56,12 @@ int main(void)
 
 	ret2 = ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
 	ret = printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
-	printf("Test LC : {real = %d} {mine = %d}\n", ret, ret2);
-	
+	printf("Test S : {real = %d} {mine = %d}\n", ret, ret2);
+
 	printf("Test int :\n");
 	ft_printf("\nTest 1 :\n");
-	ret = printf("real : %- 8d et %-d et %-+d et %05d\n", 1, -1, -10, 10);
-	ret2 = ft_printf("mine : %- 8d et %-d et %-+d et %05d\n", 1, -1, -10, 10);
+	ret = printf("real : %d et %- 8i et %-i et %-+d et %05d\n", 2, 1, -1, -10, 10);
+	ret2 = ft_printf("mine : %d et %- 8i et %-i et %-+d et %05d\n",2 , 1, -1, -10, 10);
 	printf("Test 1 : {real = %d} {mine = %d}\n", ret, ret2);
 
 
@@ -137,13 +138,11 @@ int main(void)
 	ret = printf("real : p = %5p et p = %-15p et p = %15p et p = %p\n", s, &s2, &c, NULL);
 	ret2 = ft_printf("mine : p = %5p et p = %-15p et p = %15p et p = %p\n", s, &s2, &c, NULL);
 	ft_printf("Test1 : {real = %d} {mine = %d}\n", ret, ret2);
-	
-
 
 	ret = printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
 	ret2 = ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
 	ft_printf("Test ptr : {real = %d} {mine = %d}\n", ret, ret2);
-	
+
 	ret = printf("real : %s\n", "123");
 	ret2 = ft_printf("mine : %s\n", "123");
 	ft_printf("Test ptr : {real = %d} {mine = %d}\n", ret, ret2);
@@ -151,13 +150,11 @@ int main(void)
 
 
 	ft_printf("\nTest de s :\n");
-	
+
 	char *test1 = "ceci est le test1";
 	char *test2 = "c'est le test2";
 	char *test3 = "encore un test numero 3";
 
-
-	
 	ret = printf("real : |%5s| - |%.5s| - |%5.5s| - |%-30.10s| - |%-40s|\n", test1, test1, test1, test2, test3);
 	ret2 = ft_printf("mine : |%5s| - |%.5s| - |%5.5s| - |%-30.10s| - |%-40s|\n", test1, test1, test1, test2, test3);
 	ft_printf("Test s : {real = %d} {mine = %d}\n\n", ret, ret2);
@@ -170,13 +167,13 @@ int main(void)
 	ret2 = ft_printf("real : |%-10.20s|\n", "123456789123456");
 	ft_printf("Test s : {real = %d} {mine = %d}\n", ret, ret2);
 
-	*/
+	ret = printf("real : %s et p : %p\n", NULL, NULL);
+	ret2 = ft_printf("mine : %s et p : %p\n", NULL, NULL);
+	ft_printf("Test s : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	printf("%s\n", NULL);
-	ft_printf("%s\n", NULL);
-/*
+	
+	
 	unsigned int o = 123;
-
 	ret = printf("real : x = %x et x = %X x = %#x et X = %#X et o = %#o\n", o, o, o, o, o);
 	ret2 = ft_printf("real : x = %x et x = %X x = %#x et X = %#X et o = %#o\n", o, o, o, o, o);
 	ft_printf("Test # : {real = %d} {mine = %d}\n", ret, ret2);
@@ -184,6 +181,25 @@ int main(void)
 	ret = printf("real : |%-30.10s|\n", test2);
 	ret2 = ft_printf("mine : |%-30.10s|\n", test2);
 	ft_printf("Test s : {real = %d} {mine = %d}\n", ret, ret2);
-*/		
+
+}
+
+void	ft_test2(void)
+{
+	int ret;
+	int ret2;
+
+	ret = 0;
+	ret2 = 0;
+	ret =  printf("real : %.2x\n", 5427);
+	ret2 =  ft_printf("mine : %.2x\n", 5427);
+	ft_printf("Result : {real = %d} {mine = %d}\n", ret, ret2);
+}
+
+int		main(void)
+{
+	ft_test1();
+	ft_test2();
+
 	return (0);
 }

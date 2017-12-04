@@ -6,13 +6,13 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/30 19:27:33 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/04 19:34:22 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		addr_len(unsigned long value, int base)
+static int	addr_len(unsigned long value, int base)
 {
 	int ret;
 
@@ -22,7 +22,7 @@ int		addr_len(unsigned long value, int base)
 	return (ret);
 }
 
-char	*get_addr(unsigned long value, int base, t_opt opt)
+static char	*get_addr(unsigned long value, int base, t_opt opt)
 {
 	int			count;
 	char		*ret;
@@ -51,6 +51,26 @@ char	*get_addr(unsigned long value, int base, t_opt opt)
 	return (ret);
 }
 
+char	*transform_to_char(wchar_t *old_add)
+{
+	int		count;
+	char	*new;
+	wchar_t	ch;
+	char	tmp[5];
+
+	new = NULL;
+	count = -1;
+	if ((old_add) == NULL)
+		return (NULL);
+	while (old_add[++count] != '\0')
+	{
+		ch = old_add[count];
+		char_to_str(ch, tmp);
+		new = ft_strjoin_fl(new, tmp);
+	}
+	return (new);
+}
+
 int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 {
 	int		ret;
@@ -60,15 +80,18 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 	if (c == 's' || c == 'S')
 	{
 		if (opt.len_mod == MOD_L || c == 'S')
+		{
 			to_add = (wchar_t*)va_arg(arg, wchar_t*);
+			to_add = transform_to_char((wchar_t*)to_add);
+		}
 		else
 			to_add = (char*)va_arg(arg, char*);
 		if (to_add == NULL)
-			to_add = "(null)";
+			to_add = ft_strdup("(null)");
 	}
 	else if (c == 'p')
 	{
-		to_add = (void*)va_arg(arg, void*); /* Check si leaks */
+		to_add = (void*)va_arg(arg, void*);
 		to_add = get_addr((unsigned long)to_add, 16, opt);
 	}
 	ret = concat_to_str(final, to_add, opt);

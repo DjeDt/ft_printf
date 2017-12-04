@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/30 19:31:07 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/04 18:47:35 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <wchar.h>
-# include <stddef.h> /* pour cast en ptrdiff */
+# include <stddef.h>
 # include <inttypes.h>
-
-/**
- **	lenght modifier
- **/
 
 # define MOD_L	1
 # define MOD_LL	2
@@ -42,10 +38,9 @@ typedef struct	s_opt
 {
 	int			flags;
 	char		prefix;
-	size_t		width;
-	size_t		precision;
 	int			len_mod;
-	size_t		arg_len;
+	int			width;
+	int			precision;
 }				t_opt;
 
 typedef struct	s_core
@@ -57,64 +52,35 @@ typedef struct	s_core
 	void		*final;
 }				t_core;
 
-/**
- ** LIB
- **/
+char			*ft_itoa_base(int value, int base);
+size_t			ft_strlen(const char *str);
+int				nbr_len(unsigned long long i, int base);
+int				ft_atoi(const char *str);
+char			*ft_strsub(char const *s, unsigned int start, size_t len);
+void			ft_strdel(char **as);
+char			*ft_strfsub(char *s, unsigned int start, size_t len);
+char			*ft_strdup(const char *s1);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin_fr(char const *s1, char *s2);
+char			*ft_strjoin_fl(char *s1, char const *s2);
 
-void	ft_putchar(char c);
-int		ft_ascii_to_utf8(wchar_t ch);
-void	ft_putnbr(int nb);
-void	ft_putstr(const char *str);
-void	ft_putlstr(char *str, int bef, int end);
-int		ft_putwstr(const wchar_t *str, t_opt opt);
-char	*ft_itoa_base(int value, int base);
-size_t	ft_strlen(const char *str);
-int		nbr_len(unsigned long long i, int base);
-int		ft_atoi(const char *str);
-char	*ft_strsub(char const *s, unsigned int start, size_t len);
-char    *ft_strfsub(char *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strjoin_fr(char const *s1, char *s2);
-char	*ft_strjoin_fl(char *s1, char const *s2);
-int		ft_strequ(const char *s1, const char *s2);
+int				do_int(va_list arg, t_opt opt, char c, void **final);
+int				do_ptr(va_list arg, t_opt opt, char c, void **final);
+int				do_long(va_list arg, t_opt opt, char c, void **final);
+int				do_char(va_list arg, t_opt opt, char c, void **final);
+int				do_unsign(va_list arg, t_opt opt, char c, void **final);
 
-/**
- ** CONVERSION
- **/
+char			*convert_int(long long int value, int base);
+int				check_int_exception(long long int i, t_opt opt);
+void			char_to_str(wchar_t ch, char *to_add);
+int				normal_char(t_opt opt, char c, void **final);
 
-int		do_int(va_list arg, t_opt opt, char c, void **final);
-int		do_ptr(va_list arg, t_opt opt, char c, void **final);
-int		do_long(va_list arg, t_opt opt, char c, void **final);
-int		do_char(va_list arg, t_opt opt, char c, void **final);
-int		do_unsign(va_list arg, t_opt opt, char c , void **final);
+int				oneof(const char *str, char c);
+int				concat_to_str(void **base, void *add, t_opt opt);
 
-int		ascii_to_utf8(wchar_t ch);
-char    *convert_int(long long int value, int base);
-int     check_int_exception(long long int i, t_opt opt);
-
-/**
- **	PRINT
-**/
-
-int		get_addr_len(unsigned long value, int base);
-char	*get_addr(unsigned long value, int base, t_opt opt);
-int		oneof(const char *str, char c);
-int		concat_to_str(void **base, void *add, t_opt opt);
-/**
- ** CORE
- **/
-
-void	do_conv(t_core *core, int *count, va_list arg);
-int		ft_printf(const char *format, ...);
-
-int		ft_printf2(const char *format, ...);
-void	do_conv2(char **format, char *save, va_list arg, t_opt opt);
+int				ft_printf(const char *format, ...);
+void			do_conv(t_core *core, int *count, va_list arg);
+int				do_parse(t_core *core, int *c, va_list arg);
+void			init_opt(t_opt *opt);
 
 #endif
-
-
-
-
-
-
