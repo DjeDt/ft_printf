@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 19:34:22 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/05 17:39:58 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ static char	*get_addr(unsigned long value, int base, t_opt opt)
 	}
 	if (opt.flags & FLAG_ALT)
 	{
-		ret[1] = 'X';
-		ret[0] = '0';
+		ret[count--] = 'X';
+		ret[count] = '0';
 	}
 	else
 	{
-		ret[1] = 'x';
-		ret[0] = '0';
+		ret[count--] = 'x';
+		ret[count] = '0';
 	}
 	return (ret);
 }
@@ -87,7 +87,7 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 		else
 			to_add = (char*)va_arg(arg, char*);
 		if (to_add == NULL)
-			to_add = ft_strdup("(null)");
+			to_add = "(null)";
 	}
 	else if (c == 'p')
 	{

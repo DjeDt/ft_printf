@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 16:50:16 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/05 16:33:11 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 	return (ret);
 }
 
-void	*unsign_to_str(unsigned long long int i, void *add, char c, t_opt opt)
+char	*unsign_to_str(unsigned long long int i, void *add, char c, t_opt opt)
 {
 	if (c == 'o')
 		add = ft_itoa_base(i, 8);
@@ -57,7 +57,7 @@ int		do_unsign(va_list arg, t_opt opt, char c, void **final)
 {
 	int						ret;
 	unsigned long long int	i;
-	void					*to_add;
+	char					*to_add;
 
 	to_add = NULL;
 	if (opt.len_mod == MOD_L)
@@ -78,5 +78,6 @@ int		do_unsign(va_list arg, t_opt opt, char c, void **final)
 		i = (unsigned int)va_arg(arg, unsigned long long int);
 	to_add = unsign_to_str(i, to_add, c, opt);
 	ret = concat_to_str(final, to_add, opt);
+	ft_strdel(&to_add);
 	return (ret);
 }

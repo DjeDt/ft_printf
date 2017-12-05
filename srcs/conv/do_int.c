@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 19:57:40 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/05 14:04:00 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,10 @@ int		check_int_exception(long long int i, t_opt opt)
 
 char	*do_int_exeption(long long int i, t_opt opt, char *to_add)
 {
-	char	*ret;
-
-	ret = NULL;
 	if (check_int_exception(i, opt) == 1)
-	{
-		ret = ft_strjoin(" ", to_add);
-		ft_strdel(&to_add);
-		return (ret);
-	}
+		to_add = ft_strjoin_fr(" ", to_add);
 	else if (check_int_exception(i, opt) == 2)
-	{
-		ret = ft_strjoin("+", to_add);
-		ft_strdel(&to_add);
-		return (ret);
-	}
+		to_add = ft_strjoin_fr("+", to_add);
 	return (to_add);
 }
 
@@ -72,7 +61,7 @@ int		do_int(va_list arg, t_opt opt, char c, void **final)
 {
 	int				ret;
 	long long int	i;
-	void			*to_add;
+	char			*to_add;
 
 	(void)c;
 	to_add = NULL;
@@ -93,7 +82,8 @@ int		do_int(va_list arg, t_opt opt, char c, void **final)
 	else
 		i = (int)va_arg(arg, long long int);
 	to_add = convert_int(i, 10);
-	to_add = do_int_exeption(i, opt, to_add);
+//	to_add = do_int_exeption(i, opt, to_add);
 	ret = concat_to_str(final, to_add, opt);
+	ft_strdel(&to_add);
 	return (ret);
 }

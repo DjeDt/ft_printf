@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:14:20 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 19:30:56 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/05 12:15:14 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,15 @@ void	char_to_str(wchar_t ch, char *to_add)
 		to_add[count++] = (((ch >> 6) & 0x3F) + 0x80);
 		to_add[count++] = ((ch & 0x3F) + 0x80);
 	}
-	to_add[count] = '\0';
+	while (count < 5)
+		to_add[count++] = '\0';
 }
 
 int		do_char(va_list arg, t_opt opt, char c, void **final)
 {
 	int		ret;
 	wchar_t	ch;
-	char	*to_add;
+	char	to_add[5];
 
 	ch = 0;
 	if (c == 'c')
@@ -56,8 +57,6 @@ int		do_char(va_list arg, t_opt opt, char c, void **final)
 	}
 	else if (c == 'C')
 		ch = (wchar_t)va_arg(arg, wint_t);
-	if (!(to_add = (char*)malloc(sizeof(char) * (4 + 1))))
-		return (-1);
 	char_to_str(ch, to_add);
 	ret = concat_to_str(final, to_add, opt);
 	return (ret);

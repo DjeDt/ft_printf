@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 20:14:19 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/26 20:49:26 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/05 13:59:34 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ size_t	ft_strlen(const char *str)
 	int i;
 
 	i = 0;
-	while (str[i] != '\0')
-		i++;
+	if (str)
+	{
+		while (str[i] != '\0')
+			i++;
+	}
 	return (i);
 }

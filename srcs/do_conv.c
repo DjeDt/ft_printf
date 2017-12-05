@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:23:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 18:57:31 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/05 14:27:30 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	check_exeption(const char c, t_opt *opt)
 int		normal_char(t_opt opt, char c, void **final)
 {
 	int		ret;
-	char	*to_add;
+	char	to_add[5];
 
-	if (!(to_add = malloc(sizeof(char) * (4 + 1))))
-		return (-1);
 	char_to_str(c, to_add);
 	ret = concat_to_str(final, to_add, opt);
 	return (ret);

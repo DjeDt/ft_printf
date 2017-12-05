@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/12/04 20:04:00 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/12/05 16:29:22 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,7 @@ NAME = libftprintf.a
 # Details #
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror
-E_FLAGS = -fsanitize=address
+E_FLAGS = #-fsanitize=address
 
 # Path #
 OBJ_PATH = obj

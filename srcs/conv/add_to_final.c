@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/29 19:29:28 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 19:58:15 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/05 17:35:59 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,24 @@ char	*create_padding(int size, char c)
 	return (ret);
 }
 
-void	*check_precision(t_opt opt, void *add)
+char	*check_precision(t_opt opt, void *add)
 {
 	int		cur;
+	char	*ret;
 
-	cur  = ft_strlen((add));
+	ret = NULL;
+	cur  = ft_strlen(add);
 	if (opt.precision > 0)
 	{
 		if (opt.precision > 0)
 			opt.precision = cur;
-		if (!((add) = ft_strsub((add), 0, opt.precision)))
+		if (!(ret = ft_strsub(add, 0, opt.precision)))
 			return (NULL);
 	}
-	return (add);
+	return (ret);
 }
 
-char	*check_width(t_opt opt, void **add)
+char	*check_width(t_opt opt, char *padded)
 {
 	int		cur;
 	int		min;
@@ -53,29 +55,18 @@ char	*check_width(t_opt opt, void **add)
 
 	padd  = NULL;
 	add_p = NULL;
-	cur = ft_strlen((*add));
+	cur = ft_strlen(padded);
 	min = opt.width - cur;
 	if ((opt.width > 0) && (min > 0))
 		padd = create_padding(min, opt.prefix);
 	if (opt.flags & FLAG_LEFT)
-		add_p = ft_strjoin(*add, padd);
+		add_p = ft_strjoin(padded, padd);
 	else
-		add_p = ft_strjoin(padd, *add);
-	if (padd)
-		free(padd);
+		add_p = ft_strjoin(padd, padded);
+	ft_strdel(&padd);
+	ft_strdel(&padded);
 	return (add_p);
 }
-/*
-char	*pad_new_str(void *add, t_opt opt)
-{
-	char	*add_p;
-
-	add_p = NULL;
-	add_p = check_precision(opt, add);
-	add_p = check_width(opt, &add);
-	return (add_p);
-}
-*/
 
 char	*pad_new_str(void *add, t_opt opt)
 {
@@ -98,14 +89,10 @@ char	*pad_new_str(void *add, t_opt opt)
 	min = opt.width - curr;
 	if ((opt.width > 0) && (min > 0))
 		padd = create_padding(min, opt.prefix);
-
 	if (opt.flags & FLAG_LEFT)
-		add_p = ft_strjoin(add, padd);
+		add_p = ft_strjoin_fr(add, padd);
 	else
-		add_p = ft_strjoin(padd, add);
-
-	if (padd)
-		free(padd);
+		add_p = ft_strjoin_fl(padd, add);
 	return (add_p);
 }
 
@@ -118,7 +105,7 @@ int		concat_to_str(void **base, void *add, t_opt opt)
 	if (padded == NULL)
 		return (-1);
 	ret = ft_strlen(padded);
-	(*base) = ft_strjoin((*base), padded);
+	(*base) = ft_strjoin_fl((*base), padded);
 	ft_strdel(&padded);
 	return (ret);
 }
