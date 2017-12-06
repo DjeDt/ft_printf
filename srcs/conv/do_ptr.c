@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/05 17:39:58 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/06 09:57:57 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 	int		ret;
 	void	*to_add;
 
+	ret = 0;
 	to_add = NULL;
 	if (c == 's' || c == 'S')
 	{
@@ -95,5 +96,7 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 		to_add = get_addr((unsigned long)to_add, 16, opt);
 	}
 	ret = concat_to_str(final, to_add, opt);
+	if (c != 's')
+		free(to_add);
 	return (ret);
 }
