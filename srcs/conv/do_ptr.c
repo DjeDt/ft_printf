@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/06 09:57:57 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/08 11:55:24 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 
 	ret = 0;
 	to_add = NULL;
+	opt.type = CONV_PTR;
 	if (c == 's' || c == 'S')
 	{
 		if (opt.len_mod == MOD_L || c == 'S')
@@ -95,8 +96,7 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 		to_add = (void*)va_arg(arg, void*);
 		to_add = get_addr((unsigned long)to_add, 16, opt);
 	}
-	ret = concat_to_str(final, to_add, opt);
-	if (c != 's')
-		free(to_add);
+	ret = concat_to_str(final, to_add, c, opt);
+	c != 's' ? free(to_add) : 0;
 	return (ret);
 }

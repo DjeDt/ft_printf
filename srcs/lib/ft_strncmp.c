@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_exeption.c                                   :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/24 10:22:35 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/11/27 20:46:07 by ddinaut          ###   ########.fr       */
+/*   Created: 2016/08/15 02:23:26 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/12/08 11:30:59 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		print_exeption(long long int i, t_opt opt)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if ((opt.flags & FLAG_SPACE) && (i >= 0) && (opt.flags & FLAG_SIGN) == 0)
+	size_t i;
+
+	i = 0;
+	if (n == 0)
+		return (0);
+	while ((s1[i] || s2[i]) && (i + 1) < n)
 	{
-		ft_putchar(' ');
-		return (1);
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		i++;
 	}
-	else if ((opt.flags & FLAG_SIGN) && (i >= 0))
-	{
-		ft_putchar('+');
-		return (1);
-	}
-	return (0);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

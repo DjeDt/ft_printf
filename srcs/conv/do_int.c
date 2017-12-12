@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/05 14:04:00 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/08 11:55:03 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ int		do_int(va_list arg, t_opt opt, char c, void **final)
 	long long int	i;
 	char			*to_add;
 
-	(void)c;
 	to_add = NULL;
+	opt.type = CONV_INT;
 	if (opt.len_mod == MOD_L)
 		i = (long)va_arg(arg, long long int);
 	else if (opt.len_mod == MOD_LL)
@@ -82,8 +82,8 @@ int		do_int(va_list arg, t_opt opt, char c, void **final)
 	else
 		i = (int)va_arg(arg, long long int);
 	to_add = convert_int(i, 10);
-//	to_add = do_int_exeption(i, opt, to_add);
-	ret = concat_to_str(final, to_add, opt);
+	to_add = do_int_exeption(i, opt, to_add);
+	ret = concat_to_str(final, to_add, c, opt);
 	ft_strdel(&to_add);
 	return (ret);
 }

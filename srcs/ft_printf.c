@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/05 14:17:31 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/08 15:30:48 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_core(t_core *core, const char *format)
 void	init_opt(t_opt *opt)
 {
 	opt->flags = 0;
+	opt->type = 0;
 	opt->prefix = ' ';
 	opt->width = 1;
 	opt->precision = 0;

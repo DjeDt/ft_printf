@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/05 16:33:11 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/08 15:14:30 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ret[count] = '\0';
+	if (value == 0)
+		ret[--count] = '0';
 	while (count--)
 	{
 		ret[count] = str[value % base];
@@ -31,6 +33,7 @@ char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 
 char	*unsign_to_str(unsigned long long int i, void *add, char c, t_opt opt)
 {
+	(void)opt;
 	if (c == 'o')
 		add = ft_itoa_base(i, 8);
 	else if (c == 'u')
@@ -41,15 +44,6 @@ char	*unsign_to_str(unsigned long long int i, void *add, char c, t_opt opt)
 		add = ft_convert_unsign(i, 16, "0123456789ABCDEF");
 	if (add == NULL)
 		return (NULL);
-	if (opt.flags & FLAG_ALT && (i != 0))
-	{
-		if (c == 'o')
-			add = ft_strjoin_fr("0", add);
-		else if (c == 'x')
-			add = ft_strjoin_fr("0x", add);
-		else if (c == 'X')
-			add = ft_strjoin_fr("0X", add);
-	}
 	return (add);
 }
 
@@ -60,6 +54,7 @@ int		do_unsign(va_list arg, t_opt opt, char c, void **final)
 	char					*to_add;
 
 	to_add = NULL;
+	opt.type = CONV_UNS;
 	if (opt.len_mod == MOD_L)
 		i = (unsigned long)va_arg(arg, unsigned long long int);
 	else if (opt.len_mod == MOD_LL)
@@ -77,7 +72,7 @@ int		do_unsign(va_list arg, t_opt opt, char c, void **final)
 	else
 		i = (unsigned int)va_arg(arg, unsigned long long int);
 	to_add = unsign_to_str(i, to_add, c, opt);
-	ret = concat_to_str(final, to_add, opt);
+	ret = concat_to_str(final, to_add, c, opt);
 	ft_strdel(&to_add);
 	return (ret);
 }

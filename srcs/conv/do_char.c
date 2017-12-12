@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:14:20 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/05 12:15:14 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/08 11:54:45 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int		do_char(va_list arg, t_opt opt, char c, void **final)
 	char	to_add[5];
 
 	ch = 0;
+	opt.type = CONV_CHR;
 	if (c == 'c')
 	{
 		if (opt.len_mod == MOD_L)
@@ -58,6 +59,6 @@ int		do_char(va_list arg, t_opt opt, char c, void **final)
 	else if (c == 'C')
 		ch = (wchar_t)va_arg(arg, wint_t);
 	char_to_str(ch, to_add);
-	ret = concat_to_str(final, to_add, opt);
+	ret = concat_to_str(final, to_add, c, opt);
 	return (ret);
 }
