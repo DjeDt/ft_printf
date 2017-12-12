@@ -37,6 +37,7 @@ void	begin_parse(t_core *core, va_list arg)
 	cc = -1;
 	while (core->fmt[++cc] != '\0')
 	{
+		ft_printf("test parse\n");
 		if (core->fmt[cc] == '%')
 		{
 			cc++;

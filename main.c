@@ -75,7 +75,7 @@ void	test_modificateurs(void)
 {
 	int ret;
 	int ret2;
-	
+
 	ft_printf("\nTest des modificateurs int :\n");
 	ft_printf("\nTest 'l' :\n");
 	long lmin = -2147483648;
@@ -83,7 +83,7 @@ void	test_modificateurs(void)
 	ret = printf("real : lmin = %ld et lmax = %ld\n", lmin, lmax);
 	ret2 = ft_printf("mine : lmin = %ld et lmax = %ld\n", lmin, lmax);
 	ft_printf("Test 'l' : {real = %d} {mine = %d}\n", ret, ret2);
-	
+
 	ft_printf("\nTest 'll' :\n");
 	long long llmin = -9223372036854775807; // erreur si +1, pourquoi?
 	long long llmax = 9223372036854775807;
@@ -109,14 +109,14 @@ void	test_modificateurs(void)
 	ret = printf("real : imax = %ji\n", LONG_MAX);
 	ret2 = ft_printf("mine : imax = %ji\n", LONG_MAX);
 	ret = ft_printf("Test 'j' : {real = %d} {mine = %d}\n", ret, ret2);
-	
+
 }
 
 void	test_long(void)
 {
 	int ret;
 	int ret2;
-	
+
 	ft_printf("\nTest des modificateurs long :\n");
 	ret = ft_printf("Test de 'D' :\n"); // Pas sur debian
 	ret = printf("real : %D et %D\n", 1234, 1234);
@@ -141,7 +141,7 @@ void	test_wstr(void)
 
 	ret = 0;
 	ret2 = 0;
-	
+
 	ft_printf("Test 1 :\n");
 	wchar_t *wstr1 = L"كيف حالك ؟";
 	wchar_t *wstr2 = L"你好嗎？";
@@ -156,11 +156,11 @@ void	test_ptr(void)
 {
 	int ret;
 	int ret2;
-	
+
 	char s2[3];
 	char *s = NULL;
 	char c;
-	
+
 	ft_printf("\nTest des pointeurs :\n");
 	ret = printf("real : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
 	ret2 = ft_printf("mine : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
@@ -197,7 +197,7 @@ void	test_ptr(void)
 	ret = printf("real : %s et p : %p\n", NULL, NULL);
 	ret2 = ft_printf("mine : %s et p : %p\n", NULL, NULL);
 	ft_printf("Test s : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 	ret = printf("real : |%-30.10s|\n", test2);
 	ret2 = ft_printf("mine : |%-30.10s|\n", test2);
 	ft_printf("Test s : {real = %d} {mine = %d}\n", ret, ret2);
@@ -233,7 +233,7 @@ void	test_vrac(void)
 
 	ret = 0;
 	ret2 = 0;
-	
+
 	ret =  printf("real : %.2x\n", 5427);
 	ret2 =  ft_printf("mine : %.2x\n", 5427);
 	ft_printf("Result : {real = %d} {mine = %d}\n", ret, ret2);
@@ -241,25 +241,28 @@ void	test_vrac(void)
 	ret = printf("real : %05d\n", -5);
 	ret2 = ft_printf("mine : %05d\n", -5);
 	ft_printf("Result : {real = %d} {mine = %d}\n", ret, ret2);
-	
+
 	ret = printf("real : % 5d\n", -5);
 	ret2 = ft_printf("mine : % 5d\n", -5);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 }
 
 int		main(void)
 {
 	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
 
-/*
+
 	test_c();
+
 	test_modificateurs();
 	test_long();
 	test_ptr();
-*/
+
 //	test_vrac();
 //	test_unsign();
+
+	/*
 	int ret;
 	int ret2;
 
@@ -279,14 +282,14 @@ int		main(void)
 	ret2 = ft_printf("mine : %#0.5x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	
+
 	ret = printf("real : %#08x\n", 42);
 	ret2 = ft_printf("mine : %#08x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 	ret = printf("real : %#8x\n", 42);
 	ret2 = ft_printf("mine : %#8x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 	ret = printf("real : %.4o\n", 12);
 	ret2 = ft_printf("mine : %.4o\n", 12);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
@@ -294,10 +297,10 @@ int		main(void)
 	ret = printf("real : %#8x\n", 42);
 	ret2 = ft_printf("mine : %#8x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 	ret = printf("real : %#.8x\n", 42);
 	ret2 = ft_printf("mine : %#.8x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-		
+*/
 	return (0);
 }

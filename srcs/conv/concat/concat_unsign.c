@@ -47,6 +47,9 @@ static char	*unsign_precision(char *add, t_opt opt)
 	padding = NULL;
 	len = ft_strlen(add);
 	len = opt.precision - len;
+	ret = ft_strjoin(padding, add);
+	free(padding);
+	return (ret);
 }
 
 

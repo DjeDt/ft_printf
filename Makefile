@@ -16,7 +16,7 @@ NAME = libftprintf.a
 # Details #
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror
-E_FLAGS = #-fsanitize=address
+DEBUG	= yes
 
 # Path #
 OBJ_PATH = obj
@@ -82,10 +82,23 @@ SRCS = \
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRCS))
 
+# Percent progress #
+COUNT		= 1
+NB_FILES	= $(words $(SRCS))
+PERCENT		= $(shell echo $$(( ($(COUNT) * 100) / $(NB_FILES))))
+
+# Debug option #
+ifeq ($(DEBUG), y)
+	FLAGS = -Wall -Wextra -Werror -fsanitize=address
+else
+	FLAGS = -Wall -Wextra -Werror
+endif
+
 # Rules #
 .PHONY: all clean fclean re
 
 all: $(NAME)
+	@printf "\r$(COL_RED)[100%%] Compiled.$(END_COL)\n"
 
 $(NAME): $(OBJ)
 	@$(AR) $(OBJ)
@@ -94,7 +107,8 @@ $(NAME): $(OBJ)
 $(OBJ): $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) -o $@ $(FLAGS) $(E_FLAGS) $(INC) -c $<
-	@printf "\e[1;38;5;148m%s -> %s                                   \r$(END_COL)" $@ $<
+	@printf "\r$(COL_RED)[%-5.2f%%]\e[1;38;5;148m[$@] -> [$<]$(END_COL)" $(PERCENT)
+	$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 
 clean:
 	@/bin/rm -rf $(OBJ_PATH)
