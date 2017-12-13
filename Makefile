@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/12/07 20:50:28 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/12/13 10:20:55 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -98,7 +98,7 @@ endif
 .PHONY: all clean fclean re
 
 all: $(NAME)
-	@printf "\r$(COL_RED)[100%%] Compiled.$(END_COL)\n"
+	@printf "\r\033[K$(COL_RED)[100%%]\tCompiled.$(END_COL)\n"
 
 $(NAME): $(OBJ)
 	@$(AR) $(OBJ)
@@ -107,7 +107,7 @@ $(NAME): $(OBJ)
 $(OBJ): $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(dir $@)
 	@$(CC) -o $@ $(FLAGS) $(E_FLAGS) $(INC) -c $<
-	@printf "\r$(COL_RED)[%-5.2f%%]\e[1;38;5;148m[$@] -> [$<]$(END_COL)" $(PERCENT)
+	@printf "\r\033[K$(COL_RED)[%-5.2f%%]\t\e[1;38;5;148m[$@] -> [$<]$(END_COL)" $(PERCENT)
 	$(eval COUNT=$(shell echo $$(($(COUNT)+1))))
 
 clean:
