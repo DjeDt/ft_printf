@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/29 19:29:28 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 13:14:12 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 20:10:55 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ char	*create_padding(int size, char c)
 	return (ret);
 }
 
+void	concat_final(void **final, void *padded)
+{
+	char	*new;
+
+	new = ft_strjoin((*final), padded);
+	free((*final));
+	(*final) = new;
+}
+
 int		concat_to_str(void **base, void *add, char c, t_opt opt)
 {
 	int		ret;
@@ -49,8 +58,8 @@ int		concat_to_str(void **base, void *add, char c, t_opt opt)
 		padded = concat_unsign(add, c, opt);
 	if (padded == NULL)
 		return (-1);
+	concat_final(base, padded);
 	ret = ft_strlen(padded);
-	(*base) = ft_strjoin_fl((*base), padded);
 	ft_strdel(&padded);
 	return (ret);
 }

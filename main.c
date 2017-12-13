@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 15:32:19 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 20:30:06 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,19 +164,19 @@ void	test_ptr(void)
 	ft_printf("\nTest des pointeurs :\n");
 	ret = printf("real : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
 	ret2 = ft_printf("mine : p = %p et p = %p et p = %p et p = %p\n", s, &s2, &c, NULL);
-	ft_printf("Test1 : {real = %d} {mine = %d}\n", ret, ret2);
+	ft_printf("Test1 : {real = %d} {mine = %d}\n\n", ret, ret2);
 
 	ret = printf("real : p = %5p et p = %-15p et p = %15p et p = %p\n", s, &s2, &c, NULL);
 	ret2 = ft_printf("mine : p = %5p et p = %-15p et p = %15p et p = %p\n", s, &s2, &c, NULL);
-	ft_printf("Test1 : {real = %d} {mine = %d}\n", ret, ret2);
+	ft_printf("Test1 : {real = %d} {mine = %d}\n\n", ret, ret2);
 
 	ret = printf("real : s = %-10s et %s et %s\n", "test1", "test2", "test3");
 	ret2 = ft_printf("mine : s = %-10s et %s et %s\n", "test1", "test2", "test3");
-	ft_printf("Test ptr : {real = %d} {mine = %d}\n", ret, ret2);
+	ft_printf("Test ptr : {real = %d} {mine = %d}\n\n", ret, ret2);
 
 	ret = printf("real : %s\n", "123");
 	ret2 = ft_printf("mine : %s\n", "123");
-	ft_printf("Test ptr : {real = %d} {mine = %d}\n", ret, ret2);
+	ft_printf("Test ptr : {real = %d} {mine = %d}\n\n", ret, ret2);
 
 	char *test1 = "ceci est le test1";
 	char *test2 = "c'est le test2";
@@ -200,6 +200,10 @@ void	test_ptr(void)
 
 	ret = printf("real : |%-30.10s|\n", test2);
 	ret2 = ft_printf("mine : |%-30.10s|\n", test2);
+	ft_printf("Test s : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : |%s| et |%20.15s|\n", "", "coucou je fais plus de vingts caracteres de long");
+	ret2 = ft_printf("mine : |%s| et |%20.15s|\n", "", "coucou je fais plus de vingts caracteres de long");
 	ft_printf("Test s : {real = %d} {mine = %d}\n", ret, ret2);
 }
 
@@ -253,21 +257,38 @@ int		main(void)
 	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
 
 
+	/*
 	test_c();
-
+	test_ptr();
 	test_modificateurs();
 	test_long();
-	test_ptr();
+	*/
 
 //	test_vrac();
 //	test_unsign();
 
-	/*
 	int ret;
 	int ret2;
 
-	ret = printf("real : %#.x\n", 0);
-	ret2 = ft_printf("mine : %#.x\n", 0);
+	ret = printf("real : |%5x|\n", 10);
+	ret2 = ft_printf("mine : |%5x|\n", 10);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : |%3.6x|\n", 10);
+	ret2 = ft_printf("mine : |%3.6x|\n", 10);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : |%.6x|\n", 10);
+	ret2 = ft_printf("mine : |%.6x|\n", 10);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : |%#x|\n", 10);
+	ret2 = ft_printf("mine : |%#x|\n", 10);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+
+	ret = printf("real : |%#.x|\n", 0);
+	ret2 = ft_printf("mine : |%#.x|\n", 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
 	ret = printf("real : %#x\n", 42);
@@ -301,6 +322,6 @@ int		main(void)
 	ret = printf("real : %#.8x\n", 42);
 	ret2 = ft_printf("mine : %#.8x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-*/
+
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:05:29 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 15:14:59 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 22:23:41 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	get_width(const char *format, int *cc, t_opt *opt)
+int		get_width(const char *format, int *cc, t_opt *opt)
 {
 	int		cc2;
 	char	*str;
@@ -21,13 +21,16 @@ void	get_width(const char *format, int *cc, t_opt *opt)
 	cc2 = (*cc);
 	while (format[(*cc)] && (format[(*cc)] >= '0' && format[(*cc)] <= '9'))
 		(*cc)++;
-	if ((str = ft_strsub(format, cc2, (*cc) - cc2)) == NULL)
-		return ;
+	str = ft_strsub(format, cc2, (*cc) - cc2);
+	if (str == NULL)
+		return (-1);
 	opt->width = ft_atoi(str);
+	opt->flags |= FLAG_LDC;
 	free(str);
+	return (0);
 }
 
-void	get_precision(const char *format, int *cc, t_opt *opt)
+int		get_precision(const char *format, int *cc, t_opt *opt)
 {
 	int		cc2;
 	char	*str;
@@ -36,10 +39,13 @@ void	get_precision(const char *format, int *cc, t_opt *opt)
 	cc2 = ++(*cc);
 	while (format[(*cc)] && (format[(*cc)] >= '0' && format[(*cc)] <= '9'))
 		(*cc)++;
-	if ((str = ft_strsub(format, cc2, (*cc) - cc2)) == NULL)
-		return ;
+	str = ft_strsub(format, cc2, (*cc) - cc2);
+	if (str == NULL)
+		return (-1);
 	opt->precision = ft_atoi(str);
+	opt->flags |= FLAG_PREC;
 	free(str);
+	return (0);
 }
 
 void	get_len_mod(const char *format, int *cc, t_opt *opt)
@@ -88,6 +94,9 @@ void	get_flags(const char *format, int *cc, t_opt *opt)
 
 int		do_parse(t_core *core, int *cc, va_list arg)
 {
+	int ret;
+
+	ret = 0;
 	init_opt(&core->opt);
 	while ((core->fmt[(*cc)] != '\0') && (oneof("-+ 0#", core->fmt[(*cc)]) > 0))
 		get_flags(core->fmt, cc, &core->opt);
@@ -100,3 +109,11 @@ int		do_parse(t_core *core, int *cc, va_list arg)
 	do_conv(core, cc, arg);
 	return (*cc);
 }
+
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:14:20 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 11:54:45 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 12:11:59 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	char_to_str(wchar_t ch, char *to_add)
 	int count;
 
 	count = 0;
-	if (ch <= 0x7F)
+	if (ch == '\0')
+		to_add[count] = '\0';
+	else if (ch <= 0x7F)
 		to_add[count++] = ch;
 	else if (ch <= 0x7FF)
 	{

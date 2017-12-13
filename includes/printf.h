@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 13:13:27 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 22:34:38 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define FLAG_SPACE	(1 << 2)
 # define FLAG_ALT	(1 << 3)
 # define FLAG_ZERO	(1 << 4)
+# define FLAG_LDC	(1 << 5)
+# define FLAG_PREC	(1 << 6)
 
 # define NO_CONV	(1 << 0)
 # define CONV_CHR	(1 << 1)
@@ -40,6 +42,8 @@
 # define CONV_LNG	(1 << 3)
 # define CONV_PTR	(1 << 4)
 # define CONV_UNS	(1 << 5)
+
+char			*g_fnl;
 
 typedef struct	s_opt
 {
@@ -73,7 +77,7 @@ char			*ft_strjoin_fr(char const *s1, char *s2);
 char			*ft_strjoin_fl(char *s1, char const *s2);
 int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
-
+char			*ft_strcat(char *s1, const char *s2);
 
 int				do_int(va_list arg, t_opt opt, char c, void **final);
 int				do_ptr(va_list arg, t_opt opt, char c, void **final);

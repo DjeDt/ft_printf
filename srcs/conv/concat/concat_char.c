@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 09:59:37 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/07 13:50:41 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 12:15:57 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*char_width(char *add, t_opt opt)
 	padding = NULL;
 	len = ft_strlen(add);
 	len = opt.width - len;
-	if ((opt.width > 0) && (len > 0))
+	if ((opt.width > 1) && (len > 0))
 	{
 		padding = create_padding(len, opt.prefix);
 		if (opt.flags & FLAG_LEFT)
@@ -58,6 +58,7 @@ char	*concat_char(char *to_add, t_opt opt)
 
 	ret = NULL;
 	len = ft_strlen(to_add);
+	len == 0 ? len = 1 : 0;
 	if (opt.precision > 0)
 	{
 		if (opt.precision > len)

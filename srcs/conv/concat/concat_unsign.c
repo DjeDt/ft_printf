@@ -6,35 +6,25 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 15:40:21 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 22:25:59 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static char	*unsign_width(char *add, t_opt opt)
+static void	do_alter(char **str, char c)
 {
-	int		len;
-	char	*ret;
-	char	*padding;
+	char *new;
 
-	ret  = NULL;
-	padding = NULL;
-	len = ft_strlen(add);
-	len = opt.width - len;
-	if ((opt.width > 0) && (len > 0))
-	{
-		padding = create_padding(len, opt.prefix);
-		if (opt.flags & FLAG_LEFT)
-			ret = ft_strjoin(add, padding);
-		else
-			ret = ft_strjoin(padding, add);
-		if (padding)
-			free(padding);
-	}
-	else
-		ret = ft_strdup(add);
-	return (ret);
+	new = NULL;
+	if (c == 'o')
+		new = ft_strjoin("0", (*str));
+	else if (c == 'x')
+		new = ft_strjoin("0x", (*str));
+	else if (c == 'X')
+		new = ft_strjoin("0X", (*str));
+	free((*str));
+	(*str) = new;
 }
 
 static char	*unsign_precision(char *add, t_opt opt)
@@ -45,64 +35,79 @@ static char	*unsign_precision(char *add, t_opt opt)
 
 	ret = NULL;
 	padding = NULL;
-	len = ft_strlen(add);
-	len = opt.precision - len;
-	ret = ft_strjoin(padding, add);
-	free(padding);
+	len = opt.precision - ft_strlen(add);
+	if (len > 0)
+	{
+		padding = create_padding(len, '0');
+		ret = ft_strjoin(padding, add);
+		if (padding)
+			free(padding);
+	}
+	else
+		ret = ft_strdup(add);
 	return (ret);
 }
 
-
-static char	*keep_prefix(char *add, int len, char c, t_opt opt)
+static char	*unsign_width(char *add, t_opt opt, char c)
 {
+	int		len;
 	char	*ret;
-	char	*save;
+	char	*padding;
 
-	ret = NULL;
-	save = NULL;
-	if (opt.precision > 0)
+	ret  = NULL;
+	padding = NULL;
+	if ((opt.flags & FLAG_ALT) && (opt.prefix == ' '))
+		do_alter(&add, c);
+	len = opt.width - ft_strlen(add);
+	if (len > 0)
 	{
-		if (opt.precision > len)
-			opt.precision = len;
-		ret = unsign_precision(add, opt);
+		padding = create_padding(len, opt.prefix);
+		if (opt.flags & FLAG_LEFT)
+			ret = ft_strjoin(add, padding);
+		else
+			ret = ft_strjoin(padding, add);
+		if (opt.flags & FLAG_ALT && opt.prefix == '0')
+			do_alter(&ret, c);
+		if (padding)
+			free(padding);
+		free(add);
 	}
-	if (c == 'o')
-		ret = ft_strjoin_fr("0", save);
-	else if (c == 'x')
-		ret = ft_strjoin_fr("0x", ret);
-	else if (c == 'X')
-		ret = ft_strjoin_fr("0X", ret);
-	save = unsign_width(ret, opt);
-	if (ret)
-		free(ret);
-	return (save);
+	else
+	{
+		ret = ft_strdup(add);
+		if (opt.flags & FLAG_ALT)
+			do_alter(&ret, c);
+	}
+	return (ret);
 }
 
 char	*concat_unsign(char *to_add, char c, t_opt opt)
 {
-	int		len;
 	char	*ret;
 
 	ret = NULL;
-	len = ft_strlen(to_add);
-	if (opt.flags & FLAG_ALT)
+
+	if (opt.flags & FLAG_PREC)
 	{
-/*
-		if (c == 'o')
-			ret = ft_strjoin("0", ret);
-		else if (c == 'x')
-			ret = ft_strjoin_fr("0x", ret);
-		else if (c == 'X')
-			ret = ft_strjoin_fr("0X", ret);
-*/
-		ret = keep_prefix(to_add, len, c, opt);
+		ret = unsign_precision(to_add, opt);
+		if (opt.flags & FLAG_ALT)
+		{
+			do_alter(&ret, c);
+			opt.flags &= ~FLAG_ALT;
+		}
+		if (opt.flags & FLAG_LDC)
+			ret = unsign_width(ret, opt, c);
 	}
 	else
 	{
-		if (opt.precision > 0)
-			ret = unsign_precision(to_add, opt);
+		ret = ft_strdup(to_add);
+		if (opt.flags & FLAG_LDC || opt.flags & FLAG_ZERO)
+			ret = unsign_width(ret, opt, c);
 		else
-			ret = unsign_width(to_add, opt);
+		{
+			if (opt.flags & FLAG_ALT)
+				do_alter(&ret, c);
+		}
 	}
 	return (ret);
 }

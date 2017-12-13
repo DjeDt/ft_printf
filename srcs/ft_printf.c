@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 15:30:48 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 22:35:02 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_opt(t_opt *opt)
 	opt->flags = 0;
 	opt->type = 0;
 	opt->prefix = ' ';
-	opt->width = 1;
+	opt->width = 0;
 	opt->precision = 0;
 	opt->len_mod = 0;
 }
@@ -37,11 +37,11 @@ void	begin_parse(t_core *core, va_list arg)
 	cc = -1;
 	while (core->fmt[++cc] != '\0')
 	{
-		ft_printf("test parse\n");
 		if (core->fmt[cc] == '%')
 		{
 			cc++;
-			do_parse(core, &cc, arg);
+			if (do_parse(core, &cc, arg) == -1)
+				break ;
 		}
 		else
 		{
@@ -59,6 +59,7 @@ int		ft_printf(const char *restrict format, ...)
 
 	if (format == NULL)
 		return (-1);
+	g_final = NULL;
 	init_core(&core, format);
 	va_start(arg, format);
 	begin_parse(&core, arg);

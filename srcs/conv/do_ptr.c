@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 11:55:24 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 18:50:51 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static char	*get_addr(unsigned long value, int base, t_opt opt)
 
 char	*transform_to_char(wchar_t *old_add)
 {
+	wchar_t	ch;
 	int		count;
 	char	*new;
-	wchar_t	ch;
 	char	tmp[5];
 
 	new = NULL;
@@ -69,6 +69,18 @@ char	*transform_to_char(wchar_t *old_add)
 		new = ft_strjoin_fl(new, tmp);
 	}
 	return (new);
+}
+
+char	*transform_s(char *add)
+{
+	char	*ret;
+
+	ret = NULL;
+	if (add == NULL)
+		ret = ft_strdup("(null)");
+	else
+		ret = ft_strdup(add);
+	return (ret);
 }
 
 int		do_ptr(va_list arg, t_opt opt, char c, void **final)
@@ -87,9 +99,10 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 			to_add = transform_to_char((wchar_t*)to_add);
 		}
 		else
+		{
 			to_add = (char*)va_arg(arg, char*);
-		if (to_add == NULL)
-			to_add = "(null)";
+			to_add = transform_s(to_add);
+		}
 	}
 	else if (c == 'p')
 	{
@@ -97,6 +110,6 @@ int		do_ptr(va_list arg, t_opt opt, char c, void **final)
 		to_add = get_addr((unsigned long)to_add, 16, opt);
 	}
 	ret = concat_to_str(final, to_add, c, opt);
-	c != 's' ? free(to_add) : 0;
+	free(to_add);
 	return (ret);
 }

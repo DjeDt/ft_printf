@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 15:14:30 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 20:15:01 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 	return (ret);
 }
 
-char	*unsign_to_str(unsigned long long int i, void *add, char c, t_opt opt)
+char	*unsign_to_str(unsigned long long int i, void *add, char c)
 {
-	(void)opt;
 	if (c == 'o')
 		add = ft_itoa_base(i, 8);
 	else if (c == 'u')
@@ -42,8 +41,6 @@ char	*unsign_to_str(unsigned long long int i, void *add, char c, t_opt opt)
 		add = ft_convert_unsign(i, 16, "0123456789abcdef");
 	else if (c == 'X')
 		add = ft_convert_unsign(i, 16, "0123456789ABCDEF");
-	if (add == NULL)
-		return (NULL);
 	return (add);
 }
 
@@ -71,7 +68,7 @@ int		do_unsign(va_list arg, t_opt opt, char c, void **final)
 		i = (size_t)va_arg(arg, unsigned long long int);
 	else
 		i = (unsigned int)va_arg(arg, unsigned long long int);
-	to_add = unsign_to_str(i, to_add, c, opt);
+	to_add = unsign_to_str(i, to_add, c);
 	ret = concat_to_str(final, to_add, c, opt);
 	ft_strdel(&to_add);
 	return (ret);

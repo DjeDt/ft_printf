@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:23:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 15:05:18 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/13 11:01:26 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void	check_exeption(const char c, t_opt *opt)
 {
 	if ((oneof("cdipsu", c) == 1) && (opt->flags & FLAG_ALT))
 		opt->flags &= ~FLAG_ALT;
-	if ((oneof("diouixX", c) == 1) && (opt->flags & FLAG_ZERO) \
-		&& (opt->precision > 0))
-	{
-		opt->flags &= ~FLAG_ZERO;
-		opt->prefix = ' ';
-	}
+	/*
+	  if ((oneof("diouixX", c) == 1) && (opt->flags & FLAG_ZERO)	\
+	  && (opt->precision > 0))
+	  {
+	  opt->flags &= ~FLAG_ZERO;
+	  opt->prefix = ' ';
+	  }
+	*/
 	if ((opt->flags & FLAG_ZERO) && (opt->flags & FLAG_LEFT))
 	{
 		opt->flags &= ~FLAG_ZERO;
