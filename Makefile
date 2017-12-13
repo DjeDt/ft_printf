@@ -15,8 +15,8 @@ NAME = libftprintf.a
 
 # Details #
 CC		= gcc
-FLAGS	= -Wall -Wextra -Werror -j3
-DEBUG	= yes
+FLAGS	= -Wall -Wextra -Werror
+DEBUG	= no
 
 # Path #
 OBJ_PATH = obj
@@ -116,5 +116,9 @@ clean:
 
 fclean: clean
 	@/bin/rm -f $(NAME)
+
+exe: re
+	gcc main.c $(NAME)
+	./a.out
 
 re: fclean all

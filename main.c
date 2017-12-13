@@ -256,9 +256,10 @@ int		main(void)
 {
 	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
 
+	test_c();
 
 	/*
-	test_c();
+	test_ptr();
 	test_ptr();
 	test_modificateurs();
 	test_long();

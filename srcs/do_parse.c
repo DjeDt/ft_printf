@@ -106,14 +106,7 @@ int		do_parse(t_core *core, int *cc, va_list arg)
 		get_precision(core->fmt, cc, &core->opt);
 	if (oneof("lhjtz", core->fmt[(*cc)]) == 1)
 		get_len_mod(core->fmt, cc, &core->opt);
+	(void)ret;
 	do_conv(core, cc, arg);
 	return (*cc);
 }
-
-
-
-
-
-
-
-

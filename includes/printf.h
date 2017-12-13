@@ -80,6 +80,8 @@ int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strcat(char *s1, const char *s2);
 
 int				do_int(va_list arg, t_opt opt, char c, void **final);
+int				do_int2(va_list arg, t_core *core, t_opt *opt, char c);
+
 int				do_ptr(va_list arg, t_opt opt, char c, void **final);
 int				do_long(va_list arg, t_opt opt, char c, void **final);
 int				do_char(va_list arg, t_opt opt, char c, void **final);

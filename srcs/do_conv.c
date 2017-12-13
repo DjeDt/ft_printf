@@ -14,6 +14,7 @@
 
 void	check_exeption(const char c, t_opt *opt)
 {
+	(void)g_fnl;
 	if ((oneof("cdipsu", c) == 1) && (opt->flags & FLAG_ALT))
 		opt->flags &= ~FLAG_ALT;
 	/*
@@ -49,15 +50,17 @@ int		normal_char(t_opt opt, char c, void **final)
 void	do_conv(t_core *core, int *cc, va_list arg)
 {
 	check_exeption(core->fmt[(*cc)], &core->opt);
-	if ((core->fmt[(*cc)] == 'd') || (core->fmt[(*cc)] == 'i'))
-		core->bytes += do_int(arg, core->opt, core->fmt[(*cc)], &core->final);
-	else if (core->fmt[(*cc)] == 'c' || core->fmt[(*cc)] == 'C')
+	if (oneof("di", core->fmt[(*cc)]))	//	if ((core->fmt[(*cc)] == 'd') || (core->fmt[(*cc)] == 'i'))
+		core->bytes += do_int2(arg, core, &core->opt, core->fmt[(*cc)]);//core->bytes += do_int(arg, core->opt, core->fmt[(*cc)], &core->final);
+	\
+	\
+	else if (oneof("cC", core->fmt[(*cc)]))//	else if (core->fmt[(*cc)] == 'c' || core->fmt[(*cc)] == 'C')
 		core->bytes += do_char(arg, core->opt, core->fmt[(*cc)], &core->final);
-	else if (core->fmt[(*cc)] == 'o' || core->fmt[(*cc)] == 'u' || core->fmt[(*cc)] == 'x' || core->fmt[(*cc)] == 'X')
+	else if (oneof("ouxX", core->fmt[(*cc)]))//else if (core->fmt[(*cc)] == 'o' || core->fmt[(*cc)] == 'u' || core->fmt[(*cc)] == 'x' || core->fmt[(*cc)] == 'X')
 		core->bytes += do_unsign(arg, core->opt, core->fmt[(*cc)], &core->final);
-	else if (core->fmt[(*cc)] == 's' || core->fmt[(*cc)] == 'S' || core->fmt[(*cc)] == 'p')
+	else if (oneof("sSp", core->fmt[(*cc)]))//else if (core->fmt[(*cc)] == 's' || core->fmt[(*cc)] == 'S' || core->fmt[(*cc)] == 'p')
 		core->bytes += do_ptr(arg, core->opt, core->fmt[(*cc)], &core->final);
-	else if (core->fmt[(*cc)] == 'D' || core->fmt[(*cc)] == 'O' || core->fmt[(*cc)] == 'U')
+	else if (oneof("DOU", core->fmt[(*cc)])) //else if (core->fmt[(*cc)] == 'D' || core->fmt[(*cc)] == 'O' || core->fmt[(*cc)] == 'U')
 		core->bytes += do_long(arg, core->opt, core->fmt[(*cc)], &core->final);
 	else
 		core->bytes += normal_char(core->opt, core->fmt[(*cc)], &core->final);

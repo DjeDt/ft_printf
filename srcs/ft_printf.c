@@ -59,7 +59,7 @@ int		ft_printf(const char *restrict format, ...)
 
 	if (format == NULL)
 		return (-1);
-	g_final = NULL;
+	g_fnl = NULL;
 	init_core(&core, format);
 	va_start(arg, format);
 	begin_parse(&core, arg);
