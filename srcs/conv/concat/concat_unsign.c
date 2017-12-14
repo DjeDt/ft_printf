@@ -6,108 +6,119 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/13 22:25:59 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/14 22:52:38 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	do_alter(char **str, char c)
+void	do_alter(char **str, char c, t_opt opt)
 {
 	char *new;
 
 	new = NULL;
-	if (c == 'o')
-		new = ft_strjoin("0", (*str));
-	else if (c == 'x')
-		new = ft_strjoin("0x", (*str));
-	else if (c == 'X')
-		new = ft_strjoin("0X", (*str));
-	free((*str));
-	(*str) = new;
+	if (opt.flags & FLAG_ALT)
+	{
+		if (c == 'o')
+		{
+			new = ft_strjoin("0", (*str));
+			free((*str));
+			(*str) = new;
+		}
+		else if (c == 'x')
+		{
+			new = ft_strjoin("0x", (*str));
+			free((*str));
+		(*str) = new;
+		}
+		else if (c == 'X')
+		{
+			new = ft_strjoin("0X", (*str));
+			free((*str));
+			(*str) = new;
+		}
+	}
 }
 
-static char	*unsign_precision(char *add, t_opt opt)
+void	unsign_precision(char **to_add, t_opt opt)
 {
 	int		len;
-	char	*ret;
+	char	*new;
 	char	*padding;
 
-	ret = NULL;
+	new = NULL;
 	padding = NULL;
-	len = opt.precision - ft_strlen(add);
+	len = opt.precision - ft_strlen((*to_add));
 	if (len > 0)
 	{
 		padding = create_padding(len, '0');
-		ret = ft_strjoin(padding, add);
+		new = ft_strjoin(padding, (*to_add));
+		free((*to_add));
+		(*to_add) = new;
 		if (padding)
 			free(padding);
 	}
-	else
-		ret = ft_strdup(add);
-	return (ret);
 }
 
-static char	*unsign_width(char *add, t_opt opt, char c)
+int		check_unsign_exeption(char c, long long int i, t_opt opt)
+{
+	(void)i;
+	if (opt.flags & FLAG_ALT)
+	{
+		if (c == 'o')
+			return (1);
+		else if (c == 'x' || c == 'X')
+			return (2);
+	}
+	return (0);
+}
+
+void	unsign_width(char c, long long int i, char **to_add, t_opt opt)
 {
 	int		len;
-	char	*ret;
+	char	*new;
 	char	*padding;
 
-	ret  = NULL;
+	new = NULL;
 	padding = NULL;
-	if ((opt.flags & FLAG_ALT) && (opt.prefix == ' '))
-		do_alter(&add, c);
-	len = opt.width - ft_strlen(add);
+	len = opt.width - ft_strlen((*to_add));
+	len -= check_unsign_exeption(c, i, opt);
 	if (len > 0)
 	{
-		padding = create_padding(len, opt.prefix);
 		if (opt.flags & FLAG_LEFT)
-			ret = ft_strjoin(add, padding);
+		{
+			do_alter(to_add, c, opt);
+			padding = create_padding(len, ' ');
+			new = ft_strjoin((*to_add), padding);
+		}
 		else
-			ret = ft_strjoin(padding, add);
-		if (opt.flags & FLAG_ALT && opt.prefix == '0')
-			do_alter(&ret, c);
+		{
+			if (opt.prefix != '0')
+				do_alter(to_add, c, opt);
+			padding = create_padding(len, ' ');
+			new = ft_strjoin(padding, (*to_add));
+			if (opt.prefix == '0')
+				do_alter(&new, c, opt);
+		}
+		free((*to_add));
+		(*to_add) = new;
 		if (padding)
 			free(padding);
-		free(add);
 	}
-	else
-	{
-		ret = ft_strdup(add);
-		if (opt.flags & FLAG_ALT)
-			do_alter(&ret, c);
-	}
-	return (ret);
 }
 
-char	*concat_unsign(char *to_add, char c, t_opt opt)
+void	concat_unsign(long long int i, char c, char **to_add, t_core *core)
 {
-	char	*ret;
-
-	ret = NULL;
-
-	if (opt.flags & FLAG_PREC)
+	if (core->opt.flags & FLAG_PREC)
 	{
-		ret = unsign_precision(to_add, opt);
-		if (opt.flags & FLAG_ALT)
-		{
-			do_alter(&ret, c);
-			opt.flags &= ~FLAG_ALT;
-		}
-		if (opt.flags & FLAG_LDC)
-			ret = unsign_width(ret, opt, c);
+		unsign_precision(to_add, core->opt);
+		do_alter(to_add, c, core->opt);
+		if (core->opt.flags & FLAG_LDC)
+			unsign_width(c, i, to_add, core->opt);
 	}
+	else if (core->opt.flags & FLAG_LDC)
+		unsign_width(c, i, to_add, core->opt);
 	else
-	{
-		ret = ft_strdup(to_add);
-		if (opt.flags & FLAG_LDC || opt.flags & FLAG_ZERO)
-			ret = unsign_width(ret, opt, c);
-		else
-		{
-			if (opt.flags & FLAG_ALT)
-				do_alter(&ret, c);
-		}
-	}
-	return (ret);
+		do_alter(to_add, c, core->opt);
+	core->bytes += ft_strlen((*to_add));
 }

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/29 19:29:28 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/13 20:10:55 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/14 22:51:49 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,44 @@ int		concat_to_str(void **base, void *add, char c, t_opt opt)
 	char	*padded;
 
 	padded = NULL;
+
 	if (opt.type & NO_CONV)
-		padded = concat_char(add, opt);
+	{
+		concat_final(base, add);
+		ret = ft_strlen(add);
+		return (ret);
+	}
 	else if (opt.type & CONV_CHR)
-		padded = concat_char(add, opt);
+	{
+		concat_final(base, add);
+		ret = ft_strlen(add);
+		return (ret);
+	}
 	else if (opt.type & CONV_INT)
-		padded = concat_int(add, c, opt);
-	else if (opt.type & CONV_PTR)
-		padded = concat_ptr(add, opt);
+	{
+		concat_final(base, add);
+		ret = ft_strlen(add);
+		return  (ret);
+	}
 	else if (opt.type & CONV_LNG)
-		padded = concat_int(add, c, opt);
+	{
+		concat_final(base, add);
+		ret = ft_strlen(add);
+		return  (ret);
+	}
 	else if (opt.type & CONV_UNS)
-		padded = concat_unsign(add, c, opt);
+	{
+		concat_final(base, add);
+		ret = ft_strlen(add);
+		return (ret);
+		(void)c;
+	}
+	else if (opt.type & CONV_PTR)
+	{
+		concat_final(base, add);
+		ret = ft_strlen(add);
+		return (ret);
+	}
 	if (padded == NULL)
 		return (-1);
 	concat_final(base, padded);
@@ -63,3 +89,5 @@ int		concat_to_str(void **base, void *add, char c, t_opt opt)
 	ft_strdel(&padded);
 	return (ret);
 }
+
+

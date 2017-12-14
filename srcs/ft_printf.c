@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/13 22:35:02 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/14 22:54:20 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	begin_parse(t_core *core, va_list arg)
 		else
 		{
 			init_opt(&core->opt);
-			core->bytes += normal_char(core->opt, core->fmt[cc], &core->final);
+			normal_char(core->fmt[cc], core);
 		}
 	}
 	write(1, core->final, core->bytes);
@@ -59,7 +59,6 @@ int		ft_printf(const char *restrict format, ...)
 
 	if (format == NULL)
 		return (-1);
-	g_fnl = NULL;
 	init_core(&core, format);
 	va_start(arg, format);
 	begin_parse(&core, arg);

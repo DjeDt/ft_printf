@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/13 20:30:06 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/14 22:42:33 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,22 +252,8 @@ void	test_vrac(void)
 
 }
 
-int		main(void)
+void	test_unsign2(void)
 {
-	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
-
-	test_c();
-
-	/*
-	test_ptr();
-	test_ptr();
-	test_modificateurs();
-	test_long();
-	*/
-
-//	test_vrac();
-//	test_unsign();
-
 	int ret;
 	int ret2;
 
@@ -323,6 +309,53 @@ int		main(void)
 	ret = printf("real : %#.8x\n", 42);
 	ret2 = ft_printf("mine : %#.8x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+}
+
+void	test_int2(void)
+{
+	int ret;
+	int	ret2;
+
+	ret = printf("real : %d\n", 55);
+	ret2 = ft_printf("mine : %d\n", 55);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %5d\n", -55);
+	ret2 = ft_printf("mine : %5d\n", -55);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %05d\n", 55);
+	ret2 = ft_printf("mine : %05d\n", 55);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %5.5d\n", 123456789);
+	ret2 = ft_printf("mine : %5.5d\n", 123456789);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : {%+10.9d}\n", 123);
+	ret2 = ft_printf("mine : {%+10.9d}\n", 123);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+}
+
+int		main(void)
+{
+
+	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
+
+	/*
+	test_int();
+	write(1, "\n", 1);
+	test_int2();
+	test_long();
+	test_ptr();
+	test_c();
+	test_modificateurs();
+	test_vrac();
+	*/
+	test_unsign();
+	write(1, "\n", 1);
+	test_unsign2();
 
 	return (0);
 }

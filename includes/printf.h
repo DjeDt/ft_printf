@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/13 22:34:38 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/14 22:57:15 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@
 # define CONV_PTR	(1 << 4)
 # define CONV_UNS	(1 << 5)
 
-char			*g_fnl;
-
 typedef struct	s_opt
 {
 	int			flags;
@@ -79,23 +77,20 @@ int				ft_strcmp(const char *s1, const char *s2);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			*ft_strcat(char *s1, const char *s2);
 
-int				do_int(va_list arg, t_opt opt, char c, void **final);
-int				do_int2(va_list arg, t_core *core, t_opt *opt, char c);
-
-int				do_ptr(va_list arg, t_opt opt, char c, void **final);
-int				do_long(va_list arg, t_opt opt, char c, void **final);
-int				do_char(va_list arg, t_opt opt, char c, void **final);
-int				do_unsign(va_list arg, t_opt opt, char c, void **final);
-
-char			*concat_int(char *to_add, char c, t_opt opt);
-char			*concat_unsign(char *to_add, char c, t_opt opt);
-char			*concat_char(char *to_add, t_opt opt);
-char			*concat_ptr(void *to_add, t_opt opt);
-
+int				do_int(va_list arg, t_core *core, char c);
+int				do_ptr(va_list arg, t_core *core, char c);
+int				do_long(va_list arg, char c, t_core *core);
+void			do_char(va_list arg, char c, t_core *core);
+int				do_unsign(va_list arg, char c, t_core *core);
+	
+void			concat_int(long long int i, char c, char **to_add, t_core *core);
+void			concat_unsign(long long int i, char c, char **to_add, t_core *core);
+void			concat_char(char **to_add, t_opt opt);
+void			concat_ptr(char **to_add, t_core *core);
 
 int				check_int_exception(long long int i, t_opt opt);
-void			char_to_str(wchar_t ch, char *to_add);
-int				normal_char(t_opt opt, char c, void **final);
+void			char_to_str(wchar_t ch, char **to_add);
+void			normal_char(char c, t_core *core);
 
 int				oneof(const char *str, char c);
 int				concat_to_str(void **base, void *add, char c, t_opt opt);

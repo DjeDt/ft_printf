@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/08 11:55:03 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/14 22:57:05 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*convert_int(long long int value, int base)
 		value *= (-1);
 	}
 	count = nbr_len(value, base) + neg;
-	str = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	str = "0123456789abcdef";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ret[count] = '\0';
@@ -48,75 +48,40 @@ int		check_int_exception(long long int i, t_opt opt)
 	return (0);
 }
 
-char	*do_int_exeption(long long int i, t_opt opt, char *to_add)
+void	do_int_exeption(long long int i, t_opt opt, char **to_add)
 {
 	if (check_int_exception(i, opt) == 1)
-		to_add = ft_strjoin_fr(" ", to_add);
+		(*to_add) = ft_strjoin_fr(" ", (*to_add));
 	else if (check_int_exception(i, opt) == 2)
-		to_add = ft_strjoin_fr("+", to_add);
-	return (to_add);
+		(*to_add) = ft_strjoin_fr("+", (*to_add));
 }
 
-int		do_int2(va_list arg, t_core *core, t_opt *opt, char c)
+int		do_int(va_list arg, t_core *core, char c)
 {
 	int				ret;
 	long long int	i;
 	char			*to_add;
 
-
-
-
-		opt->type = CONV_INT;
-	if (opt->len_mod == MOD_L)
+	core->opt.type = CONV_INT;
+	if (core->opt.len_mod == MOD_L)
 		i = (long)va_arg(arg, long long int);
-	else if (opt->len_mod == MOD_LL)
+	else if (core->opt.len_mod == MOD_LL)
 		i = (long long)va_arg(arg, long long int);
-	else if (opt->len_mod == MOD_H)
+	else if (core->opt.len_mod == MOD_H)
 		i = (short)va_arg(arg, long long int);
-	else if (opt->len_mod == MOD_HH)
+	else if (core->opt.len_mod == MOD_HH)
 		i = (signed char)va_arg(arg, long long int);
-	else if (opt->len_mod == MOD_J)
+	else if (core->opt.len_mod == MOD_J)
 		i = (intmax_t)va_arg(arg, long long int);
-	else if (opt->len_mod == MOD_T)
+	else if (core->opt.len_mod == MOD_T)
 		i = (ptrdiff_t)va_arg(arg, long long int);
-	else if (opt->len_mod == MOD_Z)
+	else if (core->opt.len_mod == MOD_Z)
 		i = (size_t)va_arg(arg, long long int);
 	else
 		i = (int)va_arg(arg, long long int);
 	to_add = convert_int(i, 10);
-	to_add = do_int_exeption(i, *opt, to_add);
-	ret = concat_to_str(&core->final, to_add, c, *opt);
-	ft_strdel(&to_add);
-	return (ret);
-}
-
-int		do_int(va_list arg, t_opt opt, char c, void **final)
-{
-	int				ret;
-	long long int	i;
-	char			*to_add;
-
-	to_add = NULL;
-	opt.type = CONV_INT;
-	if (opt.len_mod == MOD_L)
-		i = (long)va_arg(arg, long long int);
-	else if (opt.len_mod == MOD_LL)
-		i = (long long)va_arg(arg, long long int);
-	else if (opt.len_mod == MOD_H)
-		i = (short)va_arg(arg, long long int);
-	else if (opt.len_mod == MOD_HH)
-		i = (signed char)va_arg(arg, long long int);
-	else if (opt.len_mod == MOD_J)
-		i = (intmax_t)va_arg(arg, long long int);
-	else if (opt.len_mod == MOD_T)
-		i = (ptrdiff_t)va_arg(arg, long long int);
-	else if (opt.len_mod == MOD_Z)
-		i = (size_t)va_arg(arg, long long int);
-	else
-		i = (int)va_arg(arg, long long int);
-	to_add = convert_int(i, 10);
-	to_add = do_int_exeption(i, opt, to_add);
-	ret = concat_to_str(final, to_add, c, opt);
+	concat_int(i, c, &to_add, core);
+	ret = concat_to_str(&core->final, to_add, c, core->opt);
 	ft_strdel(&to_add);
 	return (ret);
 }

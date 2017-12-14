@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/13 20:15:01 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/14 22:52:23 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,34 @@ char	*unsign_to_str(unsigned long long int i, void *add, char c)
 	return (add);
 }
 
-int		do_unsign(va_list arg, t_opt opt, char c, void **final)
+int		do_unsign(va_list arg, char c, t_core *core)
 {
 	int						ret;
 	unsigned long long int	i;
 	char					*to_add;
 
 	to_add = NULL;
-	opt.type = CONV_UNS;
-	if (opt.len_mod == MOD_L)
+	core->opt.type = CONV_UNS;
+	if (core->opt.len_mod == MOD_L)
 		i = (unsigned long)va_arg(arg, unsigned long long int);
-	else if (opt.len_mod == MOD_LL)
+	else if (core->opt.len_mod == MOD_LL)
 		i = (unsigned long long)va_arg(arg, unsigned long long int);
-	else if (opt.len_mod == MOD_H)
+	else if (core->opt.len_mod == MOD_H)
 		i = (unsigned short)va_arg(arg, unsigned long long int);
-	else if (opt.len_mod == MOD_HH)
+	else if (core->opt.len_mod == MOD_HH)
 		i = (unsigned char)va_arg(arg, unsigned long long int);
-	else if (opt.len_mod == MOD_J)
+	else if (core->opt.len_mod == MOD_J)
 		i = (uintmax_t)va_arg(arg, unsigned long long int);
-	else if (opt.len_mod == MOD_T)
+	else if (core->opt.len_mod == MOD_T)
 		i = (ptrdiff_t)va_arg(arg, unsigned long long int);
-	else if (opt.len_mod == MOD_Z)
+	else if (core->opt.len_mod == MOD_Z)
 		i = (size_t)va_arg(arg, unsigned long long int);
 	else
 		i = (unsigned int)va_arg(arg, unsigned long long int);
 	to_add = unsign_to_str(i, to_add, c);
-	ret = concat_to_str(final, to_add, c, opt);
+	concat_unsign(i, c, &to_add, core);
+	ret = concat_to_str(&core->final, to_add, c, core->opt);
 	ft_strdel(&to_add);
+	ret = 0;
 	return (ret);
 }
