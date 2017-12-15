@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strfsub.c                                       :+:      :+:    :+:   */
+/*   create_padding.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/05 03:03:55 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/04 17:39:17 by ddinaut          ###   ########.fr       */
+/*   Created: 2017/12/15 12:08:28 by ddinaut           #+#    #+#             */
+/*   Updated: 2017/12/15 12:10:55 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*ft_strfsub(char *s, unsigned int start, size_t len)
+char	*create_padding(int size, char c)
 {
-	size_t	i;
+	int		count;
 	char	*ret;
 
-	i = 0;
-	ret = NULL;
-	if (s != NULL && len > 0)
-	{
-		if (!(ret = (char*)malloc(sizeof(char) * (len + 1))))
-			return (NULL);
-		while (i < len)
-		{
-			ret[i] = s[start];
-			i++;
-			start++;
-		}
-		ret[i] = '\0';
-		ft_strdel(&s);
-	}
+	count = 0;
+	if (size < 1)
+		return (NULL);
+	if (!(ret = (char*)malloc(sizeof(char) * (size + 1))))
+		return (NULL);
+	while (count < size)
+		ret[count++] = c;
+	ret[count] = '\0';
 	return (ret);
 }

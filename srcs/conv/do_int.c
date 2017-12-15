@@ -6,25 +6,29 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/14 22:57:05 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 16:06:15 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
-char	*convert_int(long long int value, int base)
+char	*convert_int(long long int val, int base)
 {
 	int			neg;
 	int			count;
 	char		*ret;
+	unsigned long long int value;
 	const char	*str;
 
 	neg = 0;
-	if (value < 0)
+	if (val < 0)
 	{
 		neg = 1;
-		value *= (-1);
+		value = val * (-1);
 	}
+	else
+		value = val;
 	count = nbr_len(value, base) + neg;
 	str = "0123456789abcdef";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
@@ -56,9 +60,8 @@ void	do_int_exeption(long long int i, t_opt opt, char **to_add)
 		(*to_add) = ft_strjoin_fr("+", (*to_add));
 }
 
-int		do_int(va_list arg, t_core *core, char c)
+void	do_int(va_list arg, char c, t_core *core)
 {
-	int				ret;
 	long long int	i;
 	char			*to_add;
 
@@ -81,7 +84,5 @@ int		do_int(va_list arg, t_core *core, char c)
 		i = (int)va_arg(arg, long long int);
 	to_add = convert_int(i, 10);
 	concat_int(i, c, &to_add, core);
-	ret = concat_to_str(&core->final, to_add, c, core->opt);
-	ft_strdel(&to_add);
-	return (ret);
+	final_concat(core, to_add);
 }

@@ -6,12 +6,11 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:14:20 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/14 16:18:32 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 13:07:23 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
 void	char_to_str(wchar_t ch, char **to_add)
 {
@@ -61,9 +60,9 @@ void	do_char(va_list arg, char c, t_core *core)
 	}
 	else if (c == 'C')
 		ch = (wchar_t)va_arg(arg, wint_t);
+	else
+		ch = c;
 	char_to_str(ch, &to_add);
 	concat_char(&to_add, core->opt);
-	core->bytes += ft_strlen(to_add);
-	concat_to_str(&core->final, to_add, c, core->opt);
-	free(to_add);
+	final_concat(core, to_add);
 }

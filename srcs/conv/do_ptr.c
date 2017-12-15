@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/14 16:13:03 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 12:19:24 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*transform_s(char *add)
 	return (ret);
 }
 
-int		do_ptr(va_list arg, t_core *core, char c)
+void	do_ptr(va_list arg, char c, t_core *core)
 {
 	void	*to_add;
 
@@ -110,7 +110,5 @@ int		do_ptr(va_list arg, t_core *core, char c)
 		to_add = get_addr((unsigned long)to_add, 16, core->opt);
 	}
 	concat_ptr((char**)&to_add, core);
-	concat_to_str(&core->final, to_add, c, core->opt);
-	free(to_add);
-	return (0);
+	final_concat(core, to_add);
 }

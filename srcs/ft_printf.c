@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/14 22:54:20 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 19:22:42 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,7 @@ void	begin_parse(t_core *core, va_list arg)
 				break ;
 		}
 		else
-		{
-			init_opt(&core->opt);
 			normal_char(core->fmt[cc], core);
-		}
 	}
 	write(1, core->final, core->bytes);
 }

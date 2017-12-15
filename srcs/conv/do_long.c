@@ -6,15 +6,14 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:34:34 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/14 21:53:11 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 12:19:13 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		do_long(va_list arg, char c, t_core *core)
+void		do_long(va_list arg, char c, t_core *core)
 {
-	int				ret;
 	long long int	i;
 	char			*to_add;
 
@@ -28,7 +27,5 @@ int		do_long(va_list arg, char c, t_core *core)
 	else if (c == 'U')
 		to_add = convert_int(i, 10);
 	concat_int(i, c, &to_add, core);
-	ret = concat_to_str(&core->final, to_add, c, core->opt);
-	ft_strdel(&to_add);
-	return (ret);
+	final_concat(core, to_add);
 }

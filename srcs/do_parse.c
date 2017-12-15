@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:05:29 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/13 22:23:41 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 19:20:53 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int		get_width(const char *format, int *cc, t_opt *opt)
 		(*cc)++;
 	str = ft_strsub(format, cc2, (*cc) - cc2);
 	if (str == NULL)
+	{
+		opt->flags |= FLAG_ERR;
 		return (-1);
+	}
 	opt->width = ft_atoi(str);
 	opt->flags |= FLAG_LDC;
 	free(str);
@@ -41,7 +44,12 @@ int		get_precision(const char *format, int *cc, t_opt *opt)
 		(*cc)++;
 	str = ft_strsub(format, cc2, (*cc) - cc2);
 	if (str == NULL)
+	{
+		opt->flags |= FLAG_ERR;
+		opt->flags |= FLAG_PREC;
+		opt->precision = -1;
 		return (-1);
+	}
 	opt->precision = ft_atoi(str);
 	opt->flags |= FLAG_PREC;
 	free(str);
@@ -94,9 +102,6 @@ void	get_flags(const char *format, int *cc, t_opt *opt)
 
 int		do_parse(t_core *core, int *cc, va_list arg)
 {
-	int ret;
-
-	ret = 0;
 	init_opt(&core->opt);
 	while ((core->fmt[(*cc)] != '\0') && (oneof("-+ 0#", core->fmt[(*cc)]) > 0))
 		get_flags(core->fmt, cc, &core->opt);
@@ -106,7 +111,6 @@ int		do_parse(t_core *core, int *cc, va_list arg)
 		get_precision(core->fmt, cc, &core->opt);
 	if (oneof("lhjtz", core->fmt[(*cc)]) == 1)
 		get_len_mod(core->fmt, cc, &core->opt);
-	(void)ret;
 	do_conv(core, cc, arg);
-	return (*cc);
+	return ((*cc));
 }
