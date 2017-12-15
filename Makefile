@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/12/13 18:10:56 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/12/15 12:12:12 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -69,16 +69,13 @@ SRCS = \
 		$(FUNC)ft_itoa_base.c \
 		$(FUNC)ft_atoi.c \
 		$(FUNC)ft_strsub.c \
-		$(FUNC)ft_strfsub.c \
 		$(FUNC)ft_strdup.c \
 		$(FUNC)ft_strjoin.c \
 		$(FUNC)ft_strjoin_fr.c \
 		$(FUNC)ft_strjoin_fl.c \
-		$(FUNC)ft_strcmp.c \
-		$(FUNC)ft_strncmp.c \
-		$(FUNC)ft_strcat.c \
 \
-		$(UTILS)oneof.c
+		$(UTILS)oneof.c \
+		$(UTILS)create_padding.c
 
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
 SRC = $(addprefix $(SRC_PATH)/,$(SRCS))
@@ -90,7 +87,7 @@ PERCENT		= $(shell echo $$(( ($(COUNT) * 100) / $(NB_FILES))))
 
 # Debug option #
 ifeq ($(DEBUG), y)
-	FLAGS = -Wall -Wextra -Werror -fsanitize=address
+	FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 else
 	FLAGS = -Wall -Wextra -Werror
 endif

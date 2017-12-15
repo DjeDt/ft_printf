@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/14 22:42:33 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 19:14:27 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	test_modificateurs(void)
 	ret2 = ft_printf("mine : cmin = %hhd et cmax = %hhd\n", cmin, cmax);
 	ft_printf("Test 'hh' : {real = %d} {mine = %d}\n", ret, ret2);
 
-	ft_printf("T\nest 'j' :\n");
+	ft_printf("\nTest 'j' :\n");
 	ret = printf("real : imax = %ji\n", LONG_MAX);
 	ret2 = ft_printf("mine : imax = %ji\n", LONG_MAX);
 	ret = ft_printf("Test 'j' : {real = %d} {mine = %d}\n", ret, ret2);
@@ -338,24 +338,64 @@ void	test_int2(void)
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 }
 
+void	test_int3(void)
+{
+	int ret;
+	int ret2;
+
+	
+	ret = printf("real : %010x\n", 542);
+	ret2 = ft_printf("mine : z%010x\n", 542);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %#08x\n", 42);
+	ret2 = ft_printf("mine : %#08x\n", 42);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : %#.x %#.0x\n", 0, 0);
+	ret2 = ft_printf("mine : %#.x %#.0x\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+}
+
 int		main(void)
 {
 
 	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
 
-	/*
+/*
 	test_int();
 	write(1, "\n", 1);
 	test_int2();
+	test_int3();
+*/
+/*
 	test_long();
 	test_ptr();
 	test_c();
 	test_modificateurs();
 	test_vrac();
-	*/
+
 	test_unsign();
 	write(1, "\n", 1);
 	test_unsign2();
+*/
+	printf("%c\n", '\0');
+	ft_printf("%c\n", '\0');
+//	printf("real : %#.x %#.0x\n\n", 0, 0);
+	/*
+	ft_printf("mine : %#.x %#.0x\n", 0, 0);
 
+//	printf("real : %.x %.0x\n\n", 0, 0);
+	ft_printf("mine : %.x %.0x\n", 0, 0);
+	
+//	printf("real : %5.x %5.0x\n\n", 0, 0);
+	ft_printf("mine : %5.x %5.0x\n", 0, 0);
+
+//	printf("real : %.o %.0o\n\n", 0, 0);
+	ft_printf("mine : %.o %.0o\n", 0, 0);
+
+//	printf("real : %5.o %5.0o\n\n", 0, 0);
+	ft_printf("mine : %5.o %5.0o\n", 0, 0);
+	*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/14 22:57:15 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/15 18:52:32 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <stdlib.h>
 # include <wchar.h>
 # include <stddef.h>
-# include <inttypes.h>
 
 # define MOD_L	1
 # define MOD_LL	2
@@ -35,6 +34,7 @@
 # define FLAG_ZERO	(1 << 4)
 # define FLAG_LDC	(1 << 5)
 # define FLAG_PREC	(1 << 6)
+# define FLAG_ERR	(1 << 7)
 
 # define NO_CONV	(1 << 0)
 # define CONV_CHR	(1 << 1)
@@ -62,46 +62,52 @@ typedef struct	s_core
 	void		*final;
 }				t_core;
 
-char			*ft_itoa_base(int value, int base);
-size_t			ft_strlen(const char *str);
-int				nbr_len(unsigned long long i, int base);
-int				ft_atoi(const char *str);
-char			*ft_strsub(char const *s, unsigned int start, size_t len);
+/*
+**	Lib func
+*/
 void			ft_strdel(char **as);
-char			*ft_strfsub(char *s, unsigned int start, size_t len);
+int				ft_atoi(const char *str);
+size_t			ft_strlen(const char *str);
 char			*ft_strdup(const char *s1);
-char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_itoa_base(int value, int base);
+int				nbr_len(unsigned long long i, int base);
 char			*ft_strjoin_fr(char const *s1, char *s2);
 char			*ft_strjoin_fl(char *s1, char const *s2);
-int				ft_strcmp(const char *s1, const char *s2);
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
-char			*ft_strcat(char *s1, const char *s2);
+char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strsub(char const *s, unsigned int start, size_t len);
 
-int				do_int(va_list arg, t_core *core, char c);
-int				do_ptr(va_list arg, t_core *core, char c);
-int				do_long(va_list arg, char c, t_core *core);
+/*
+**	ft_printf func
+*/
+void			do_int(va_list arg, char c, t_core *core);
+void			do_ptr(va_list arg, char c, t_core *core);
+void			do_long(va_list arg, char c, t_core *core);
 void			do_char(va_list arg, char c, t_core *core);
-int				do_unsign(va_list arg, char c, t_core *core);
-	
-void			concat_int(long long int i, char c, char **to_add, t_core *core);
-void			concat_unsign(long long int i, char c, char **to_add, t_core *core);
+void			do_unsign(va_list arg, char c, t_core *core);
+
 void			concat_char(char **to_add, t_opt opt);
 void			concat_ptr(char **to_add, t_core *core);
+void			concat_int(long long int i, char c, char **to_add, t_core *core);
+void			concat_unsign(unsigned long long int i, char c, char **to_add, t_core *core);
 
-int				check_int_exception(long long int i, t_opt opt);
-void			char_to_str(wchar_t ch, char **to_add);
 void			normal_char(char c, t_core *core);
-
-int				oneof(const char *str, char c);
-int				concat_to_str(void **base, void *add, char c, t_opt opt);
-char			*create_padding(int size, char c);
-
+void			char_to_str(wchar_t ch, char **to_add);
 char			*convert_int(long long int value, int base);
-char			*pad_new_str(void *add, t_opt opt);
+int				check_int_exception(long long int i, t_opt opt);
 
-int				ft_printf(const char *format, ...);
-void			do_conv(t_core *core, int *count, va_list arg);
-int				do_parse(t_core *core, int *c, va_list arg);
+/*
+** Utils func
+ */
 void			init_opt(t_opt *opt);
+int				oneof(const char *str, char c);
+char			*create_padding(int size, char c);
+void			final_concat(t_core *core, void *to_add);
+
+/*
+**	core func
+*/
+int				ft_printf(const char *format, ...);
+int				do_parse(t_core *core, int *c, va_list arg);
+void			do_conv(t_core *core, int *count, va_list arg);
 
 #endif
