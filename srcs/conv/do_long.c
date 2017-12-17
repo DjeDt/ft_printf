@@ -18,7 +18,6 @@ void		do_long(va_list arg, char c, t_core *core)
 	char			*to_add;
 
 	to_add = NULL;
-	core->opt.type = CONV_LNG;
 	i = va_arg(arg, long long int);
 	if (c == 'D')
 		to_add = convert_int(i, 10);

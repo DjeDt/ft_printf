@@ -49,8 +49,8 @@ void	do_char(va_list arg, char c, t_core *core)
 	char	*to_add;
 
 	ch = 0;
-	core->opt.type = CONV_CHR;
-	to_add = (char*)malloc(sizeof(char) * 5);
+	if (!(to_add = (char*)malloc(sizeof(char) * 5)))
+		return ;
 	if (c == 'c')
 	{
 		if (core->opt.len_mod == MOD_L)

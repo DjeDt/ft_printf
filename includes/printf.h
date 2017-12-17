@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <wchar.h>
 # include <stddef.h>
+# include <stdint.h>
 
 # define MOD_L	1
 # define MOD_LL	2
@@ -35,13 +36,6 @@
 # define FLAG_LDC	(1 << 5)
 # define FLAG_PREC	(1 << 6)
 # define FLAG_ERR	(1 << 7)
-
-# define NO_CONV	(1 << 0)
-# define CONV_CHR	(1 << 1)
-# define CONV_INT	(1 << 2)
-# define CONV_LNG	(1 << 3)
-# define CONV_PTR	(1 << 4)
-# define CONV_UNS	(1 << 5)
 
 typedef struct	s_opt
 {

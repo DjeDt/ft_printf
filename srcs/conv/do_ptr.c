@@ -90,7 +90,6 @@ void	do_ptr(va_list arg, char c, t_core *core)
 	void	*to_add;
 
 	to_add = NULL;
-	core->opt.type = CONV_PTR;
 	if (c == 's' || c == 'S')
 	{
 		if (core->opt.len_mod == MOD_L || c == 'S')

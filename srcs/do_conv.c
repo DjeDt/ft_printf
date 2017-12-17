@@ -18,7 +18,6 @@ void	normal_char(char c, t_core *core)
 
 	init_opt(&core->opt);
 	to_add = (char*)malloc(sizeof(char) * 5);
-	core->opt.type = NO_CONV;
 	char_to_str(c, &to_add);
 	final_concat(core, to_add);
 }

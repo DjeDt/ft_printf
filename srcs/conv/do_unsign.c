@@ -50,7 +50,6 @@ void	do_unsign(va_list arg, char c, t_core *core)
 	char					*to_add;
 
 	to_add = NULL;
-	core->opt.type = CONV_UNS;
 	if (core->opt.len_mod == MOD_L)
 		i = (unsigned long)va_arg(arg, unsigned long long int);
 	else if (core->opt.len_mod == MOD_LL)

@@ -65,7 +65,6 @@ void	do_int(va_list arg, char c, t_core *core)
 	long long int	i;
 	char			*to_add;
 
-	core->opt.type = CONV_INT;
 	if (core->opt.len_mod == MOD_L)
 		i = (long)va_arg(arg, long long int);
 	else if (core->opt.len_mod == MOD_LL)

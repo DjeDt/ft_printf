@@ -320,15 +320,15 @@ void	test_int2(void)
 	ret = printf("real : %d\n", 55);
 	ret2 = ft_printf("mine : %d\n", 55);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 	ret = printf("real : %5d\n", -55);
 	ret2 = ft_printf("mine : %5d\n", -55);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 	ret = printf("real : %05d\n", 55);
 	ret2 = ft_printf("mine : %05d\n", 55);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 	ret = printf("real : %5.5d\n", 123456789);
 	ret2 = ft_printf("mine : %5.5d\n", 123456789);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
@@ -343,11 +343,11 @@ void	test_int3(void)
 	int ret;
 	int ret2;
 
-	
+
 	ret = printf("real : %010x\n", 542);
 	ret2 = ft_printf("mine : z%010x\n", 542);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-	
+
 	ret = printf("real : %#08x\n", 42);
 	ret2 = ft_printf("mine : %#08x\n", 42);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
@@ -368,7 +368,7 @@ int		main(void)
 	test_int2();
 	test_int3();
 */
-/*
+
 	test_long();
 	test_ptr();
 	test_c();
@@ -378,16 +378,15 @@ int		main(void)
 	test_unsign();
 	write(1, "\n", 1);
 	test_unsign2();
-*/
-	printf("%c\n", '\0');
-	ft_printf("%c\n", '\0');
+
+
 //	printf("real : %#.x %#.0x\n\n", 0, 0);
 	/*
 	ft_printf("mine : %#.x %#.0x\n", 0, 0);
 
 //	printf("real : %.x %.0x\n\n", 0, 0);
 	ft_printf("mine : %.x %.0x\n", 0, 0);
-	
+
 //	printf("real : %5.x %5.0x\n\n", 0, 0);
 	ft_printf("mine : %5.x %5.0x\n", 0, 0);
 
