@@ -6,25 +6,27 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 16:06:15 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 18:34:32 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
 #include <stdio.h>
 
 char	*convert_int(long long int val, int base)
 {
-	int			neg;
-	int			count;
-	char		*ret;
-	unsigned long long int value;
-	const char	*str;
+	int						neg;
+	int						count;
+	char					*ret;
+	const char				*str;
+	unsigned long long int	value;
 
 	neg = 0;
 	if (val < 0)
 	{
-		neg = 1;
+		if (base == 10)
+			neg = 1;
 		value = val * (-1);
 	}
 	else
@@ -82,6 +84,7 @@ void	do_int(va_list arg, char c, t_core *core)
 	else
 		i = (int)va_arg(arg, long long int);
 	to_add = convert_int(i, 10);
+//	printf("precision = %d, width = %d, i = %lld, to_add = %s\n", core->opt.precision, core->opt.width, i, to_add);
 	concat_int(i, c, &to_add, core);
 	final_concat(core, to_add);
 }

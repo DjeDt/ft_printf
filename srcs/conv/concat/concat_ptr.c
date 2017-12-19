@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 10:20:25 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 10:46:30 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 16:58:38 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,5 @@ void	concat_ptr(char **add, t_core *core)
 		if (core->opt.flags & FLAG_LDC)
 			ptr_width(add, core->opt);
 	}
+	core->opt.len_cpy = ft_strlen((*add));
 }

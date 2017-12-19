@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/12/15 12:12:12 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/12/19 16:46:18 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,7 +16,7 @@ NAME = libftprintf.a
 # Details #
 CC		= gcc
 FLAGS	= -Wall -Wextra -Werror
-DEBUG	= no
+DEBUG	= n
 
 # Path #
 OBJ_PATH = obj
@@ -73,6 +73,7 @@ SRCS = \
 		$(FUNC)ft_strjoin.c \
 		$(FUNC)ft_strjoin_fr.c \
 		$(FUNC)ft_strjoin_fl.c \
+		$(FUNC)ft_memcpy.c \
 \
 		$(UTILS)oneof.c \
 		$(UTILS)create_padding.c

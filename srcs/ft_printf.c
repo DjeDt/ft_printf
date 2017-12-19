@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 19:22:42 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 14:34:27 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_opt(t_opt *opt)
 	opt->width = 0;
 	opt->precision = 0;
 	opt->len_mod = 0;
+	opt->len_cpy = 0;
 }
 
 void	begin_parse(t_core *core, va_list arg)

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:23:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 13:09:16 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 17:27:05 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	normal_char(char c, t_core *core)
 
 	init_opt(&core->opt);
 	to_add = (char*)malloc(sizeof(char) * 5);
-	char_to_str(c, &to_add);
+	char_to_str(c, &to_add, &core->opt.len_cpy);
 	final_concat(core, to_add);
 }
 

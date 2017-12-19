@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 18:52:32 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 16:50:15 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct	s_opt
 	int			len_mod;
 	int			width;
 	int			precision;
+	size_t		len_cpy;
 }				t_opt;
 
 typedef struct	s_core
@@ -69,6 +70,7 @@ char			*ft_strjoin_fr(char const *s1, char *s2);
 char			*ft_strjoin_fl(char *s1, char const *s2);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
+void			*ft_memcpy(void *dst, const void *src, size_t n);
 
 /*
 **	ft_printf func
@@ -79,13 +81,13 @@ void			do_long(va_list arg, char c, t_core *core);
 void			do_char(va_list arg, char c, t_core *core);
 void			do_unsign(va_list arg, char c, t_core *core);
 
-void			concat_char(char **to_add, t_opt opt);
+void			concat_char(char **to_add, t_core *core);
 void			concat_ptr(char **to_add, t_core *core);
 void			concat_int(long long int i, char c, char **to_add, t_core *core);
 void			concat_unsign(unsigned long long int i, char c, char **to_add, t_core *core);
 
 void			normal_char(char c, t_core *core);
-void			char_to_str(wchar_t ch, char **to_add);
+void			char_to_str(wchar_t ch, char **to_add, size_t *bytes);
 char			*convert_int(long long int value, int base);
 int				check_int_exception(long long int i, t_opt opt);
 
@@ -96,6 +98,7 @@ void			init_opt(t_opt *opt);
 int				oneof(const char *str, char c);
 char			*create_padding(int size, char c);
 void			final_concat(t_core *core, void *to_add);
+
 
 /*
 **	core func

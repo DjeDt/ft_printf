@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 19:20:08 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 16:43:22 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,13 @@ void	concat_unsign(unsigned long long int i, char c, char **to_add, t_core *core
 		{
 			if ((core->opt.flags & FLAG_ERR) || (core->opt.precision <= 0))
 				(*to_add)[0] = '\0';
+			else if (!(core->opt.flags & FLAG_LDC))
+				(*to_add)[0] = '0';
 			if (core->opt.flags & FLAG_LDC)
+			{
+				(*to_add)[0] = ' ';
 				unsign_width(c, to_add, core->opt);
+			}
 		}
 	}
 	else
@@ -131,4 +136,5 @@ void	concat_unsign(unsigned long long int i, char c, char **to_add, t_core *core
 		else
 			do_alter(to_add, c, core->opt);
 	}
+	core->opt.len_cpy = ft_strlen((*to_add));
 }

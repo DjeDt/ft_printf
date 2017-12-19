@@ -6,11 +6,12 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:57 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 19:20:35 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 16:42:44 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 char	*ft_convert_unsign(unsigned long long int value, int base, char *str)
 {

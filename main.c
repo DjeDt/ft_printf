@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 19:14:27 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 18:19:35 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,31 @@ void	test_c(void)
 	int ret;
 	int ret2;
 
-	ft_printf("TEST 'c' :\n\n");
+	ft_printf("TEST 'c' :\n");
+
 	ft_printf("\nTest 1 :\n");
 	ret = printf("real : %5c\n", 'd');
-	ret2 = ft_printf("real : %5c\n", 'd');
+	ret2 = ft_printf("mine : %5c\n", 'd');
 	printf("Test2 : {real = %d} {mine = %d}\n", ret, ret2);
 
 	ret = printf("real : %5c\n", '\0');
 	ret2 = ft_printf("mine : %5c\n", '\0');
-	printf("Test2 : {real = %d} {mine = %d}\n", ret, ret2);
+	printf("Test : {real = %d} {mine = %d}\n", ret, ret2);
 
 	ft_printf("Test 2 :\n");
 	ret = printf("real : %5c\n", 'a');
 	ret2 = ft_printf("mine : %5c\n", 'a');
-	printf("Test3 : {real = %d} {mine = %d}\n", ret, ret2);
+	printf("Test32: {real = %d} {mine = %d}\n", ret, ret2);
 
 	ft_printf("Test 3 :\n");
 	ret = printf("real : %-5c et %2c et %c\n", 'a', 'b', 'c');
 	ret2 = ft_printf("mine : %-5c et %2c et %c\n", 'a', 'b', 'c');
-	printf("Test 1 : {real = %d} {mine = %d}\n", ret, ret2);
+	printf("Test 3 : {real = %d} {mine = %d}\n", ret, ret2);
+
+	ft_printf("Test 4 : de 0 :\n");
+	ret = printf("real : %-5c et %2c et %c\n", '\0', '\0', '\0');
+	ret2 = ft_printf("mine : %-5c et %2c et %c\n", '\0', '\0', '\0');
+	printf("Test 4 : {real = %d} {mine = %d}\n", ret, ret2);
 
 	wchar_t sign1 = L'中';
 	wchar_t sign2 = L'文';
@@ -357,29 +363,82 @@ void	test_int3(void)
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 }
 
+void	final_test(void)
+{
+	int ret;
+	int ret2;
+
+	ret = printf("real : %.2c\n", NULL);
+	ret2 = ft_printf("mine : %.2c\n", NULL);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("mine: %c\n", 0);
+	ret2 = ft_printf("mine: %c\n", 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("mine : %2c\n", 0);
+	ret2 = ft_printf("real : %2c\n", 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real = null %c and text\n", 0);
+	ret2 = ft_printf("mine = null %c and text\n", 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : % c\n", 0);
+	ret2 = ft_printf("mine : % c\n", 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : %#.o %#.0o\n", 0, 0);
+	ret2 = ft_printf("mine : %#.o %#.0o\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("real : %+10.5d\n", 4242);
+	ret2 = ft_printf("mine : %+10.5d\n", 4242);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %-+10.5d\n", 4242);
+	ret2 = ft_printf("mine : %-+10.5d\n", 4242);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %03.2d\n", -1);
+	ret2 = ft_printf("mine : %03.2d\n", -1);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %.10d\n", -42);
+	ret2 = ft_printf("mine : %.10d\n", -42);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+	
+	ret = printf("real : %5.d %5.0d\n", 0, 0);
+	ret2 = ft_printf("mine : %5.d %5.0d\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+}
+
 int		main(void)
 {
 
 	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
+//	final_test();
+
+
+//	printf("%U\n",ULONG_MAX);
+	ft_printf("%U", 18446744073709551615);
+//	test_c();
+//	test_int();
 
 /*
-	test_int();
 	write(1, "\n", 1);
 	test_int2();
 	test_int3();
-*/
-
 	test_long();
 	test_ptr();
-	test_c();
 	test_modificateurs();
 	test_vrac();
 
 	test_unsign();
 	write(1, "\n", 1);
 	test_unsign2();
-
-
+*/
+	
 //	printf("real : %#.x %#.0x\n\n", 0, 0);
 	/*
 	ft_printf("mine : %#.x %#.0x\n", 0, 0);

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 12:19:24 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/19 14:30:40 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char	*get_addr(unsigned long value, int base, t_opt opt)
 	return (ret);
 }
 
-char	*transform_to_char(wchar_t *old_add)
+char	*transform_to_char(wchar_t *old_add, t_core *core)
 {
 	wchar_t	ch;
 	int		count;
@@ -66,7 +66,7 @@ char	*transform_to_char(wchar_t *old_add)
 	while (old_add[++count] != '\0')
 	{
 		ch = old_add[count];
-		char_to_str(ch, &tmp);
+		char_to_str(ch, &tmp, &core->opt.len_cpy);
 		new = ft_strjoin_fl(new, tmp);
 	}
 	free(tmp);
@@ -95,7 +95,7 @@ void	do_ptr(va_list arg, char c, t_core *core)
 		if (core->opt.len_mod == MOD_L || c == 'S')
 		{
 			to_add = (wchar_t*)va_arg(arg, wchar_t*);
-			to_add = transform_to_char((wchar_t*)to_add);
+			to_add = transform_to_char((wchar_t*)to_add, core);
 		}
 		else
 		{
