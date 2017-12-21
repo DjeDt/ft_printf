@@ -6,11 +6,12 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/19 16:43:22 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/21 14:15:09 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 void	do_alter(char **str, char c, t_opt opt)
 {
@@ -29,7 +30,7 @@ void	do_alter(char **str, char c, t_opt opt)
 		{
 			new = ft_strjoin("0x", (*str));
 			free((*str));
-		(*str) = new;
+			(*str) = new;
 		}
 		else if (c == 'X')
 		{
@@ -112,15 +113,12 @@ void	concat_unsign(unsigned long long int i, char c, char **to_add, t_core *core
 	{
 		if (core->opt.flags & FLAG_PREC)
 		{
-			if ((core->opt.flags & FLAG_ERR) || (core->opt.precision <= 0))
+			if (core->opt.precision <= 0)
 				(*to_add)[0] = '\0';
-			else if (!(core->opt.flags & FLAG_LDC))
-				(*to_add)[0] = '0';
 			if (core->opt.flags & FLAG_LDC)
-			{
-				(*to_add)[0] = ' ';
 				unsign_width(c, to_add, core->opt);
-			}
+			else
+				c == 'o' ? do_alter(to_add, c, core->opt) : 0;
 		}
 	}
 	else

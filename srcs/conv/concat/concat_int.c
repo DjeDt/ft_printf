@@ -6,11 +6,12 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/19 18:08:55 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/20 20:12:53 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 void	int_alter(char c, long long int i, char **to_add, t_opt opt)
 {
@@ -23,12 +24,14 @@ void	int_alter(char c, long long int i, char **to_add, t_opt opt)
 		new = ft_strjoin(" ", (*to_add));
 		free((*to_add));
 		(*to_add) = new;
+		opt.flags &= ~FLAG_SPACE;
 	}
 	else if ((opt.flags & FLAG_SIGN) && (i >= 0))
 	{
 		new = ft_strjoin("+", (*to_add));
 		free((*to_add));
 		(*to_add) = new;
+		opt.flags &= ~FLAG_SIGN;
 	}
 }
 
@@ -75,8 +78,14 @@ void	int_precision(char **to_add, long long int i, t_opt opt)
 
 	new = NULL;
 	padding = NULL;
-	(void)i;
+	if (opt.precision <= 0 && i == 0)
+	{
+		(*to_add)[0] = '\0';
+		return ;
+	}
 	len = opt.precision - ft_strlen((*to_add));
+	if (i < 0)
+		len += 1;
 	if (len > 0)
 	{
 		padding = create_padding(len, '0');
@@ -109,8 +118,7 @@ void	special_case(long long int i, char **to_add, t_core *core)
 {
 	if (i < 0)
 		move_sign(to_add);
-	else if (i == 0 && (core->opt.flags & FLAG_PREC) && core->opt.precision <= 0)
-		(*to_add)[0] = '\0';
+	(void)core;
 }
 
 void	concat_int(long long int i, char c, char **to_add, t_core *core)
@@ -123,8 +131,6 @@ void	concat_int(long long int i, char c, char **to_add, t_core *core)
 			core->opt.prefix = ' ';
 			int_width(c, i, to_add, core->opt);
 		}
-		else
-			int_alter(c, i, to_add, core->opt);
 	}
 	else if (core->opt.flags & FLAG_LDC)
 		int_width(c, i, to_add, core->opt);

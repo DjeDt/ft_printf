@@ -6,11 +6,12 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:05:29 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/15 19:20:53 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/21 15:36:43 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 int		get_width(const char *format, int *cc, t_opt *opt)
 {
@@ -24,6 +25,7 @@ int		get_width(const char *format, int *cc, t_opt *opt)
 	str = ft_strsub(format, cc2, (*cc) - cc2);
 	if (str == NULL)
 	{
+		opt->flags |= FLAG_LDC;
 		opt->flags |= FLAG_ERR;
 		return (-1);
 	}

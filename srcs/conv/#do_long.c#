@@ -78,5 +78,6 @@ void		do_long(va_list arg, char c, t_core *core)
 		to_add = convert_long(i, 10);
 	}
 	concat_int(i, c, &to_add, core);
+	
 	final_concat(core, to_add);
 }

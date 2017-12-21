@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/19 18:34:32 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/20 20:13:23 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	do_int(va_list arg, char c, t_core *core)
 	else
 		i = (int)va_arg(arg, long long int);
 	to_add = convert_int(i, 10);
-//	printf("precision = %d, width = %d, i = %lld, to_add = %s\n", core->opt.precision, core->opt.width, i, to_add);
 	concat_int(i, c, &to_add, core);
 	final_concat(core, to_add);
 }

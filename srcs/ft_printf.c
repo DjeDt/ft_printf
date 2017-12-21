@@ -6,11 +6,12 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/19 14:34:27 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/21 15:37:15 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+#include <stdio.h>
 
 void	init_core(t_core *core, const char *format)
 {
@@ -38,7 +39,7 @@ void	begin_parse(t_core *core, va_list arg)
 	cc = -1;
 	while (core->fmt[++cc] != '\0')
 	{
-		if (core->fmt[cc] == '%')
+		if (core->fmt[cc] == '%' && core->fmt[cc + 1] != '\0')
 		{
 			cc++;
 			if (do_parse(core, &cc, arg) == -1)

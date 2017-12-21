@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/19 18:19:35 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/21 16:23:58 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,15 +413,36 @@ void	final_test(void)
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 }
 
+void	test_long2(void)
+{
+	int ret;
+	int ret2;
+	
+	ret = printf("real : ulong max : %U\n", LONG_MAX);
+	ret2 = ft_printf("mine : ulong max : %U\n", LONG_MAX);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+}
+
 int		main(void)
 {
-
 	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
+
+
+	char *str;
+
+	str = malloc(1);
+
+	printf("%.20p", str);
+//	printf("%.0p, %.p\n", 0, 0);
+//	ft_printf("%.0p, %.p\n", 0, 0);
+
+//	ft_printf("%S", NULL);
+
+//	test_long2();
 //	final_test();
 
 
 //	printf("%U\n",ULONG_MAX);
-	ft_printf("%U", 18446744073709551615);
 //	test_c();
 //	test_int();
 

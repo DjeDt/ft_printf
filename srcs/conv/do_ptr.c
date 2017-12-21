@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/19 14:30:40 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/21 16:24:17 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@ char	*transform_to_char(wchar_t *old_add, t_core *core)
 
 	new = NULL;
 	count = -1;
+	if (old_add == NULL)
+	{
+		new = ft_strdup("(null)");
+		return (new);
+	}
 	tmp = (char*)malloc(sizeof(char) * 5);
 	if ((old_add) == NULL)
 		return (NULL);

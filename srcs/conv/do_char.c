@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:14:20 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/19 16:50:39 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/21 15:36:30 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ void	char_to_str(wchar_t ch, char **to_add, size_t *bytes)
 	int count;
 
 	count = 0;
-	if (ch == '\0')
-		(*to_add)[count++] = '\0';
-	else if (ch <= 0x7F)
+	if (ch <= 0x7F)
 		(*to_add)[count++] = ch;
 	else if (ch <= 0x7FF)
 	{
@@ -49,6 +47,8 @@ void	do_char(va_list arg, char c, t_core *core)
 	wchar_t	ch;
 	char	*to_add;
 
+	ch = 0;
+	to_add = NULL;
 	if (!(to_add = (char*)malloc(sizeof(char) * 5)))
 		return ;
 	if (c == 'c')
