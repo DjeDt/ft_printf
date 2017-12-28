@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/12/19 16:46:18 by ddinaut          ###   ########.fr        #
+#    Updated: 2017/12/28 14:46:30 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -76,6 +76,7 @@ SRCS = \
 		$(FUNC)ft_memcpy.c \
 \
 		$(UTILS)oneof.c \
+		$(UTILS)move_sign.c \
 		$(UTILS)create_padding.c
 
 OBJ = $(SRC:$(SRC_PATH)/%.c=$(OBJ_PATH)/%.o)
@@ -87,7 +88,7 @@ NB_FILES	= $(words $(SRCS))
 PERCENT		= $(shell echo $$(( ($(COUNT) * 100) / $(NB_FILES))))
 
 # Debug option #
-ifeq ($(DEBUG), y)
+ifeq ($(DEBUG), yes)
 	FLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 else
 	FLAGS = -Wall -Wextra -Werror

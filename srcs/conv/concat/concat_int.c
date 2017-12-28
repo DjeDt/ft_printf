@@ -6,19 +6,17 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/20 20:12:53 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 16:49:49 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
-void	int_alter(char c, long long int i, char **to_add, t_opt opt)
+void	int_alter(long long int i, char **to_add, t_opt opt)
 {
 	char	*new;
 
 	new = NULL;
-	(void)c;
 	if ((opt.flags & FLAG_SPACE) && (i >= 0) && ((opt.flags & FLAG_SIGN) == 0))
 	{
 		new = ft_strjoin(" ", (*to_add));
@@ -35,39 +33,33 @@ void	int_alter(char c, long long int i, char **to_add, t_opt opt)
 	}
 }
 
-void	int_width(char c, long long int i, char **to_add, t_opt opt)
+void	int_width(long long int i, char **to_add, t_opt opt)
 {
 	int		len;
 	char	*new;
 	char	*padding;
 
-	new = NULL;
 	padding = NULL;
 	len = opt.width - ft_strlen((*to_add));
-	if ((check_int_exception(i, opt) > 0) && (i >= 0))
-		len -= 1;
-	if (len > 0)
+	(check_int_exception(i, opt) > 0) && (i >= 0) ? len -= 1 : 0;
+	if (len <= 0)
+		return ;
+	if (opt.flags & FLAG_LEFT)
 	{
-		if (opt.flags & FLAG_LEFT)
-		{
-			int_alter(c, i, to_add, opt);
-			padding = create_padding(len, ' ');
-			new = ft_strjoin((*to_add), padding);
-		}
-		else
-		{
-			if (opt.prefix == ' ')
-				int_alter(c, i, to_add, opt);
-			padding = create_padding(len, opt.prefix);
-			new = ft_strjoin(padding, (*to_add));
-			if (opt.prefix != ' ')
-				int_alter(c, i, &new, opt);
-		}
-		free((*to_add));
-		(*to_add) = new;
-		if (padding)
-			free(padding);
+		int_alter(i, to_add, opt);
+		padding = create_padding(len, ' ');
+		new = ft_strjoin((*to_add), padding);
 	}
+	else
+	{
+		opt.prefix == ' ' ? int_alter(i, to_add, opt) : 0;
+		padding = create_padding(len, opt.prefix);
+		new = ft_strjoin(padding, (*to_add));
+		opt.prefix != ' ' ? int_alter(i, &new, opt) : 0;
+	}
+	free((*to_add));
+	(*to_add) = new;
+	ft_strdel(&padding);
 }
 
 void	int_precision(char **to_add, long long int i, t_opt opt)
@@ -92,50 +84,27 @@ void	int_precision(char **to_add, long long int i, t_opt opt)
 		new = ft_strjoin(padding, (*to_add));
 		free((*to_add));
 		(*to_add) = new;
-		if (padding)
-			free(padding);
+		ft_strdel(&padding);
 	}
-}
-
-void	move_sign(char **to_add)
-{
-	int		count;
-	int		count2;
-
-	count = 0;
-	count2 = 0;
-	while ((*to_add)[count] != '\0' && (*to_add)[count] != '-')
-	{
-		if ((*to_add)[count2] != '0')
-			count2++;
-		count++;
-	}
-	(*to_add)[count] = (*to_add)[count2];
-	(*to_add)[count2] = '-';
-}
-
-void	special_case(long long int i, char **to_add, t_core *core)
-{
-	if (i < 0)
-		move_sign(to_add);
-	(void)core;
 }
 
 void	concat_int(long long int i, char c, char **to_add, t_core *core)
 {
+	(void)c;
 	if (core->opt.flags & FLAG_PREC)
 	{
 		int_precision(to_add, i, core->opt);
 		if (core->opt.flags & FLAG_LDC)
 		{
 			core->opt.prefix = ' ';
-			int_width(c, i, to_add, core->opt);
+			int_width(i, to_add, core->opt);
 		}
 	}
 	else if (core->opt.flags & FLAG_LDC)
-		int_width(c, i, to_add, core->opt);
+		int_width(i, to_add, core->opt);
 	else
-		int_alter(c, i, to_add, core->opt);
-	special_case(i, to_add, core);
+		int_alter(i, to_add, core->opt);
+	if (i < 0)
+		move_sign(to_add);
 	core->opt.len_cpy = ft_strlen((*to_add));
 }

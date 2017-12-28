@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/21 16:23:58 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 17:03:13 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ void	test_wstr(void)
 	wchar_t *wstr2 = L"你好嗎？";
 	wchar_t *wstr3 = L"Πώς είσαι;";
 
-	ret2 = ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
 	ret = printf("real = %S et %S et %S\n", wstr1, wstr2, wstr3);
+	ret2 = ft_printf("mine = %S et %S et %S\n", wstr1, wstr2, wstr3);
 	printf("Test S : {real = %d} {mine = %d}\n", ret, ret2);
 }
 
@@ -427,12 +427,15 @@ int		main(void)
 {
 	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
 
-
+/*
 	char *str;
 
 	str = malloc(1);
 
 	printf("%.20p", str);
+*/
+
+	test_wstr();
 //	printf("%.0p, %.p\n", 0, 0);
 //	ft_printf("%.0p, %.p\n", 0, 0);
 

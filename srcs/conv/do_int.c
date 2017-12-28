@@ -6,15 +6,26 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/20 20:13:23 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 20:23:33 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-#include <stdio.h>
+static void	init_value(unsigned long long int *val, long long int value, \
+					int base, int *neg)
+{
+	if (value < 0)
+	{
+		if (base == 10)
+			(*neg) = 1;
+		(*val) = value * (-1);
+	}
+	else
+		(*val) = value;
+}
 
-char	*convert_int(long long int val, int base)
+char		*convert_int(long long int val, int base)
 {
 	int						neg;
 	int						count;
@@ -23,14 +34,7 @@ char	*convert_int(long long int val, int base)
 	unsigned long long int	value;
 
 	neg = 0;
-	if (val < 0)
-	{
-		if (base == 10)
-			neg = 1;
-		value = val * (-1);
-	}
-	else
-		value = val;
+	init_value(&value, val, base, &neg);
 	count = nbr_len(value, base) + neg;
 	str = "0123456789abcdef";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
@@ -45,7 +49,7 @@ char	*convert_int(long long int val, int base)
 	return (ret);
 }
 
-int		check_int_exception(long long int i, t_opt opt)
+int			check_int_exception(long long int i, t_opt opt)
 {
 	if ((opt.flags & FLAG_SPACE) && (i >= 0) && ((opt.flags & FLAG_SIGN) == 0))
 		return (1);
@@ -54,7 +58,7 @@ int		check_int_exception(long long int i, t_opt opt)
 	return (0);
 }
 
-void	do_int_exeption(long long int i, t_opt opt, char **to_add)
+void		do_int_exeption(long long int i, t_opt opt, char **to_add)
 {
 	if (check_int_exception(i, opt) == 1)
 		(*to_add) = ft_strjoin_fr(" ", (*to_add));
@@ -62,7 +66,7 @@ void	do_int_exeption(long long int i, t_opt opt, char **to_add)
 		(*to_add) = ft_strjoin_fr("+", (*to_add));
 }
 
-void	do_int(va_list arg, char c, t_core *core)
+void		do_int(va_list arg, char c, t_core *core)
 {
 	long long int	i;
 	char			*to_add;

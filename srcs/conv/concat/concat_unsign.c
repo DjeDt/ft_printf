@@ -6,12 +6,11 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/21 14:15:09 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 16:56:01 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
 void	do_alter(char **str, char c, t_opt opt)
 {
@@ -68,7 +67,7 @@ int		check_unsign_exeption(char c, t_opt opt)
 		if (c == 'o')
 			return (1);
 		else if (c == 'x' || c == 'X')
-				return (2);
+			return (2);
 	}
 	return (0);
 }
@@ -79,42 +78,37 @@ void	unsign_width(char c, char **to_add, t_opt opt)
 	char	*new;
 	char	*padding;
 
-	new = NULL;
 	padding = NULL;
 	len = opt.width - ft_strlen((*to_add));
 	len -= check_unsign_exeption(c, opt);
-	if (len > 0)
+	if (len <= 0)
+		return ;
+	if (opt.flags & FLAG_LEFT)
 	{
-		if (opt.flags & FLAG_LEFT)
-		{
-			do_alter(to_add, c, opt);
-			padding = create_padding(len, ' ');
-			new = ft_strjoin((*to_add), padding);
-		}
-		else
-		{
-			if (opt.prefix == ' ')
-				do_alter(to_add, c, opt);
-			padding = create_padding(len, opt.prefix);
-			new = ft_strjoin(padding, (*to_add));
-			if (opt.prefix != ' ')
-				do_alter(&new, c, opt);
-		}
-		free((*to_add));
-		(*to_add) = new;
-		if (padding)
-			free(padding);
+		do_alter(to_add, c, opt);
+		padding = create_padding(len, ' ');
+		new = ft_strjoin((*to_add), padding);
 	}
+	else
+	{
+		(opt.prefix == ' ') ? do_alter(to_add, c, opt) : 0;
+		padding = create_padding(len, opt.prefix);
+		new = ft_strjoin(padding, (*to_add));
+		(opt.prefix != ' ') ? do_alter(&new, c, opt) : 0;
+	}
+	free((*to_add));
+	(*to_add) = new;
+	ft_strdel(&padding);
 }
 
-void	concat_unsign(unsigned long long int i, char c, char **to_add, t_core *core)
+void	concat_unsign(unsigned long long int i, char c,\
+						char **to_add, t_core *core)
 {
 	if (i == 0)
 	{
 		if (core->opt.flags & FLAG_PREC)
 		{
-			if (core->opt.precision <= 0)
-				(*to_add)[0] = '\0';
+			(core->opt.precision <= 0) ? (*to_add)[0] = '\0' : 0;
 			if (core->opt.flags & FLAG_LDC)
 				unsign_width(c, to_add, core->opt);
 			else

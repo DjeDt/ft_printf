@@ -6,12 +6,11 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:05:29 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/21 15:36:43 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 14:40:45 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
 int		get_width(const char *format, int *cc, t_opt *opt)
 {

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 10:20:25 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/21 16:24:14 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 14:41:53 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ptr_precision(char **add, t_opt opt)
 			opt.precision++;
 		}
 }
-
 
 void	concat_ptr(char **add, t_core *core)
 {

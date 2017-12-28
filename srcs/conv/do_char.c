@@ -6,11 +6,32 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:14:20 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/21 15:36:30 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 17:05:34 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+void	level_2(wchar_t ch, char **to_add, int *count)
+{
+	(*to_add)[(*count)++] = ((ch >> 6) + 0xC0);
+	(*to_add)[(*count)++] = ((ch & 0x3F) + 0x80);
+}
+
+void	level_3(wchar_t ch, char **to_add, int *count)
+{
+	(*to_add)[(*count)++] = ((ch >> 12) + 0xE0);
+	(*to_add)[(*count)++] = (((ch >> 6) & 0x3F) + 0x80);
+	(*to_add)[(*count)++] = ((ch & 0x3F) + 0x80);
+}
+
+void	level_4(wchar_t ch, char **to_add, int *count)
+{
+	(*to_add)[(*count)++] = ((ch >> 18) + 0xF0);
+	(*to_add)[(*count)++] = (((ch >> 12) & 0x3F) + 0x80);
+	(*to_add)[(*count)++] = (((ch >> 6) & 0x3F) + 0x80);
+	(*to_add)[(*count)++] = ((ch & 0x3F) + 0x80);
+}
 
 void	char_to_str(wchar_t ch, char **to_add, size_t *bytes)
 {
@@ -20,23 +41,11 @@ void	char_to_str(wchar_t ch, char **to_add, size_t *bytes)
 	if (ch <= 0x7F)
 		(*to_add)[count++] = ch;
 	else if (ch <= 0x7FF)
-	{
-		(*to_add)[count++] = ((ch >> 6) + 0xC0);
-		(*to_add)[count++] = ((ch & 0x3F) + 0x80);
-	}
+		level_2(ch, to_add, &count);
 	else if (ch <= 0xFFFF)
-	{
-		(*to_add)[count++] = ((ch >> 12) + 0xE0);
-		(*to_add)[count++] = (((ch >> 6) & 0x3F) + 0x80);
-		(*to_add)[count++] = ((ch & 0x3F) + 0x80);
-	}
+		level_3(ch, to_add, &count);
 	else if (ch <= 0x10FFFF)
-	{
-		(*to_add)[count++] = ((ch >> 18) + 0xF0);
-		(*to_add)[count++] = (((ch >> 12) & 0x3F) + 0x80);
-		(*to_add)[count++] = (((ch >> 6) & 0x3F) + 0x80);
-		(*to_add)[count++] = ((ch & 0x3F) + 0x80);
-	}
+		level_4(ch, to_add, &count);
 	(*bytes) = count;
 	while (count < 5)
 		(*to_add)[count++] = '\0';

@@ -6,13 +6,13 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 17:34:34 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/20 13:49:00 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 20:24:43 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		long_len(unsigned long int value, int base)
+static int	long_len(unsigned long int value, int base)
 {
 	int ret;
 
@@ -22,7 +22,19 @@ int		long_len(unsigned long int value, int base)
 	return (ret);
 }
 
-char	*convert_long(long int val, int base)
+static void	init_value(unsigned long int *v2, long int v1, int base, int *neg)
+{
+	if (v1 < 0)
+	{
+		if (base == 10)
+			(*neg) = 1;
+		(*v2) = v1 * (-1);
+	}
+	else
+		(*v2) = v1;
+}
+
+char		*convert_long(long int val, int base)
 {
 	int					neg;
 	int					count;
@@ -31,18 +43,12 @@ char	*convert_long(long int val, int base)
 	unsigned long int	value;
 
 	neg = 0;
+	value = 0;
 	if (base < 2 && base > 16)
 		return (NULL);
-	if (val < 0)
-	{
-		if (base == 10)
-			neg = 1;
-		value = val * (-1);
-	}
-	else
-		value = val;
+	init_value(&value, val, base, &neg);
 	count = long_len(value, base) + neg;
-	str = "0123456789";
+	str = "0123456789abcdef";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
 		return (NULL);
 	ret[count] = '\0';
@@ -58,7 +64,7 @@ char	*convert_long(long int val, int base)
 void		do_long(va_list arg, char c, t_core *core)
 {
 	long int	i;
-	char			*to_add;
+	char		*to_add;
 
 	i = 0;
 	to_add = NULL;

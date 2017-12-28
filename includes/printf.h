@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/21 16:24:21 by ddinaut          ###   ########.fr       */
+/*   Updated: 2017/12/28 16:41:01 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ void			do_unsign(va_list arg, char c, t_core *core);
 
 void			concat_char(char **to_add, t_core *core);
 void			concat_ptr(char **to_add, t_core *core);
-void			concat_int(long long int i, char c, char **to_add, t_core *core);
-void			concat_unsign(unsigned long long int i, char c, char **to_add, t_core *core);
+void			concat_int(long long int i, char c, char **to_add, t_core *co);
+void			concat_unsign(unsigned long long int i, char c, \
+								char **to_add, t_core *core);
 
 void			normal_char(char c, t_core *core);
 void			char_to_str(wchar_t ch, char **to_add, size_t *bytes);
@@ -93,12 +94,12 @@ int				check_int_exception(long long int i, t_opt opt);
 
 /*
 ** Utils func
- */
+*/
 void			init_opt(t_opt *opt);
+void			move_sign(char **to_add);
 int				oneof(const char *str, char c);
 char			*create_padding(int size, char c);
 void			final_concat(t_core *core, void *to_add);
-
 
 /*
 **	core func
