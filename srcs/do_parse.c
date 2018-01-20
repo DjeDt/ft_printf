@@ -6,112 +6,100 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:05:29 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/28 14:40:45 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/20 18:18:53 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		get_width(const char *format, int *cc, t_opt *opt)
+void	get_precision(const char **format, t_opt *opt)
 {
-	int		cc2;
-	char	*str;
-
-	str = NULL;
-	cc2 = (*cc);
-	while (format[(*cc)] && (format[(*cc)] >= '0' && format[(*cc)] <= '9'))
-		(*cc)++;
-	str = ft_strsub(format, cc2, (*cc) - cc2);
-	if (str == NULL)
+	(*format)++;
+	if (**format == '0')
 	{
-		opt->flags |= FLAG_LDC;
-		opt->flags |= FLAG_ERR;
-		return (-1);
+		while (**format >= '0' && **format <= '9')
+			(*format)++;
+		return ;
 	}
-	opt->width = ft_atoi(str);
-	opt->flags |= FLAG_LDC;
-	free(str);
-	return (0);
-}
-
-int		get_precision(const char *format, int *cc, t_opt *opt)
-{
-	int		cc2;
-	char	*str;
-
-	str = NULL;
-	cc2 = ++(*cc);
-	while (format[(*cc)] && (format[(*cc)] >= '0' && format[(*cc)] <= '9'))
-		(*cc)++;
-	str = ft_strsub(format, cc2, (*cc) - cc2);
-	if (str == NULL)
+	while (**format != '\0' && **format >= '0' && **format <= '9')
 	{
-		opt->flags |= FLAG_ERR;
-		opt->flags |= FLAG_PREC;
-		opt->precision = -1;
-		return (-1);
+		opt->precision = (opt->precision * 10) + **format - 48;
+		(*format)++;
 	}
-	opt->precision = ft_atoi(str);
 	opt->flags |= FLAG_PREC;
-	free(str);
-	return (0);
 }
 
-void	get_len_mod(const char *format, int *cc, t_opt *opt)
+void	get_width(const char **format, t_opt *opt)
 {
-	if (format[(*cc)] == 'h')
-		opt->len_mod = MOD_H;
-	else if (format[(*cc)] == 'l')
-		opt->len_mod = MOD_L;
-	else if (format[(*cc)] == 'j')
-		opt->len_mod = MOD_J;
-	else if (format[(*cc)] == 't')
-		opt->len_mod = MOD_T;
-	else if (format[(*cc)] == 'z')
-		opt->len_mod = MOD_Z;
-	(*cc)++;
-	if (format[(*cc)] == 'h' || format[(*cc)] == 'l')
+	if (**format == '0')
 	{
-		if (format[(*cc)] == 'h')
+		while (**format >= '0' && **format <= '9')
+			(*format)++;
+		return ;
+	}
+	while (**format != '\0' && **format >= '0' && **format <= '9')
+	{
+		opt->width = (opt->width * 10) + **format - 48;
+		(*format)++;
+	}
+	opt->flags |= FLAG_LDC;
+}
+
+void	get_len_mod(const char **format, t_opt *opt)
+{
+	if (**format == 'h')
+		opt->len_mod = MOD_H;
+	else if (**format == 'l')
+		opt->len_mod = MOD_L;
+	else if (**format == 'j')
+		opt->len_mod = MOD_J;
+	else if (**format == 't')
+		opt->len_mod = MOD_T;
+	else if (**format == 'z')
+		opt->len_mod = MOD_Z;
+	(*format)++;
+	if (**format == 'h' || **format == 'l')
+	{
+		if (**format == 'h')
 			opt->len_mod = MOD_HH;
-		else if (format[(*cc)] == 'l')
+		else if (**format == 'l')
 			opt->len_mod = MOD_LL;
-		(*cc)++;
+		(*format)++;
 	}
 }
 
-void	get_flags(const char *format, int *cc, t_opt *opt)
+void	get_flags(const char **format, t_opt *opt)
 {
-	if (format[(*cc)] == '-')
+	if (**format == '-')
 		opt->flags |= FLAG_LEFT;
-	else if (format[(*cc)] == '+')
+	else if (**format == '+')
 		opt->flags |= FLAG_SIGN;
-	else if (format[(*cc)] == '#')
+	else if (**format == '#')
 		opt->flags |= FLAG_ALT;
-	else if (format[(*cc)] == ' ')
+	else if (**format == ' ')
 	{
 		opt->flags |= FLAG_SPACE;
 		opt->prefix = ' ';
 	}
-	else if (format[(*cc)] == '0')
+	else if (**format == '0')
 	{
 		opt->flags |= FLAG_ZERO;
 		opt->prefix = '0';
 	}
-	(*cc)++;
+	(*format)++;
 }
 
-int		do_parse(t_core *core, int *cc, va_list arg)
+int		do_parse(const char **format, va_list arg, t_core *core)
 {
 	init_opt(&core->opt);
-	while ((core->fmt[(*cc)] != '\0') && (oneof("-+ 0#", core->fmt[(*cc)]) > 0))
-		get_flags(core->fmt, cc, &core->opt);
-	if (core->fmt[(*cc)] >= '1' && core->fmt[(*cc)] <= '9')
-		get_width(core->fmt, cc, &core->opt);
-	if (core->fmt[(*cc)] == '.')
-		get_precision(core->fmt, cc, &core->opt);
-	if (oneof("lhjtz", core->fmt[(*cc)]) == 1)
-		get_len_mod(core->fmt, cc, &core->opt);
-	do_conv(core, cc, arg);
-	return ((*cc));
+	while (**format != '\0' && (oneof("-+ 0#", **format) == 1))
+		get_flags(format, &core->opt);
+	if (**format >= '0' && **format <= '9')
+		get_width(format, &core->opt);
+	if (**format == '.')
+		get_precision(format, &core->opt);
+	if (oneof("lhjtz", **format) == 1)
+		get_len_mod(format, &core->opt);
+	do_conv(**format, arg, core);
+	return (1);
 }

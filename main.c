@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/28 17:03:13 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/20 18:16:52 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "includes/printf.h"
 #include <locale.h>
 
-
+/*
 void	test_c(void)
 {
 	int ret;
@@ -422,62 +422,45 @@ void	test_long2(void)
 	ret2 = ft_printf("mine : ulong max : %U\n", LONG_MAX);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 }
+*/
+
+void	last_final_test(void)
+{
+	int ret;
+	int ret2;
+
+	ret = ft_printf("mine : %#.x %#.0x\n", 0, 0);
+	ret2 = printf("real: %#.x %#.0x\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = ft_printf("mine : %.x %.0x\n", 0, 0);
+	ret2 = printf("real: %.x %.0x\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = ft_printf("mine : %5.x %5.0x\n", 0, 0);
+	ret2 = printf("real: %5.x %5.0x\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = ft_printf("mine : %.o %.0o\n", 0, 0);
+	ret2 = printf("real: %.o %.0o\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = ft_printf("mine : %5.o %5.0o\n", 0, 0);
+	ret2 = printf("real: %5.o %5.0o\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = ft_printf("mine : %.d %.0d\n", 0, 0);
+	ret2 = printf("real: %.d %.0d\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = ft_printf("mine : %5.d %5.0d\n", 0, 0);
+	ret2 = printf("real: %5.d %5.0d\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+}
 
 int		main(void)
 {
-	setlocale(LC_ALL, "en_US.UTF-8"); /* pour l'utf8 C*/
-
-/*
-	char *str;
-
-	str = malloc(1);
-
-	printf("%.20p", str);
-*/
-
-	test_wstr();
-//	printf("%.0p, %.p\n", 0, 0);
-//	ft_printf("%.0p, %.p\n", 0, 0);
-
-//	ft_printf("%S", NULL);
-
-//	test_long2();
-//	final_test();
-
-
-//	printf("%U\n",ULONG_MAX);
-//	test_c();
-//	test_int();
-
-/*
-	write(1, "\n", 1);
-	test_int2();
-	test_int3();
-	test_long();
-	test_ptr();
-	test_modificateurs();
-	test_vrac();
-
-	test_unsign();
-	write(1, "\n", 1);
-	test_unsign2();
-*/
-	
-//	printf("real : %#.x %#.0x\n\n", 0, 0);
-	/*
-	ft_printf("mine : %#.x %#.0x\n", 0, 0);
-
-//	printf("real : %.x %.0x\n\n", 0, 0);
-	ft_printf("mine : %.x %.0x\n", 0, 0);
-
-//	printf("real : %5.x %5.0x\n\n", 0, 0);
-	ft_printf("mine : %5.x %5.0x\n", 0, 0);
-
-//	printf("real : %.o %.0o\n\n", 0, 0);
-	ft_printf("mine : %.o %.0o\n", 0, 0);
-
-//	printf("real : %5.o %5.0o\n\n", 0, 0);
-	ft_printf("mine : %5.o %5.0o\n", 0, 0);
-	*/
+	last_final_test();
 	return (0);
 }

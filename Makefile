@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2017/12/28 14:46:30 by ddinaut          ###   ########.fr        #
+#    Updated: 2018/01/20 18:30:30 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -27,7 +27,7 @@ INC_PATH = includes/
 CONV	= conv/
 FUNC	= lib/
 UTILS	= utils/
-CONCAT	= $(CONV)concat/
+CONCAT	= concat/
 
 # More sub_dir #
 
@@ -66,9 +66,6 @@ SRCS = \
 		$(FUNC)ft_strlen.c \
 		$(FUNC)ft_strdel.c \
 		$(FUNC)nbr_len.c \
-		$(FUNC)ft_itoa_base.c \
-		$(FUNC)ft_atoi.c \
-		$(FUNC)ft_strsub.c \
 		$(FUNC)ft_strdup.c \
 		$(FUNC)ft_strjoin.c \
 		$(FUNC)ft_strjoin_fr.c \

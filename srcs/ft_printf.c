@@ -6,18 +6,15 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/21 15:37:15 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/20 18:28:13 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
-void	init_core(t_core *core, const char *format)
+void	init_core(t_core *core)
 {
-	core->fmt = (char*)format;
 	core->bytes = 0;
-	core->cur_pos = 0;
 	core->final = NULL;
 }
 
@@ -32,36 +29,36 @@ void	init_opt(t_opt *opt)
 	opt->len_cpy = 0;
 }
 
-void	begin_parse(t_core *core, va_list arg)
+int		begin_parse(const char *format, va_list arg)
 {
-	int cc;
+	t_core	core;
 
-	cc = -1;
-	while (core->fmt[++cc] != '\0')
+	init_core(&core);
+	while ((*format) != '\0')
 	{
-		if (core->fmt[cc] == '%' && core->fmt[cc + 1] != '\0')
+		if ((*format) == '%' && ((*format + 1) != '\0'))
 		{
-			cc++;
-			if (do_parse(core, &cc, arg) == -1)
-				break ;
+			format++;
+			do_parse(&format, arg, &core);
 		}
 		else
-			normal_char(core->fmt[cc], core);
+			normal_char(*format, &core);
+		format++;
 	}
-	write(1, core->final, core->bytes);
+	if (write(1, core.final, core.bytes) == -1)
+		return (-1);
+	return (core.bytes);
 }
 
 int		ft_printf(const char *restrict format, ...)
 {
-	va_list arg;
-	t_core	core;
+	int		ret;
+	va_list	arg;
+	char	*fmt;
 
-	if (format == NULL)
-		return (-1);
-	init_core(&core, format);
 	va_start(arg, format);
-	begin_parse(&core, arg);
+	fmt = (char*)format;
+	ret = begin_parse(fmt, arg);
 	va_end(arg);
-	ft_strdel((char**)&core.final);
-	return (core.bytes);
+	return (ret);
 }

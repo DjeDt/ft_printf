@@ -6,15 +6,16 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:44 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/28 20:23:33 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/20 17:51:04 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static void	init_value(unsigned long long int *val, long long int value, \
+static void	init_int_value(unsigned long long int *val, long long int value, \
 					int base, int *neg)
 {
+	(*neg) = 0;
 	if (value < 0)
 	{
 		if (base == 10)
@@ -33,8 +34,7 @@ char		*convert_int(long long int val, int base)
 	const char				*str;
 	unsigned long long int	value;
 
-	neg = 0;
-	init_value(&value, val, base, &neg);
+	init_int_value(&value, val, base, &neg);
 	count = nbr_len(value, base) + neg;
 	str = "0123456789abcdef";
 	if (!(ret = (char*)malloc(sizeof(char) * (count + 1))))
@@ -76,7 +76,7 @@ void		do_int(va_list arg, char c, t_core *core)
 	else if (core->opt.len_mod == MOD_LL)
 		i = (long long)va_arg(arg, long long int);
 	else if (core->opt.len_mod == MOD_H)
-		i = (short)va_arg(arg, long long int);
+		i = (short int)va_arg(arg, long long int);
 	else if (core->opt.len_mod == MOD_HH)
 		i = (signed char)va_arg(arg, long long int);
 	else if (core->opt.len_mod == MOD_J)

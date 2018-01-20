@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/28 16:41:01 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/20 18:31:40 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ typedef struct	s_opt
 
 typedef struct	s_core
 {
-	char		*fmt;
 	int			bytes;
-	int			cur_pos;
 	t_opt		opt;
 	void		*final;
 }				t_core;
@@ -61,15 +59,12 @@ typedef struct	s_core
 **	Lib func
 */
 void			ft_strdel(char **as);
-int				ft_atoi(const char *str);
 size_t			ft_strlen(const char *str);
 char			*ft_strdup(const char *s1);
-char			*ft_itoa_base(int value, int base);
 int				nbr_len(unsigned long long i, int base);
 char			*ft_strjoin_fr(char const *s1, char *s2);
 char			*ft_strjoin_fl(char *s1, char const *s2);
 char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strsub(char const *s, unsigned int start, size_t len);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 
 /*
@@ -104,8 +99,8 @@ void			final_concat(t_core *core, void *to_add);
 /*
 **	core func
 */
-int				ft_printf(const char *format, ...);
-int				do_parse(t_core *core, int *c, va_list arg);
-void			do_conv(t_core *core, int *count, va_list arg);
+int				ft_printf(const char *restrict format, ...);
+int				do_parse(const char **format, va_list arg, t_core *core);
+void			do_conv(char c, va_list arg, t_core *core);
 
 #endif
