@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:15:07 by ddinaut           #+#    #+#             */
-/*   Updated: 2018/01/19 18:27:46 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/24 14:18:33 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ void		do_ptr(va_list arg, char c, t_core *core)
 	{
 		if (core->opt.len_mod == MOD_L || c == 'S')
 		{
-			to_add = (wchar_t*)va_arg(arg, wint_t*);
-			to_add = transform_to_char((wchar_t*)to_add, core);
+			to_add = (wchar_t*)va_arg(arg, wchar_t*);
+			to_add = transform_to_char(to_add, core);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:05:29 by ddinaut           #+#    #+#             */
-/*   Updated: 2018/01/24 12:18:07 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/24 13:55:29 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	get_precision(const char **format, t_opt *opt)
 		opt->precision = (opt->precision * 10) + **format - 48;
 		(*format)++;
 	}
-
 }
 
 void	get_width(const char **format, t_opt *opt)

@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2018/01/22 16:00:23 by ddinaut          ###   ########.fr        #
+#    Updated: 2018/01/24 14:20:55 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -96,7 +96,6 @@ endif
 .PHONY: all clean fclean re
 
 all: $(NAME)
-	@printf "\r\033[K$(COL_RED)[100%%]\tPrintf compiled [√].$(END_COL)\n"
 
 $(NAME): $(OBJ)
 	@$(AR) $(OBJ)
