@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/04 15:05:29 by ddinaut           #+#    #+#             */
-/*   Updated: 2018/01/20 18:18:53 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/24 12:18:07 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,32 @@
 void	get_precision(const char **format, t_opt *opt)
 {
 	(*format)++;
-	if (**format == '0')
+	opt->flags |= FLAG_PREC;
+	if (**format < '1' || **format > '9')
 	{
-		while (**format >= '0' && **format <= '9')
+		opt->flags |= FLAG_ERR;
+		while (ft_isdigit(**format))
 			(*format)++;
 		return ;
 	}
-	while (**format != '\0' && **format >= '0' && **format <= '9')
+	while (ft_isdigit(**format))
 	{
 		opt->precision = (opt->precision * 10) + **format - 48;
 		(*format)++;
 	}
-	opt->flags |= FLAG_PREC;
+
 }
 
 void	get_width(const char **format, t_opt *opt)
 {
-	if (**format == '0')
+	if (**format < '1' && **format > '9')
 	{
-		while (**format >= '0' && **format <= '9')
+		opt->flags |= FLAG_ERR;
+		while (ft_isdigit(**format))
 			(*format)++;
 		return ;
 	}
-	while (**format != '\0' && **format >= '0' && **format <= '9')
+	while (ft_isdigit(**format))
 	{
 		opt->width = (opt->width * 10) + **format - 48;
 		(*format)++;
@@ -94,7 +97,7 @@ int		do_parse(const char **format, va_list arg, t_core *core)
 	init_opt(&core->opt);
 	while (**format != '\0' && (oneof("-+ 0#", **format) == 1))
 		get_flags(format, &core->opt);
-	if (**format >= '0' && **format <= '9')
+	if (ft_isdigit(**format))
 		get_width(format, &core->opt);
 	if (**format == '.')
 		get_precision(format, &core->opt);

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:16:53 by ddinaut           #+#    #+#             */
-/*   Updated: 2018/01/20 18:16:52 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/24 13:53:27 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -429,38 +429,65 @@ void	last_final_test(void)
 	int ret;
 	int ret2;
 
-	ret = ft_printf("mine : %#.x %#.0x\n", 0, 0);
-	ret2 = printf("real: %#.x %#.0x\n", 0, 0);
+	ret2 = ft_printf("mine: {%#.x| |%#.0x}\n", 0, 0);
+	ret = printf("real: {%#.x| |%#.0x}\n", 0, 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	ret = ft_printf("mine : %.x %.0x\n", 0, 0);
-	ret2 = printf("real: %.x %.0x\n", 0, 0);
+	ret2 = ft_printf("mine: {%.x| |%.0x}\n", 0, 0);
+	ret = printf("real: {%.x| |%.0x}\n", 0, 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	ret = ft_printf("mine : %5.x %5.0x\n", 0, 0);
-	ret2 = printf("real: %5.x %5.0x\n", 0, 0);
+	ret2 = ft_printf("mine: {%5.x| |%5.0x}\n", 0, 0);
+	ret = printf("real: {%5.x| |%5.0x}\n", 0, 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	ret = ft_printf("mine : %.o %.0o\n", 0, 0);
-	ret2 = printf("real: %.o %.0o\n", 0, 0);
+	ret2 = ft_printf("mine: {%.o| |%.0o}\n", 0, 0);
+	ret = printf("real: {%.o| |%.0o}\n", 0, 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	ret = ft_printf("mine : %5.o %5.0o\n", 0, 0);
-	ret2 = printf("real: %5.o %5.0o\n", 0, 0);
+	ret2 = ft_printf("mine: {%5.o| |%5.0o}\n", 0, 0);
+	ret = printf("real: {%5.o| |%5.0o}\n", 0, 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	ret = ft_printf("mine : %.d %.0d\n", 0, 0);
-	ret2 = printf("real: %.d %.0d\n", 0, 0);
+	ret2 = ft_printf("mine: {%.d| |%.0d}\n", 0, 0);
+	ret = printf("real: {%.d| |%.0d}\n", 0, 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
 
-	ret = ft_printf("mine : %5.d %5.0d\n", 0, 0);
-	ret2 = printf("real: %5.d %5.0d\n", 0, 0);
+	ret2 = ft_printf("mine: {%5.d| |%5.0d}\n", 0, 0);
+	ret = printf("real: {%5.d| |%5.0d}\n", 0, 0);
 	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
-
 }
+/*
+void	undefined(void)
+{
+	int ret;
+	int ret2;
+
+	printf("r: {%05p}\n", 0);
+	ft_printf("m: {%05p}\n", 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("{%+03d}\n", 12);
+	ret2 = ft_printf("{%+03d}\n", 12);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("r: %.4S", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B\n");
+	ret2 = ft_printf("m: %.4S", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B\n");
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("r: %.0p, %.p\n", 0, 0);
+	ret2 = ft_printf("m: %.0p, %.p\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+
+	ret = printf("r: %.p, %.0p\n", 0, 0);
+	ret2 = ft_printf("m: %.p, %.0p\n", 0, 0);
+	ft_printf("Result : {real = %d} {mine = %d}\n\n", ret, ret2);
+}
+*/
 
 int		main(void)
 {
-	last_final_test();
+	ft_printf("m tes %c test\n", '\0');
+	printf("r tes %c test", '\0');
 	return (0);
 }

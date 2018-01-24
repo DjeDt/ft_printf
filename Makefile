@@ -6,7 +6,7 @@
 #    By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/25 17:23:52 by ddinaut           #+#    #+#              #
-#    Updated: 2018/01/20 18:30:30 by ddinaut          ###   ########.fr        #
+#    Updated: 2018/01/22 16:00:23 by ddinaut          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -71,6 +71,7 @@ SRCS = \
 		$(FUNC)ft_strjoin_fr.c \
 		$(FUNC)ft_strjoin_fl.c \
 		$(FUNC)ft_memcpy.c \
+		$(FUNC)ft_isdigit.c \
 \
 		$(UTILS)oneof.c \
 		$(UTILS)move_sign.c \

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2018/01/20 18:31:40 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/24 11:53:49 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char			*ft_strjoin_fr(char const *s1, char *s2);
 char			*ft_strjoin_fl(char *s1, char const *s2);
 char			*ft_strjoin(char const *s1, char const *s2);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
+int				ft_isdigit(int c);
 
 /*
 **	ft_printf func

@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 12:43:14 by ddinaut           #+#    #+#             */
-/*   Updated: 2017/12/28 16:56:01 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/01/24 12:19:45 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ void	concat_unsign(unsigned long long int i, char c,\
 	{
 		if (core->opt.flags & FLAG_PREC)
 		{
-			(core->opt.precision <= 0) ? (*to_add)[0] = '\0' : 0;
+			if (core->opt.flags & FLAG_ERR)
+				(**to_add) = '\0';
 			if (core->opt.flags & FLAG_LDC)
 				unsign_width(c, to_add, core->opt);
 			else
