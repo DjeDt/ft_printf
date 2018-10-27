@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:55:58 by ddinaut           #+#    #+#             */
-/*   Updated: 2018/01/24 11:53:49 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/10/27 14:12:51 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void			final_concat(t_core *core, void *to_add);
 **	core func
 */
 int				ft_printf(const char *restrict format, ...);
+int				ft_printf_fd(int fd, const char *restrict format, ...);
 int				do_parse(const char **format, va_list arg, t_core *core);
 void			do_conv(char c, va_list arg, t_core *core);
 

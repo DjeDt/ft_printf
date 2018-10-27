@@ -6,7 +6,7 @@
 /*   By: ddinaut <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:04:41 by ddinaut           #+#    #+#             */
-/*   Updated: 2018/01/24 16:13:57 by ddinaut          ###   ########.fr       */
+/*   Updated: 2018/10/27 17:59:12 by ddinaut          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_core(t_core *core)
 	core->final = NULL;
 }
 
-int		begin_parse(const char *format, va_list arg)
+int		begin_parse(int fd, const char *format, va_list arg)
 {
 	t_core	core;
 
@@ -51,10 +51,23 @@ int		begin_parse(const char *format, va_list arg)
 			normal_char(*format, &core);
 		format++;
 	}
-	if (write(1, core.final, core.bytes) == -1)
+	if (write(fd, core.final, core.bytes) == -1)
 		return (-1);
 	ft_strdel((char**)&core.final);
 	return (core.bytes);
+}
+
+int		ft_printf_fd(int fd, const char *restrict format, ...)
+{
+	int		ret;
+	va_list	arg;
+	char	*fmt;
+
+	va_start(arg, format);
+	fmt = (char*)format;
+	ret = begin_parse(fd, fmt, arg);
+	va_end(arg);
+	return (ret);
 }
 
 int		ft_printf(const char *restrict format, ...)
@@ -65,7 +78,7 @@ int		ft_printf(const char *restrict format, ...)
 
 	va_start(arg, format);
 	fmt = (char*)format;
-	ret = begin_parse(fmt, arg);
+	ret = begin_parse(STDOUT_FILENO, fmt, arg);
 	va_end(arg);
 	return (ret);
 }
